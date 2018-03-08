@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<font-family xmlns:android="http://schemas.android.com/apk/res/android">
+<font-family
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <font
-        android:fontStyle="normal"
-        android:fontWeight="1000"
-        android:font="@font/julius_sans_one_regular" />
+        app:font="@font/julius_sans_one_regular"
+        app:fontStyle="normal"
+        app:fontWeight="400"/>
 </font-family>
