@@ -17,8 +17,11 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:gravity="center_vertical"
         android:background="@color/clr_transparent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingEnd="16dp"
+        android:paddingStart="16dp">
 
         <!--<include-->
             <!--android:id="activity_loginViaFacebook_back_btn"-->
@@ -26,24 +29,14 @@
             <!--android:layout_width="wrap_content"-->
             <!--android:layout_height="wrap_content"/>-->
 
-        <LinearLayout
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:orientation="vertical"
-            android:paddingEnd="16dp"
-            android:paddingStart="16dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/font_julius_sans"
-                android:text="@string/welcome_text"
-                android:textSize="25dp"
-                android:textStyle="bold"/>
-
-        </LinearLayout>
-
+            android:fontFamily="@font/font_julius_sans"
+            android:text="@string/welcome_text"
+            android:textSize="25sp"
+            android:textStyle="bold"/>
 
     </LinearLayout>
 

@@ -10,6 +10,6 @@ public class LoginViaFacebook extends AppCompatActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_login_main);
+		setContentView(R.layout.activity_login_via_facebook);
 	}
 }
