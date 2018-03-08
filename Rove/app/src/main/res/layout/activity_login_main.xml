@@ -26,13 +26,25 @@
             <!--android:layout_width="wrap_content"-->
             <!--android:layout_height="wrap_content"/>-->
 
-        <TextView
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Welcome to rove."
-            android:textSize="25dp"
-            android:textStyle="bold"
-            android:fontFamily="@font/font_julius_sans"/>
+            android:layout_gravity="center_vertical"
+            android:orientation="vertical"
+            android:paddingEnd="16dp"
+            android:paddingStart="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/font_julius_sans"
+                android:text="@string/welcome_text"
+                android:textSize="25dp"
+                android:textStyle="bold"/>
+
+        </LinearLayout>
+
+
     </LinearLayout>
 
     <include
