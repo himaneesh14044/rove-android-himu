@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Actual colors. -->
+    <color name="clr_transparent">#00000000</color>
+    <color name="clr_white_1.0">#ffffffff</color>
+
+    <!-- Base colors. -->
     <color name="primaryColor">#00838f</color>
     <color name="primaryLightColor">#4fb3bf</color>
     <color name="primaryDarkColor">#005662</color>
     <color name="primaryTextColor">#ffffff</color>
     <color name="accentColor">#00838f</color>
+
+    <!-- Screen properties. -->
+    <color name="bgColor">@color/primaryColor</color>
 </resources>
