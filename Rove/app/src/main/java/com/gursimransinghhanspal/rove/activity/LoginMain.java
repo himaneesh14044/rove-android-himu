@@ -27,11 +27,9 @@ public class LoginMain extends AppCompatActivity {
 	private static final String sFacebookEmailPermissionName = "email";
 	private static final String sFacebookPublicProfilePermissionName = "public_profile";
 
+	private View mStatusBarUnderlay;
+	private View mNavBarUnderlay;
 	private LoginButton mFacebookLoginButton;
-	private RelativeLayout mCredentialLoginButton;
-	private LinearLayout mCustomFacebookLoginButton;
-	private RelativeLayout mCreateAccountButton;
-	private TextView mSkipLoginText;
 	private CallbackManager mFacebookCallbackManager;
 
 	@Override
@@ -40,11 +38,13 @@ public class LoginMain extends AppCompatActivity {
 		setContentView(R.layout.activity_login_main);
 
 		// register ui items
-		mCredentialLoginButton = findViewById(R.id.activityLoginMain_credentialsLoginButton);
+		mStatusBarUnderlay = findViewById(R.id.view_statusbar_underlay);
+		mNavBarUnderlay = findViewById(R.id.view_navbar_underlay);
+		RelativeLayout mCredentialLoginButton = findViewById(R.id.activityLoginMain_credentialsLoginButton);
 		mFacebookLoginButton = findViewById(R.id.activityLoginMain_facebookLoginButton);
-		mCustomFacebookLoginButton = findViewById(R.id.activityLoginMain_customFacebookLoginButton);
-		mCreateAccountButton = findViewById(R.id.activityLoginMain_createAccountButton);
-		mSkipLoginText = findViewById(R.id.activityLoginMain_skipLoginText);
+		LinearLayout mCustomFacebookLoginButton = findViewById(R.id.activityLoginMain_customFacebookLoginButton);
+		RelativeLayout mCreateAccountButton = findViewById(R.id.activityLoginMain_createAccountButton);
+		TextView mSkipLoginText = findViewById(R.id.activityLoginMain_skipLoginText);
 
 		// register onClick actions
 		mCredentialLoginButton.setOnClickListener(new View.OnClickListener() {
@@ -73,6 +73,7 @@ public class LoginMain extends AppCompatActivity {
 		});
 
 		// setup other stuff
+		CreateAccount.setupUnderlayViews(this, mStatusBarUnderlay, mNavBarUnderlay);
 		setupFacebookLoginFlow();
 	}
 
