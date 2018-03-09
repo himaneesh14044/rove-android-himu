@@ -28,7 +28,9 @@
             android:name=".activity.CredentialLogin"
             android:theme="@style/Rove.NoActionBarSolidBg">
         </activity>
-        <activity android:name=".activity.CreateAccount">
+        <activity
+            android:name=".activity.CreateAccount"
+            android:theme="@style/Rove.NoActionBarSolidBg">
         </activity>
     </application>
 
