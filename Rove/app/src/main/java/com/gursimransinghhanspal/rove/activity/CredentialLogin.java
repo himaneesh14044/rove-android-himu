@@ -10,6 +10,6 @@ public class CredentialLogin extends AppCompatActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_login_secondary);
+		setContentView(R.layout.activity_credentials_login);
 	}
 }
