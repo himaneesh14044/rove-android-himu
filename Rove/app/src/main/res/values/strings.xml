@@ -1,4 +1,12 @@
 <resources>
     <string name="app_name">Rove</string>
     <string name="welcome_text">Welcome to rove.</string>
+    <string name="activity_loginViaFacebook_login_text">Log in</string>
+    <string name="activity_loginMain_facebookLogin_text">Continue with Facebook</string>
+    <string name="activity_loginMain_facebookSymbol_contentDescription">Facebook Symbol</string>
+    <string name="activity_loginMain_signUp_text">Create Account</string>
+    <string name="activity_loginMain_skipLogin_text">Continue without Login</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
