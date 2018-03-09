@@ -12,5 +12,5 @@
     <color name="accentColor">#00838f</color>
 
     <!-- Screen properties. -->
-    <color name="bgColor">@color/primaryColor</color>
+    <color name="bgColor">@color/primaryDarkColor</color>
 </resources>

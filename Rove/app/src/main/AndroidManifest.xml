@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.gursimransinghhanspal.rove">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.gursimransinghhanspal.rove">
 
     <application
         android:allowBackup="true"
@@ -16,15 +15,22 @@
             android:theme="@style/Rove.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
+
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
 
-        <activity android:name=".controller.DeeplinkController">
+        <activity
+            android:name=".controller.DeeplinkController">
         </activity>
 
         <activity
-            android:name=".activity.LoginViaFacebook"
+            android:name=".activity.LoginPrimary"
+            android:theme="@style/Rove.NoActionBarSolidBg">
+        </activity>
+
+        <activity
+            android:name=".activity.LoginSecondary"
             android:theme="@style/Rove.NoActionBarSolidBg">
         </activity>
     </application>

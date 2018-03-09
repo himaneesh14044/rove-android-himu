@@ -5,11 +5,11 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.gursimransinghhanspal.rove.R;
 
-public class LoginViaFacebook extends AppCompatActivity {
+public class LoginSecondary extends AppCompatActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_login_via_facebook);
+		setContentView(R.layout.activity_login_secondary);
 	}
 }
