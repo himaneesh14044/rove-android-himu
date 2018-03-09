@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.gursimransinghhanspal.rove.R;
 
-public class LoginPrimary extends AppCompatActivity {
+public class LoginMain extends AppCompatActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

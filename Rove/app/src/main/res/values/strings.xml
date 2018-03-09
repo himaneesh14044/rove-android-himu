@@ -6,4 +6,7 @@
     <string name="activity_loginMain_facebookSymbol_contentDescription">Facebook Symbol</string>
     <string name="activity_loginMain_signUp_text">Create Account</string>
     <string name="activity_loginMain_skipLogin_text">Continue without Login</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

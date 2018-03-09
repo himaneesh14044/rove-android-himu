@@ -1,23 +1,18 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<!-- TODO: use background as 'bgColor' only for preview purposes.
+     TODO: change background back to `transparent` when done previewing. -->
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.gursimransinghhanspal.rove.activity.CredentialLogin">
+    android:background="@color/bgColor"
+    tools:context="com.gursimransinghhanspal.rove.fragment.SignUpName">
 
-    <include
-        layout="@layout/view_statusbar_underlay"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top"/>
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="match_parent"
         android:background="@color/clr_transparent">
 
         <include
@@ -28,53 +23,41 @@
             app:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
-            android:layout_marginTop="20dp"
-            android:text="Forgot password"
-            android:textColor="@color/primaryTextColor"
-            android:textSize="15sp"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
-
-        <TextView
-            android:id="@+id/activity_loginSecondary_title"
+            android:id="@+id/fragmentSignUpName_title_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:fontFamily="@font/julius_sans_one"
-            android:text="Log in"
+            android:text="What's your name?"
             android:textColor="@color/primaryTextColor"
             android:textSize="25sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/title_guideline"/>
+            app:layout_constraintTop_toTopOf="@id/fragmentSignUpName_title_guideline"/>
 
         <android.support.constraint.Guideline
-            android:id="@+id/title_guideline"
+            android:id="@+id/fragmentSignUpName_title_guideline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.15"/>
 
         <TextView
-            android:id="@+id/activity_loginSecondary_usernameTitle"
+            android:id="@+id/fragmentSignUpName_firstNameTitle_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="60dp"
-            android:text="Username"
+            android:text="First Name"
             android:textAllCaps="true"
             android:textColor="@color/primaryTextColor"
             android:textSize="15sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/activity_loginSecondary_title"/>
+            app:layout_constraintTop_toBottomOf="@id/fragmentSignUpName_title_textView"/>
 
         <EditText
-            android:id="@+id/activity_credentialLogin_username_editText"
+            android:id="@+id/fragmentSignUpName_firstNameInput_editText"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_marginEnd="32dp"
@@ -84,46 +67,34 @@
             android:textColor="@color/primaryTextColor"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/activity_loginSecondary_usernameTitle"/>
+            app:layout_constraintTop_toBottomOf="@id/fragmentSignUpName_firstNameTitle_textView"/>
 
         <TextView
-            android:id="@+id/activity_credentialLogin_passwordTitle_textView"
+            android:id="@+id/fragmentSignUpName_lastNameTitle_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="30dp"
-            android:text="Password"
+            android:text="Last Name"
             android:textAllCaps="true"
             android:textColor="@color/primaryTextColor"
             android:textSize="15sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/activity_credentialLogin_username_editText"/>
-
-        <TextView
-            android:id="@+id/activity_credentialLogin_passwordShow_textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Show"
-            android:textColor="@color/primaryTextColor"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            app:layout_constraintBaseline_toBaselineOf="@+id/activity_credentialLogin_passwordTitle_textView"
-            app:layout_constraintEnd_toEndOf="@+id/editText2"/>
+            app:layout_constraintTop_toBottomOf="@id/fragmentSignUpName_firstNameInput_editText"/>
 
         <EditText
-            android:id="@+id/editText2"
+            android:id="@+id/fragmentSignUpName_lastNameInput_editText"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_marginEnd="32dp"
             android:layout_marginStart="24dp"
             android:layout_marginTop="15dp"
             android:backgroundTint="@color/primaryTextColor"
-            android:inputType="textPassword"
             android:textColor="@color/primaryTextColor"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/activity_credentialLogin_passwordTitle_textView"/>
+            app:layout_constraintTop_toBottomOf="@id/fragmentSignUpName_lastNameTitle_textView"/>
 
         <include
             layout="@layout/button_next"
@@ -136,10 +107,4 @@
 
     </android.support.constraint.ConstraintLayout>
 
-    <include
-        layout="@layout/view_navbar_underlay"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"/>
-
-</LinearLayout>
+</FrameLayout>

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.gursimransinghhanspal.rove.activity.LoginPrimary">
+    tools:context="com.gursimransinghhanspal.rove.activity.LoginMain">
 
     <include
         layout="@layout/view_statusbar_underlay"
@@ -39,6 +39,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:text="@string/activity_loginViaFacebook_login_text"
+                android:textColor="@color/primaryTextColor"
                 android:textSize="14sp"/>
 
         </RelativeLayout>
@@ -60,9 +61,10 @@
                 android:id="@+id/activity_loginMain_welcomeText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/julius_sans_one"
                 android:text="@string/welcome_text"
-                android:textSize="25sp"
+                android:fontFamily="@font/julius_sans_one"
+                android:textColor="@color/primaryTextColor"
+                android:textSize="30sp"
                 android:textStyle="bold"/>
 
 
@@ -105,6 +107,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:fontFamily="@font/julius_sans_one"
+                    android:textColor="@color/primaryTextColor"
                     android:text="@string/activity_loginMain_signUp_text"
                     android:textSize="18sp"
                     android:textStyle="bold"/>
@@ -118,6 +121,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
             android:text="@string/activity_loginMain_skipLogin_text"
+            android:textColor="@color/primaryTextColor"
             android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
