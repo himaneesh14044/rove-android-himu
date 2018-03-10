@@ -21,7 +21,7 @@
         android:background="@color/clr_transparent">
 
         <RelativeLayout
-            android:id="@+id/activity_loginMain_loginButton"
+            android:id="@+id/activityLoginMain_credentialsLoginButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="24dp"
@@ -44,7 +44,18 @@
 
         </RelativeLayout>
 
+        <com.facebook.login.widget.LoginButton
+            android:id="@+id/activityLoginMain_facebookLoginButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
         <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="24dp"
@@ -58,17 +69,16 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/activity_loginMain_welcomeText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/welcome_text"
                 android:fontFamily="@font/julius_sans_one"
+                android:text="@string/welcome_text"
                 android:textColor="@color/primaryTextColor"
                 android:textSize="30sp"
                 android:textStyle="bold"/>
 
-
             <LinearLayout
+                android:id="@+id/activityLoginMain_customFacebookLoginButton"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginTop="90dp"
@@ -92,10 +102,10 @@
                     android:textColor="@color/bgColor"
                     android:textSize="18sp"
                     android:textStyle="bold"/>
-
             </LinearLayout>
 
             <RelativeLayout
+                android:id="@+id/activityLoginMain_createAccountButton"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginTop="20dp"
@@ -106,8 +116,8 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:fontFamily="@font/julius_sans_one"
-                    android:textColor="@color/primaryTextColor"
                     android:text="@string/activity_loginMain_signUp_text"
+                    android:textColor="@color/primaryTextColor"
                     android:textSize="18sp"
                     android:textStyle="bold"/>
 
@@ -116,6 +126,7 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/activityLoginMain_skipLoginText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"

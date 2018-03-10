@@ -3,7 +3,9 @@
     <!-- Actual colors. -->
     <color name="clr_transparent">#00000000</color>
     <color name="clr_white_1.0">#ffffffff</color>
+    <color name="clr_black_1.0">#ff000000</color>
     <color name="clr_white_0.7">#b2ffffff</color>
+    <color name="clr_gray_170">#ffaaaaaa</color>
 
     <!-- Base colors. -->
     <color name="primaryColor">#00838f</color>

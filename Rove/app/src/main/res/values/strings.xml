@@ -9,4 +9,14 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Facebook -->
+    <string name="facebook_app_id">192357984698423</string>
+    <string name="fb_login_protocol_scheme">fb192357984698423</string>
+
+    <!-- Create Account -->
+    <string name="activityCreateAccount_savedInfo_firstName">com.gursimransinghhanspal.rove.activity.CreateAccount.firstName</string>
+    <string name="activityCreateAccount_savedInfo_lastName">com.gursimransinghhanspal.rove.activity.CreateAccount.lastName</string>
+    <string name="activityCreateAccount_savedInfo_email">com.gursimransinghhanspal.rove.activity.CreateAccount.email</string>
+    <string name="activityCreateAccount_savedInfo_password">com.gursimransinghhanspal.rove.activity.CreateAccount.password</string>
 </resources>
