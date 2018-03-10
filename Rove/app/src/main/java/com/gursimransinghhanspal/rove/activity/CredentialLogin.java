@@ -57,6 +57,11 @@ public class CredentialLogin extends AppCompatActivity {
 		CreateAccount.setupUnderlayViews(this, mStatusBarUnderlay, mNavBarUnderlay);
 	}
 
+	@Override
+	public void onBackPressed() {
+		switchActivityToLoginMain(true);
+	}
+
 	private void switchActivityToHome(boolean finishOnStart) {
 		/*
 		Intent credentialLoginActivityIntent = new Intent(this, CredentialLogin.class);
