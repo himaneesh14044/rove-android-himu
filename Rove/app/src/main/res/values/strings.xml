@@ -1,22 +1,23 @@
 <resources>
     <string name="app_name">Rove</string>
-    <string name="welcome_text">Welcome to rove.</string>
-    <string name="activity_loginViaFacebook_login_text">Log in</string>
-    <string name="activity_loginMain_facebookLogin_text">Continue with Facebook</string>
-    <string name="activity_loginMain_facebookSymbol_contentDescription">Facebook Symbol</string>
-    <string name="activity_loginMain_signUp_text">Create Account</string>
-    <string name="activity_loginMain_skipLogin_text">Continue without Login</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="activityLayout_loginMain_welcomeText">Welcome to rove.</string>
+    <string name="activityLayout_loginMain_loginText">Log in</string>
+    <string name="activityLayout_loginMain_facebookLoginText">Continue with Facebook</string>
+    <string name="activityLayout_loginMain_facebookSymbol_contentDescription">Facebook Symbol</string>
+    <string name="activityLayout_loginMain_signUpText">Create Account</string>
+    <string name="activityLayout_loginMain_skipLoginText">Continue without Login</string>
 
     <!-- Facebook -->
+    <!-- DO NOT MODIFY -->
     <string name="facebook_app_id">192357984698423</string>
     <string name="fb_login_protocol_scheme">fb192357984698423</string>
 
     <!-- Create Account -->
-    <string name="activityCreateAccount_savedInfo_firstName">com.gursimransinghhanspal.rove.activity.CreateAccount.firstName</string>
-    <string name="activityCreateAccount_savedInfo_lastName">com.gursimransinghhanspal.rove.activity.CreateAccount.lastName</string>
-    <string name="activityCreateAccount_savedInfo_email">com.gursimransinghhanspal.rove.activity.CreateAccount.email</string>
-    <string name="activityCreateAccount_savedInfo_password">com.gursimransinghhanspal.rove.activity.CreateAccount.password</string>
+    <string name="activity_createAccount_savedInfoKey_firstName">com.gursimransinghhanspal.rove.activity.CreateAccount.firstName</string>
+    <string name="activity_createAccount_savedInfoKey_lastName">com.gursimransinghhanspal.rove.activity.CreateAccount.lastName</string>
+    <string name="activity_createAccount_savedInfoKey_email">com.gursimransinghhanspal.rove.activity.CreateAccount.email</string>
+    <string name="activity_createAccount_savedInfoKey_password">com.gursimransinghhanspal.rove.activity.CreateAccount.password</string>
+    <string name="activityLayout_credentialsLogin_forgotPasswordText">Forgot password</string>
+    <string name="activityLayout_credentialsLogin_titleText">Log in</string>
+    <string name="activityLayout_credentialsLogin_usernameTitleText">Username</string>
 </resources>

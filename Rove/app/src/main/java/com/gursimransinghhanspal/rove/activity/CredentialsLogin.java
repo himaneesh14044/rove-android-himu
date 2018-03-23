@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.gursimransinghhanspal.rove.R;
 import com.gursimransinghhanspal.rove.dialog.ForgotPassword;
 
-public class CredentialLogin extends AppCompatActivity {
+public class CredentialsLogin extends AppCompatActivity {
 
 	private View mStatusBarUnderlay;
 	private View mNavBarUnderlay;
@@ -29,8 +29,8 @@ public class CredentialLogin extends AppCompatActivity {
 		mStatusBarUnderlay = findViewById(R.id.view_statusbar_underlay);
 		mNavBarUnderlay = findViewById(R.id.view_navbar_underlay);
 		mBackButton = findViewById(R.id.btn_back);
-		mForgotPasswordText = findViewById(R.id.activityCredentialLogin_forgotPasswordText);
-		mUsernameInputField = findViewById(R.id.activityCredentialLogin_usernameInput);
+		mForgotPasswordText = findViewById(R.id.activityLayout_credentialsLogin_forgotPasswordLink);
+		mUsernameInputField = findViewById(R.id.activityLayout_credentialsLogin_usernameEditText);
 		mPasswordInputField = findViewById(R.id.activityCredentialLogin_passwordInput);
 		mNextButton = findViewById(R.id.btn_next);
 
@@ -64,7 +64,7 @@ public class CredentialLogin extends AppCompatActivity {
 
 	private void switchActivityToHome(boolean finishOnStart) {
 		/*
-		Intent credentialLoginActivityIntent = new Intent(this, CredentialLogin.class);
+		Intent credentialLoginActivityIntent = new Intent(this, CredentialsLogin.class);
 		startActivity(credentialLoginActivityIntent);
 
 		if (finishOnStart) {

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/color_transparent"
+    tools:background="@color/primaryColor">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_margin="20dp"
+        android:backgroundTint="@color/loadingShimmerView_cardBackgroundColor"
+        app:cardCornerRadius="10dp">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_transparent">
+
+            <View
+                android:id="@+id/recyclerItemLayout_imageShimmerView_imageBlock"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/loadingShimmerView_blockColor"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:background="@color/primaryColor"/>
+
+            <View
+                android:id="@+id/recyclerItemLayout_imageShimmerView_textBlock1"
+                android:layout_width="0dp"
+                android:layout_height="12dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/loadingShimmerView_blockColor"
+                app:layout_constraintDimensionRatio=""
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/recyclerItemLayout_imageShimmerView_imageBlock"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:background="@color/primaryColor"/>
+
+            <View
+                android:id="@+id/recyclerItemLayout_imageShimmerView_textBlock2"
+                android:layout_width="0dp"
+                android:layout_height="12dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/loadingShimmerView_blockColor"
+                app:layout_constraintDimensionRatio=""
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.514"
+                app:layout_constraintStart_toEndOf="@+id/recyclerItemLayout_imageShimmerView_imageBlock"
+                app:layout_constraintTop_toBottomOf="@+id/recyclerItemLayout_imageShimmerView_textBlock1"
+                tools:background="@color/primaryColor"/>
+
+            <View
+                android:id="@+id/recyclerItemLayout_imageShimmerView_textBlock3"
+                android:layout_width="100dp"
+                android:layout_height="12dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:background="@color/loadingShimmerView_blockColor"
+                app:layout_constraintStart_toEndOf="@+id/recyclerItemLayout_imageShimmerView_imageBlock"
+                app:layout_constraintTop_toBottomOf="@+id/recyclerItemLayout_imageShimmerView_textBlock2"
+                tools:background="@color/primaryColor"/>
+
+            <View
+                android:id="@+id/recyclerItemLayout_imageShimmerView_textBlock4"
+                android:layout_width="100dp"
+                android:layout_height="12dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/loadingShimmerView_blockColor"
+                app:layout_constraintStart_toEndOf="@+id/recyclerItemLayout_imageShimmerView_imageBlock"
+                app:layout_constraintTop_toBottomOf="@+id/recyclerItemLayout_imageShimmerView_textBlock3"
+                tools:background="@color/primaryColor"/>
+
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.v7.widget.CardView>
+
+</FrameLayout>

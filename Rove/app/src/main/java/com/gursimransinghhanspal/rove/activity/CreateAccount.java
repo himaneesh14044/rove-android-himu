@@ -35,7 +35,7 @@ public class CreateAccount extends AppCompatActivity {
 		// register ui elements
 		mStatusBarUnderlay = findViewById(R.id.view_statusbar_underlay);
 		mNavBarUnderlay = findViewById(R.id.view_navbar_underlay);
-		mFragmentContainer = findViewById(R.id.activityCreateAccount_fragmentContainer_frameLayout);
+		mFragmentContainer = findViewById(R.id.activityLayout_createAccount_fragmentContainerFrameLayout);
 
 		// setup
 		setupUnderlayViews(this, mStatusBarUnderlay, mNavBarUnderlay);
@@ -73,16 +73,16 @@ public class CreateAccount extends AppCompatActivity {
 	private void initializeSavedInfo() {
 		SharedPreferences preferences = getPreferences(MODE_PRIVATE);
 		SharedPreferences.Editor editor = preferences.edit();
-		editor.putString(getResources().getString(R.string.activityCreateAccount_savedInfo_firstName), "");
-		editor.putString(getResources().getString(R.string.activityCreateAccount_savedInfo_lastName), "");
-		editor.putString(getResources().getString(R.string.activityCreateAccount_savedInfo_email), "");
-		editor.putString(getResources().getString(R.string.activityCreateAccount_savedInfo_password), "");
+		editor.putString(getResources().getString(R.string.activity_createAccount_savedInfoKey_firstName), "");
+		editor.putString(getResources().getString(R.string.activity_createAccount_savedInfoKey_lastName), "");
+		editor.putString(getResources().getString(R.string.activity_createAccount_savedInfoKey_email), "");
+		editor.putString(getResources().getString(R.string.activity_createAccount_savedInfoKey_password), "");
 		editor.apply();
 	}
 
 	private void switchActivityToHome(boolean finishOnStart) {
 		/*
-		Intent credentialLoginActivityIntent = new Intent(this, CredentialLogin.class);
+		Intent credentialLoginActivityIntent = new Intent(this, CredentialsLogin.class);
 		startActivity(credentialLoginActivityIntent);
 
 		if (finishOnStart) {
@@ -105,16 +105,16 @@ public class CreateAccount extends AppCompatActivity {
 
 		SharedPreferences preferences = getPreferences(Context.MODE_PRIVATE);
 		String firstName = preferences.getString(
-				getResources().getString(R.string.activityCreateAccount_savedInfo_firstName), ""
+				getResources().getString(R.string.activity_createAccount_savedInfoKey_firstName), ""
 		);
 		String lastName = preferences.getString(
-				getResources().getString(R.string.activityCreateAccount_savedInfo_lastName), ""
+				getResources().getString(R.string.activity_createAccount_savedInfoKey_lastName), ""
 		);
 		String email = preferences.getString(
-				getResources().getString(R.string.activityCreateAccount_savedInfo_email), ""
+				getResources().getString(R.string.activity_createAccount_savedInfoKey_email), ""
 		);
 		String password = preferences.getString(
-				getResources().getString(R.string.activityCreateAccount_savedInfo_password), ""
+				getResources().getString(R.string.activity_createAccount_savedInfoKey_password), ""
 		);
 
 		switch (fragmentIdentifier) {
@@ -130,8 +130,8 @@ public class CreateAccount extends AppCompatActivity {
 					public void onNextButtonPressed(FragmentIdentifier identifier, String firstName, String lastName) {
 						SharedPreferences preferences = getPreferences(MODE_PRIVATE);
 						SharedPreferences.Editor editor = preferences.edit();
-						editor.putString(getResources().getString(R.string.activityCreateAccount_savedInfo_firstName), firstName);
-						editor.putString(getResources().getString(R.string.activityCreateAccount_savedInfo_lastName), lastName);
+						editor.putString(getResources().getString(R.string.activity_createAccount_savedInfoKey_firstName), firstName);
+						editor.putString(getResources().getString(R.string.activity_createAccount_savedInfoKey_lastName), lastName);
 						editor.apply();
 						CreateAccount.this.showFragment(FragmentIdentifier.Email);
 					}
@@ -146,7 +146,7 @@ public class CreateAccount extends AppCompatActivity {
 					public void onBackButtonPressed(FragmentIdentifier identifier, String email) {
 						SharedPreferences preferences = getPreferences(MODE_PRIVATE);
 						SharedPreferences.Editor editor = preferences.edit();
-						editor.putString(getResources().getString(R.string.activityCreateAccount_savedInfo_email), email);
+						editor.putString(getResources().getString(R.string.activity_createAccount_savedInfoKey_email), email);
 						editor.apply();
 						CreateAccount.this.showFragment(FragmentIdentifier.Name);
 					}
@@ -155,7 +155,7 @@ public class CreateAccount extends AppCompatActivity {
 					public void onNextButtonPressed(FragmentIdentifier identifier, String email) {
 						SharedPreferences preferences = getPreferences(MODE_PRIVATE);
 						SharedPreferences.Editor editor = preferences.edit();
-						editor.putString(getResources().getString(R.string.activityCreateAccount_savedInfo_email), email);
+						editor.putString(getResources().getString(R.string.activity_createAccount_savedInfoKey_email), email);
 						editor.apply();
 						CreateAccount.this.showFragment(FragmentIdentifier.Password);
 					}
@@ -170,7 +170,7 @@ public class CreateAccount extends AppCompatActivity {
 					public void onBackButtonPressed(FragmentIdentifier identifier, String password) {
 						SharedPreferences preferences = getPreferences(MODE_PRIVATE);
 						SharedPreferences.Editor editor = preferences.edit();
-						editor.putString(getResources().getString(R.string.activityCreateAccount_savedInfo_password), password);
+						editor.putString(getResources().getString(R.string.activity_createAccount_savedInfoKey_password), password);
 						editor.apply();
 						CreateAccount.this.showFragment(FragmentIdentifier.Email);
 					}
@@ -179,7 +179,7 @@ public class CreateAccount extends AppCompatActivity {
 					public void onNextButtonPressed(FragmentIdentifier identifier, String password) {
 						SharedPreferences preferences = getPreferences(MODE_PRIVATE);
 						SharedPreferences.Editor editor = preferences.edit();
-						editor.putString(getResources().getString(R.string.activityCreateAccount_savedInfo_password), password);
+						editor.putString(getResources().getString(R.string.activity_createAccount_savedInfoKey_password), password);
 						editor.apply();
 						CreateAccount.this.showFragment(FragmentIdentifier.Review);
 					}

@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Actual colors. -->
-    <color name="clr_transparent">#00000000</color>
-    <color name="clr_white_1.0">#ffffffff</color>
-    <color name="clr_black_1.0">#ff000000</color>
-    <color name="clr_white_0.7">#b2ffffff</color>
+    <color name="color_transparent">#00000000</color>
+    <color name="color_black_a68">#44000000</color>
+    <color name="color_white_1f0">#ffffffff</color>
+    <color name="color_black_1f0">#ff000000</color>
+    <color name="color_white_0f7">#b2ffffff</color>
     <color name="clr_gray_170">#ffaaaaaa</color>
+    <color name="color_gray_212">#ffd4d4d4</color>
 
     <!-- Base colors. -->
     <color name="primaryColor">#00838f</color>
@@ -15,5 +17,8 @@
     <color name="accentColor">#00838f</color>
 
     <!-- Screen properties. -->
-    <color name="bgColor">@color/primaryDarkColor</color>
+    <color name="activityBackgroundColor">@color/primaryDarkColor</color>
+    <color name="loadingShimmerView_cardBackgroundColor">@color/color_white_1f0</color>
+    <color name="loadingShimmerView_blockColor">@color/color_gray_212</color>
+    <color name="activityLayout_makeDiary_translucentColor">@color/color_black_a68</color>
 </resources>

@@ -6,14 +6,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bgColor"
+    android:background="@color/activityBackgroundColor"
     tools:context="com.gursimransinghhanspal.rove.fragment.SignUpName">
 
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/clr_transparent">
+        android:background="@color/color_transparent">
 
         <include
             layout="@layout/button_back"

@@ -24,9 +24,14 @@ public class Splash extends AppCompatActivity {
 		super.onStart();
 
 		// start activity - `LoginMain`
+		/*
 		Intent loginViaFacebookActivityIntent = new Intent(this, LoginMain.class);
 		startActivity(loginViaFacebookActivityIntent);
+		*/
 		// also call finish() to remove `this` activity from backstack
+
+		Intent makeDiaryActivityIntent = new Intent(this, MakeDiary.class);
+		startActivity(makeDiaryActivityIntent);
 		finish();
 	}
 

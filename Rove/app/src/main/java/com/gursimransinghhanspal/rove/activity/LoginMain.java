@@ -40,7 +40,7 @@ public class LoginMain extends AppCompatActivity {
 		// register ui items
 		mStatusBarUnderlay = findViewById(R.id.view_statusbar_underlay);
 		mNavBarUnderlay = findViewById(R.id.view_navbar_underlay);
-		RelativeLayout mCredentialLoginButton = findViewById(R.id.activityLoginMain_credentialsLoginButton);
+		RelativeLayout mCredentialLoginButton = findViewById(R.id.activityLayout_loginMain_credentialsLoginButton);
 		mFacebookLoginButton = findViewById(R.id.activityLoginMain_facebookLoginButton);
 		LinearLayout mCustomFacebookLoginButton = findViewById(R.id.activityLoginMain_customFacebookLoginButton);
 		RelativeLayout mCreateAccountButton = findViewById(R.id.activityLoginMain_createAccountButton);
@@ -104,7 +104,7 @@ public class LoginMain extends AppCompatActivity {
 	}
 
 	private void switchActivityToCredentialLogin(boolean finishOnStart) {
-		Intent credentialLoginActivityIntent = new Intent(this, CredentialLogin.class);
+		Intent credentialLoginActivityIntent = new Intent(this, CredentialsLogin.class);
 		startActivity(credentialLoginActivityIntent);
 
 		if (finishOnStart) {
