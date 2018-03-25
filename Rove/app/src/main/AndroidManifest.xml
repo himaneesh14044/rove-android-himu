@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.gursimransinghhanspal.rove">
 
     <application
@@ -10,23 +9,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Rove.Base">
-
         <activity
             android:name=".activity.Splash"
-            android:theme="@style/Rove.Splash">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
-        </activity>
-
-        <activity android:name=".controller.DeeplinkController">
-        </activity>
-
+            android:theme="@style/Rove.Splash" />
+        <activity android:name=".controller.DeeplinkController" />
         <activity
             android:name=".activity.LoginViaFacebook"
-            android:theme="@style/Rove.NoActionBarSolidBg">
+            android:theme="@style/Rove.NoActionBarSolidBg" />
+
+        <activity android:name=".activity.ActivityHomeFeed">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
+        <activity
+            android:name=".activity.BottomNavigation"
+            android:label="@string/title_activity_bottom_navigation"></activity>
+        <activity
+            android:name=".activity.Search"></activity>
     </application>
 
 </manifest>
