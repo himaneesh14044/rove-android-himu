@@ -25,11 +25,9 @@
             android:name=".activity.Splash"
             android:screenOrientation="portrait"
             android:theme="@style/Rove.Splash">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
+        <activity
+            android:name=".activity.ActivityHomeFeed">
         </activity>
 
         <!-- • Main Login -->
@@ -76,5 +74,10 @@
                 <data android:scheme="@string/fb_login_protocol_scheme"/>
             </intent-filter>
         </activity>
+        <activity
+            android:name=".activity.BottomNavigation"
+            android:label="@string/title_activity_bottom_navigation"></activity>
+        <activity
+            android:name=".activity.Search"></activity>
     </application>
 </manifest>
