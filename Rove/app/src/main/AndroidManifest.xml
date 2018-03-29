@@ -5,7 +5,6 @@
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
-        android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:logo="@drawable/app_brand"
@@ -26,9 +25,13 @@
             android:theme="@style/Rove.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+
+        <!-- • Home Feed -->
+        <activity
+            android:name=".activity.ActivityHomeFeed">
         </activity>
 
         <!-- • Main Login -->
@@ -72,6 +75,17 @@
 
                 <data android:scheme="@string/fb_login_protocol_scheme"/>
             </intent-filter>
+        </activity>
+
+        <!-- • Bottom Navigation -->
+        <activity
+            android:name=".activity.BottomNavigation"
+            android:label="@string/title_activity_bottom_navigation">
+        </activity>
+
+        <!-- • Search -->
+        <activity
+            android:name=".activity.Search">
         </activity>
 
         <!-- • Make Diary -->

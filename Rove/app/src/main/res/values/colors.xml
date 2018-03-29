@@ -16,6 +16,10 @@
     <color name="primaryDarkColor">#005662</color>
     <color name="primaryTextColor">#ffffff</color>
     <color name="accentColor">#00838f</color>
+    <color name="darkTextColor">#000</color>
+    <color name="grayTextColor">#808080</color>
+    <color name="white">#FFFFFF</color>
+    <color name="bgGray">#D3D3D3</color>
 
     <!-- Screen properties. -->
     <color name="activityBackgroundColor">@color/primaryDarkColor</color>
@@ -29,4 +33,6 @@
     <color name="socialBar_likeColor">#ff235e</color>
     <color name="socialBar_bookmarkColor">#4233b7</color>
     <color name="socialBar_commentColor">#00bc81</color>
+    <color name="bgColorLight">@color/color_white_1f0</color>
+    <color name="bgColor">@color/primaryDarkColor</color>
 </resources>
