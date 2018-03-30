@@ -10,6 +10,8 @@ import java.util.ArrayList;
 public class Rove extends Application {
 
 	public static ArrayList<Diary> STATIC_USER_DIARIES = new ArrayList<>();
+	public static ArrayList<DiaryPost> STATIC_DIARY_POSTS = new ArrayList<>();
+	public static DiaryPost STATIC_TEMP_DIARY_POST = new DiaryPost();
 
 	@Override
 	public void onCreate() {
