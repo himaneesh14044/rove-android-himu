@@ -24,7 +24,7 @@
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:id="@+id/imageView"
+                    android:id="@+id/recyclerItemLayout_diaryLocationTemplate_locationImageView"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_marginBottom="16dp"
@@ -40,13 +40,13 @@
                     app:layout_constraintTop_toTopOf="parent"/>
 
                 <TextView
-                    android:id="@+id/textView"
+                    android:id="@+id/recyclerItemLayout_diaryLocationTemplate_locationInfoTextView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/guideline4"
-                    app:layout_constraintTop_toTopOf="@+id/imageView"
+                    app:layout_constraintTop_toTopOf="@+id/recyclerItemLayout_diaryLocationTemplate_locationImageView"
                     tools:text="Kashmir"/>
 
                 <TextView
@@ -69,7 +69,7 @@
             </android.support.constraint.ConstraintLayout>
 
             <TextView
-                android:id="@+id/recyclerItemLayout_diaryTextTemplate_noteTextView"
+                android:id="@+id/recyclerItemLayout_diaryLocationTemplate_noteTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"

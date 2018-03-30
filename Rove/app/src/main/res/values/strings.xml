@@ -6,6 +6,7 @@
     <string name="activityLayout_loginMain_facebookSymbol_contentDescription">Facebook Symbol</string>
     <string name="activityLayout_loginMain_signUpText">Create Account</string>
     <string name="activityLayout_loginMain_skipLoginText">Continue without Login</string>
+    <string name="sharedPreferencesFile">com.gursimransinghhanspal.rove.sharedPreferences</string>
 
     <!-- Facebook -->
     <!-- DO NOT MODIFY -->
@@ -20,6 +21,12 @@
     <string name="activityLayout_credentialsLogin_forgotPasswordText">Forgot password</string>
     <string name="activityLayout_credentialsLogin_titleText">Log in</string>
     <string name="activityLayout_credentialsLogin_usernameTitleText">Username</string>
+
+    <!-- Make Diary -->
+    <string name="activity_MakeDiary_savedInfoKey_images">com.gursimransinghhanspal.rove.activity.MakeDiary.images</string>
+    <string name="activity_MakeDiary_savedInfoKey_currentLocation">com.gursimransinghhanspal.rove.activity.MakeDiary.currentLocation</string>
+    <string name="activity_MakeDiary_savedInfoKey_mapLocation">com.gursimransinghhanspal.rove.activity.MakeDiary.mapLocation</string>
+    <string name="activity_MakeDiary_savedInfoKey_description">com.gursimransinghhanspal.rove.activity.MakeDiary.description</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->

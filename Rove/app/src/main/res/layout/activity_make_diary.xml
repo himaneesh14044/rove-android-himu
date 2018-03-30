@@ -8,11 +8,11 @@
     android:orientation="vertical"
     tools:context="com.gursimransinghhanspal.rove.activity.MakeDiary">
 
-    <include
-        layout="@layout/view_statusbar_underlay"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top"/>
+    <!--<include-->
+        <!--layout="@layout/view_statusbar_underlay"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="top"/>-->
 
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
@@ -103,102 +103,115 @@
 
         </android.support.v4.widget.NestedScrollView>
 
-        <android.support.constraint.ConstraintLayout
-            android:layout_width="332dp"
-            android:layout_height="349dp"
+        <!--<android.support.constraint.ConstraintLayout-->
+            <!--android:layout_width="332dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="bottom|end"-->
+            <!--tools:layout_editor_absoluteX="79dp"-->
+            <!--tools:layout_editor_absoluteY="310dp">-->
+
+            <!--<android.support.v7.widget.CardView-->
+                <!--android:id="@+id/activityLayout_makeDiary_addTextItemBannerCardView"-->
+                <!--android:layout_width="147dp"-->
+                <!--android:layout_height="16dp"-->
+                <!--android:layout_marginEnd="16dp"-->
+                <!--app:layout_constraintBottom_toBottomOf="@+id/activityLayout_makeDiary_addTextItemFAB"-->
+                <!--app:layout_constraintEnd_toStartOf="@+id/activityLayout_makeDiary_addTextItemFAB"-->
+                <!--app:layout_constraintTop_toTopOf="@+id/activityLayout_makeDiary_addTextItemFAB"/>-->
+
+            <!--<android.support.v7.widget.CardView-->
+                <!--android:id="@+id/activityLayout_makeDiary_addImageItemBannerCardView"-->
+                <!--android:layout_width="147dp"-->
+                <!--android:layout_height="28dp"-->
+                <!--android:layout_marginEnd="16dp"-->
+                <!--app:layout_constraintBottom_toBottomOf="@+id/activityLayout_makeDiary_addImageItemFAB"-->
+                <!--app:layout_constraintEnd_toStartOf="@+id/activityLayout_makeDiary_addImageItemFAB"-->
+                <!--app:layout_constraintTop_toTopOf="@+id/activityLayout_makeDiary_addImageItemFAB">-->
+
+            <!--</android.support.v7.widget.CardView>-->
+
+            <!--<android.support.v7.widget.CardView-->
+                <!--android:id="@+id/activityLayout_makeDiary_addLocationItemBannerCardView"-->
+                <!--android:layout_width="210dp"-->
+                <!--android:layout_height="22dp"-->
+                <!--android:layout_marginEnd="16dp"-->
+                <!--app:layout_constraintBottom_toBottomOf="@+id/activityLayout_makeDiary_addLocationItemFAB"-->
+                <!--app:layout_constraintEnd_toStartOf="@+id/activityLayout_makeDiary_addLocationItemFAB"-->
+                <!--app:layout_constraintTop_toTopOf="@+id/activityLayout_makeDiary_addLocationItemFAB"/>-->
+
+            <!--<android.support.design.widget.FloatingActionButton-->
+                <!--android:id="@+id/activityLayout_makeDiary_addImageItemFAB"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="18dp"-->
+                <!--android:layout_marginBottom="16dp"-->
+                <!--android:layout_marginEnd="4dp"-->
+                <!--android:layout_marginStart="4dp"-->
+                <!--android:clickable="true"-->
+                <!--app:layout_constraintBottom_toTopOf="@+id/activityLayout_makeDiary_addTextItemFAB"-->
+                <!--app:layout_constraintEnd_toEndOf="@+id/activityLayout_makeDiary_addDiaryItemFAB"-->
+                <!--app:layout_constraintStart_toStartOf="@+id/activityLayout_makeDiary_addDiaryItemFAB"-->
+                <!--app:srcCompat="@drawable/ic_chevron_right"/>-->
+
+            <!--<android.support.design.widget.FloatingActionButton-->
+                <!--android:id="@+id/activityLayout_makeDiary_addTextItemFAB"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="18dp"-->
+                <!--android:layout_marginBottom="16dp"-->
+                <!--android:layout_marginEnd="4dp"-->
+                <!--android:layout_marginStart="4dp"-->
+                <!--android:clickable="true"-->
+                <!--app:layout_constraintBottom_toTopOf="@+id/activityLayout_makeDiary_addLocationItemFAB"-->
+                <!--app:layout_constraintEnd_toEndOf="@+id/activityLayout_makeDiary_addDiaryItemFAB"-->
+                <!--app:layout_constraintStart_toStartOf="@+id/activityLayout_makeDiary_addDiaryItemFAB"-->
+                <!--app:srcCompat="@drawable/ic_chevron_right"/>-->
+
+            <!--<android.support.design.widget.FloatingActionButton-->
+                <!--android:id="@+id/activityLayout_makeDiary_addLocationItemFAB"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="18dp"-->
+                <!--android:layout_marginBottom="16dp"-->
+                <!--android:layout_marginEnd="4dp"-->
+                <!--android:layout_marginStart="4dp"-->
+                <!--android:clickable="true"-->
+                <!--app:layout_constraintBottom_toTopOf="@+id/activityLayout_makeDiary_addDiaryItemFAB"-->
+                <!--app:layout_constraintEnd_toEndOf="@+id/activityLayout_makeDiary_addDiaryItemFAB"-->
+                <!--app:layout_constraintStart_toStartOf="@+id/activityLayout_makeDiary_addDiaryItemFAB"-->
+                <!--app:srcCompat="@drawable/ic_chevron_right"/>-->
+
+            <!--<android.support.design.widget.FloatingActionButton-->
+                <!--android:id="@+id/activityLayout_makeDiary_addDiaryItemFAB"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="bottom|end"-->
+                <!--android:layout_marginBottom="20dp"-->
+                <!--android:layout_marginEnd="20dp"-->
+                <!--android:src="@drawable/ic_add"-->
+                <!--android:tint="@color/color_white_1f0"-->
+                <!--app:layout_constraintBottom_toBottomOf="parent"-->
+                <!--app:layout_constraintEnd_toEndOf="parent"-->
+                <!--/>-->
+
+        <!--</android.support.constraint.ConstraintLayout>-->
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/activityLayout_makeDiary_addDiaryItemFAB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
-            tools:layout_editor_absoluteX="79dp"
-            tools:layout_editor_absoluteY="310dp">
-
-            <android.support.v7.widget.CardView
-                android:id="@+id/activityLayout_makeDiary_addTextItemBannerCardView"
-                android:layout_width="147dp"
-                android:layout_height="16dp"
-                android:layout_marginEnd="16dp"
-                app:layout_constraintBottom_toBottomOf="@+id/activityLayout_makeDiary_addTextItemFAB"
-                app:layout_constraintEnd_toStartOf="@+id/activityLayout_makeDiary_addTextItemFAB"
-                app:layout_constraintTop_toTopOf="@+id/activityLayout_makeDiary_addTextItemFAB"/>
-
-            <android.support.v7.widget.CardView
-                android:id="@+id/activityLayout_makeDiary_addImageItemBannerCardView"
-                android:layout_width="147dp"
-                android:layout_height="28dp"
-                android:layout_marginEnd="16dp"
-                app:layout_constraintBottom_toBottomOf="@+id/activityLayout_makeDiary_addImageItemFAB"
-                app:layout_constraintEnd_toStartOf="@+id/activityLayout_makeDiary_addImageItemFAB"
-                app:layout_constraintTop_toTopOf="@+id/activityLayout_makeDiary_addImageItemFAB">
-
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:id="@+id/activityLayout_makeDiary_addLocationItemBannerCardView"
-                android:layout_width="210dp"
-                android:layout_height="22dp"
-                android:layout_marginEnd="16dp"
-                app:layout_constraintBottom_toBottomOf="@+id/activityLayout_makeDiary_addLocationItemFAB"
-                app:layout_constraintEnd_toStartOf="@+id/activityLayout_makeDiary_addLocationItemFAB"
-                app:layout_constraintTop_toTopOf="@+id/activityLayout_makeDiary_addLocationItemFAB"/>
-
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/activityLayout_makeDiary_addImageItemFAB"
-                android:layout_width="wrap_content"
-                android:layout_height="18dp"
-                android:layout_marginBottom="16dp"
-                android:layout_marginEnd="4dp"
-                android:layout_marginStart="4dp"
-                android:clickable="true"
-                app:layout_constraintBottom_toTopOf="@+id/activityLayout_makeDiary_addTextItemFAB"
-                app:layout_constraintEnd_toEndOf="@+id/activityLayout_makeDiary_addDiaryItemFAB"
-                app:layout_constraintStart_toStartOf="@+id/activityLayout_makeDiary_addDiaryItemFAB"
-                app:srcCompat="@drawable/ic_chevron_right"/>
-
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/activityLayout_makeDiary_addTextItemFAB"
-                android:layout_width="wrap_content"
-                android:layout_height="18dp"
-                android:layout_marginBottom="16dp"
-                android:layout_marginEnd="4dp"
-                android:layout_marginStart="4dp"
-                android:clickable="true"
-                app:layout_constraintBottom_toTopOf="@+id/activityLayout_makeDiary_addLocationItemFAB"
-                app:layout_constraintEnd_toEndOf="@+id/activityLayout_makeDiary_addDiaryItemFAB"
-                app:layout_constraintStart_toStartOf="@+id/activityLayout_makeDiary_addDiaryItemFAB"
-                app:srcCompat="@drawable/ic_chevron_right"/>
-
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/activityLayout_makeDiary_addLocationItemFAB"
-                android:layout_width="wrap_content"
-                android:layout_height="18dp"
-                android:layout_marginBottom="16dp"
-                android:layout_marginEnd="4dp"
-                android:layout_marginStart="4dp"
-                android:clickable="true"
-                app:layout_constraintBottom_toTopOf="@+id/activityLayout_makeDiary_addDiaryItemFAB"
-                app:layout_constraintEnd_toEndOf="@+id/activityLayout_makeDiary_addDiaryItemFAB"
-                app:layout_constraintStart_toStartOf="@+id/activityLayout_makeDiary_addDiaryItemFAB"
-                app:srcCompat="@drawable/ic_chevron_right"/>
-
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/activityLayout_makeDiary_addDiaryItemFAB"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|end"
-                android:layout_marginBottom="20dp"
-                android:layout_marginEnd="20dp"
-                android:src="@drawable/ic_add"
-                android:tint="@color/color_white_1f0"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                />
-
-        </android.support.constraint.ConstraintLayout>
+            android:layout_marginBottom="20dp"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/ic_add"
+            android:tint="@color/color_white_1f0"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
 
     </android.support.design.widget.CoordinatorLayout>
 
-    <include
-        layout="@layout/view_navbar_underlay"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"/>
+    <!--<include-->
+        <!--layout="@layout/view_navbar_underlay"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="bottom"/>-->
 
 </LinearLayout>
