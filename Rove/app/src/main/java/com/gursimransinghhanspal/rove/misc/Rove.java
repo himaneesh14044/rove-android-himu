@@ -2,13 +2,14 @@ package com.gursimransinghhanspal.rove.misc;
 
 import android.app.Application;
 
+import com.gursimransinghhanspal.rove.data.Diary;
 import com.gursimransinghhanspal.rove.data.DiaryPost;
 
 import java.util.ArrayList;
 
 public class Rove extends Application {
 
-	public static ArrayList<DiaryPost> STATIC_DIARY_POSTS = new ArrayList<>();
+	public static ArrayList<Diary> STATIC_USER_DIARIES = new ArrayList<>();
 
 	@Override
 	public void onCreate() {

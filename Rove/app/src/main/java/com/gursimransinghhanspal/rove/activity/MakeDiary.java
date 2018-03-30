@@ -1,6 +1,5 @@
 package com.gursimransinghhanspal.rove.activity;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -14,7 +13,6 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,37 +23,50 @@ import android.widget.TextView;
 import com.gursimransinghhanspal.rove.R;
 import com.gursimransinghhanspal.rove.data.DiaryPost;
 import com.gursimransinghhanspal.rove.dialog.AddDiaryItem;
+import com.gursimransinghhanspal.rove.dialog.EditDiary;
 import com.gursimransinghhanspal.rove.misc.MakeDiaryDialogInterface;
-import com.gursimransinghhanspal.rove.misc.Rove;
 
 import java.io.IOException;
 import java.io.InputStream;
 
 public class MakeDiary extends AppCompatActivity implements MakeDiaryDialogInterface {
 
-	private static final int PICK_IMAGE_REQUEST = 1;
+	private static final int COVER_IMAGE_REQUEST = 1;
+	private static final int ADD_IMAGE_REQUEST = 2;
 
 	private RecyclerView mDiaryItemsRecyclerView;
-	private ImageView imageView;
+	private ImageView mToolbarBgImageView;
+	private FloatingActionButton mToolbarEditFAB;
+	private AddDiaryItem mActiveAddPostDialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_make_diary);
 
-		imageView = findViewById(R.id.toolbarImage);
+		mToolbarBgImageView = findViewById(R.id.activityLayout_makeDiary_collapsingToolbar_bgImageView);
+		FloatingActionButton toolbarFAB = findViewById(R.id.activityLayout_makeDiary_collapsingToolbar_editFAB);
+
 
 		mDiaryItemsRecyclerView = findViewById(R.id.activityLayout_makeDiary_diaryItemsRecyclerView);
 		mDiaryItemsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 		mDiaryItemsRecyclerView.setAdapter(new Adapter());
 		mDiaryItemsRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
-		FloatingActionButton fab = findViewById(R.id.activityLayout_makeDiary_addDiaryItemFAB);
-		fab.setOnClickListener(new View.OnClickListener() {
+		FloatingActionButton mainFAB = findViewById(R.id.activityLayout_makeDiary_addDiaryItemFAB);
+		mainFAB.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Dialog d = new AddDiaryItem(MakeDiary.this, true, MakeDiary.this);
-				d.show();
+				mActiveAddPostDialog = new AddDiaryItem(MakeDiary.this, true, MakeDiary.this);
+				mActiveAddPostDialog.show();
+			}
+		});
+
+		toolbarFAB.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				EditDiary dialog = new EditDiary(MakeDiary.this);
+				dialog.show();
 			}
 		});
 	}
@@ -72,7 +83,7 @@ public class MakeDiary extends AppCompatActivity implements MakeDiaryDialogInter
 		Intent chooserIntent = Intent.createChooser(getContentIntent, "Select Image");
 		chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[]{pickIntent});
 
-		startActivityForResult(chooserIntent, PICK_IMAGE_REQUEST);
+		startActivityForResult(chooserIntent, ADD_IMAGE_REQUEST);
 	}
 
 	@Override
@@ -152,7 +163,7 @@ public class MakeDiary extends AppCompatActivity implements MakeDiaryDialogInter
 
 	@Override
 	public void onPostSave() {
-
+		mDiaryItemsRecyclerView.getAdapter().notifyDataSetChanged();
 	}
 
 	@Override
@@ -163,23 +174,26 @@ public class MakeDiary extends AppCompatActivity implements MakeDiaryDialogInter
 			return;
 		}
 
-		if (requestCode == PICK_IMAGE_REQUEST) {
+		if (requestCode == ADD_IMAGE_REQUEST) {
 			try {
 				if (data == null || data.getData() == null)
 					return;
 
 				InputStream inputStream = getContentResolver().openInputStream(data.getData());
-				Bitmap bitmap = null;
-				bitmap = BitmapFactory.decodeStream(inputStream);
-				Log.i("MAKEDIARY", bitmap.toString());
+				Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+//				Rove.STATIC_TEMP_DIARY_POST.images.add(bitmap);
 
-				int nh = (int) (bitmap.getHeight() * (512.0 / bitmap.getWidth()));
-				Bitmap scaled = Bitmap.createScaledBitmap(bitmap, 512, nh, true);
-				imageView.setImageBitmap(scaled);
+//				Log.i("MAKEDIARY", bitmap.toString());
+//
+//				int nh = (int) (bitmap.getHeight() * (512.0 / bitmap.getWidth()));
+//				Bitmap scaled = Bitmap.createScaledBitmap(bitmap, 512, nh, true);
+//				mToolbarBgImageView.setImageBitmap(scaled);
+//
+//				mToolbarBgImageView.setImageDrawable(
+//						getResources().getDrawable(R.drawable.im_landscape_placeholder, getTheme())
+//				);
 
-				imageView.setImageDrawable(
-						getResources().getDrawable(R.drawable.im_landscape_placeholder, getTheme())
-				);
+				mActiveAddPostDialog.refreshData();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -207,7 +221,7 @@ public class MakeDiary extends AppCompatActivity implements MakeDiaryDialogInter
 
 		@Override
 		public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-			DiaryPost post = Rove.STATIC_DIARY_POSTS.get(position);
+			DiaryPost post = null;//Rove.STATIC_DIARY_POSTS.get(position);
 
 			if (holder.descriptionTextView != null && !TextUtils.isEmpty(post.description)) {
 				holder.descriptionTextView.setText(post.description);
@@ -217,7 +231,7 @@ public class MakeDiary extends AppCompatActivity implements MakeDiaryDialogInter
 
 		@Override
 		public int getItemViewType(int position) {
-			DiaryPost post = Rove.STATIC_DIARY_POSTS.get(position);
+			DiaryPost post = null;//Rove.STATIC_DIARY_POSTS.get(position);
 
 			int type = 2;
 			if (post.images == null || post.images.size() == 0) {
@@ -231,7 +245,7 @@ public class MakeDiary extends AppCompatActivity implements MakeDiaryDialogInter
 
 		@Override
 		public int getItemCount() {
-			return Rove.STATIC_DIARY_POSTS.size();
+			return 0;//Rove.STATIC_DIARY_POSTS.size();
 		}
 
 		public class ViewHolder extends RecyclerView.ViewHolder {

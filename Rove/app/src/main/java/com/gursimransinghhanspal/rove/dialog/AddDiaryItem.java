@@ -2,10 +2,8 @@ package com.gursimransinghhanspal.rove.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
@@ -14,7 +12,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.gursimransinghhanspal.rove.R;
+import com.gursimransinghhanspal.rove.data.DiaryPost;
 import com.gursimransinghhanspal.rove.misc.MakeDiaryDialogInterface;
+import com.gursimransinghhanspal.rove.misc.Rove;
 
 import java.util.Locale;
 
@@ -137,76 +137,50 @@ public class AddDiaryItem extends Dialog {
 	}
 
 	public void refreshData() {
-		SharedPreferences sharedPreferences = mActivityContext.getSharedPreferences(
-				mActivityContext.getResources().getString(R.string.sharedPreferencesFile),
-				Context.MODE_PRIVATE
-		);
-		String selectedImagesAsString = sharedPreferences.getString(
-				mActivityContext.getResources().getString(R.string.activity_MakeDiary_savedInfoKey_images),
-				""
-		);
-		String currentLocation = sharedPreferences.getString(
-				mActivityContext.getResources().getString(R.string.activity_MakeDiary_savedInfoKey_currentLocation),
-				""
-		);
-		String mapLocation = sharedPreferences.getString(
-				mActivityContext.getResources().getString(R.string.activity_MakeDiary_savedInfoKey_mapLocation),
-				""
-		);
-		String description = sharedPreferences.getString(
-				mActivityContext.getResources().getString(R.string.activity_MakeDiary_savedInfoKey_description),
-				""
-		);
+		DiaryPost post = Rove.STATIC_TEMP_DIARY_POST;
 
-		int selectedImagesCount = 0;
-		if (!TextUtils.isEmpty(selectedImagesAsString)) {
-			String[] selectedImagesAsArray = selectedImagesAsString.split(";");
-			selectedImagesCount = selectedImagesAsArray.length;
-		}
+		int selectedImagesCount = post.images.size();
 		mAddImageCountTextView.setText(
 				String.format(Locale.US, "%d", selectedImagesCount)
 		);
 
-		if (TextUtils.isEmpty(currentLocation)) {
-			mCurrentLocationRadioImageView.setImageDrawable(
-					mActivityContext.getResources().getDrawable(
-							R.drawable.ic_radio_button_unchecked_24dp,
-							mActivityContext.getTheme()
-					)
-			);
-		} else {
-			mCurrentLocationRadioImageView.setImageDrawable(
-					mActivityContext.getResources().getDrawable(
-							R.drawable.ic_radio_button_checked_24dp,
-							mActivityContext.getTheme()
-					)
-			);
-		}
+//		if (post.location == null) {
+//			mCurrentLocationRadioImageView.setImageDrawable(
+//					mActivityContext.getResources().getDrawable(
+//							R.drawable.ic_radio_button_unchecked_24dp,
+//							mActivityContext.getTheme()
+//					)
+//			);
+//		} else {
+//			mCurrentLocationRadioImageView.setImageDrawable(
+//					mActivityContext.getResources().getDrawable(
+//							R.drawable.ic_radio_button_checked_24dp,
+//							mActivityContext.getTheme()
+//					)
+//			);
+//		}
+//
+//		if (TextUtils.isEmpty(mapLocation)) {
+//			mMapLocationRadioImageView.setImageDrawable(
+//					mActivityContext.getResources().getDrawable(
+//							R.drawable.ic_radio_button_unchecked_24dp,
+//							mActivityContext.getTheme()
+//					)
+//			);
+//		} else {
+//			mMapLocationRadioImageView.setImageDrawable(
+//					mActivityContext.getResources().getDrawable(
+//							R.drawable.ic_radio_button_checked_24dp,
+//							mActivityContext.getTheme()
+//					)
+//			);
+//		}
 
-		if (TextUtils.isEmpty(mapLocation)) {
-			mMapLocationRadioImageView.setImageDrawable(
-					mActivityContext.getResources().getDrawable(
-							R.drawable.ic_radio_button_unchecked_24dp,
-							mActivityContext.getTheme()
-					)
-			);
-		} else {
-			mMapLocationRadioImageView.setImageDrawable(
-					mActivityContext.getResources().getDrawable(
-							R.drawable.ic_radio_button_checked_24dp,
-							mActivityContext.getTheme()
-					)
-			);
-		}
-
-		mDescriptionEditText.setText(description);
+		mDescriptionEditText.setText(post.description);
 	}
 
 	private void saveState() {
-		if (mActivityInterface != null) {
-			String description = mDescriptionEditText.getText().toString();
-			mActivityInterface.onPostSaveDescription(description);
-		}
+		Rove.STATIC_TEMP_DIARY_POST.description = mDescriptionEditText.getText().toString();
 	}
 
 	private void onAddImageClicked() {
@@ -218,47 +192,41 @@ public class AddDiaryItem extends Dialog {
 
 	private void onRemoveImagesClicked() {
 		saveState();
-		if (mActivityInterface != null) {
-			mActivityInterface.onPostRemoveImages();
-		}
+		Rove.STATIC_TEMP_DIARY_POST.images.clear();
 		refreshData();
 	}
 
 	private void onSelectCurrentLocationClicked() {
 		saveState();
-		if (mActivityInterface != null) {
-			mActivityInterface.onPostAddCurrentLocation();
-		}
+		// do something
 	}
 
 	private void onSelectLocationFromMapsClicked() {
 		saveState();
-		if (mActivityInterface != null) {
-			mActivityInterface.onPostSelectLocationFromMap();
-		}
+		// do something
 	}
 
 	private void onRemoveLocationClicked() {
 		saveState();
-		if (mActivityInterface != null) {
-			mActivityInterface.onPostRemoveLocation();
-		}
+		Rove.STATIC_TEMP_DIARY_POST.location = null;
 		refreshData();
 	}
 
 	private void onCancelClicked() {
 		saveState();
-		if (mActivityInterface != null) {
-			mActivityInterface.onPostCancel();
-		}
+		Rove.STATIC_TEMP_DIARY_POST = new DiaryPost();
 		refreshData();
+
 		dismiss();
 	}
 
 	private void onSaveClicked() {
 		saveState();
-		if (mActivityInterface != null) {
-			mActivityInterface.onPostSave();
-		}
+		Rove.STATIC_DIARY_POSTS.add(Rove.STATIC_TEMP_DIARY_POST);
+		Rove.STATIC_TEMP_DIARY_POST = new DiaryPost();
+		mActivityInterface.onPostSave();
+		refreshData();
+
+		dismiss();
 	}
 }
