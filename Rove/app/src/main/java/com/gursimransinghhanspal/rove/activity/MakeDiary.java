@@ -1,13 +1,17 @@
 package com.gursimransinghhanspal.rove.activity;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.Location;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,7 +24,15 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlacePicker;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.gursimransinghhanspal.rove.R;
 import com.gursimransinghhanspal.rove.data.Diary;
 import com.gursimransinghhanspal.rove.data.DiaryPost;
@@ -43,11 +55,19 @@ public class MakeDiary extends AppCompatActivity {
 	private static Diary STATIC_EDITING_DIARY;
 	private static DiaryPost STATIC_EDITING_DIARY_POST;
 
-	private String dbDiaryId;
-
+	//
 	private static final int SELECT_COVER_IMAGE_REQUEST = 1;
 	private static final int ADD_IMAGE_REQUEST = 2;
+	private static final int MY_PERMISSIONS_REQUEST_ACCESS_LOCATION = 3;
+	private static final int PLACE_PICKER_REQUEST = 4;
 
+	// location
+	private FusedLocationProviderClient mFusedLocationClient;
+
+	//
+	private String dbDiaryId;
+
+	//
 	private CollapsingToolbarLayout mCollapsingToolbarLayout;
 	private RecyclerView mDiaryItemsRecyclerView;
 	private ImageView mCoverImageView;
@@ -83,15 +103,53 @@ public class MakeDiary extends AppCompatActivity {
 			}
 		}
 
+		// register ui components
 		mCollapsingToolbarLayout = findViewById(R.id.activityLayout_makeDiary_collapsingToolbarLayout);
 		mCoverImageView = findViewById(R.id.activityLayout_makeDiary_collapsingToolbar_bgImageView);
 		FloatingActionButton toolbarFAB = findViewById(R.id.activityLayout_makeDiary_collapsingToolbar_editFAB);
+		toolbarFAB.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				mActiveEditDiaryDialog = new EditDiary(
+						MakeDiary.this,
+						STATIC_EDITING_DIARY,
+						new EditDiaryDialogInterface() {
+							@Override
+							public void onSelectCoverImageClicked() {
+								editDiaryOnSelectCoverImageClicked();
+							}
+
+							@Override
+							public void onRemoveCoverImageClicked() {
+								editDiaryOnRemoveCoverImageClicked();
+							}
+
+							@Override
+							public void onVisibilitySelected(PostVisibility visibility) {
+								editDiaryOnVisibilitySelected(visibility);
+							}
+
+							@Override
+							public void onSave(String updatedTitle) {
+								editDiaryOnSave(updatedTitle);
+							}
+
+							@Override
+							public void onCancel() {
+								editDiaryOnCancel();
+							}
+						}
+				);
+				mActiveEditDiaryDialog.show();
+			}
+		});
 
 		mDiaryItemsRecyclerView = findViewById(R.id.activityLayout_makeDiary_diaryItemsRecyclerView);
 		mDiaryItemsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 		mDiaryItemsRecyclerView.setAdapter(new Adapter());
 		mDiaryItemsRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
+		// set onClick listeners
 		FloatingActionButton mainFAB = findViewById(R.id.activityLayout_makeDiary_addDiaryItemFAB);
 		mainFAB.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -143,45 +201,11 @@ public class MakeDiary extends AppCompatActivity {
 			}
 		});
 
-		toolbarFAB.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				mActiveEditDiaryDialog = new EditDiary(
-						MakeDiary.this,
-						STATIC_EDITING_DIARY,
-						new EditDiaryDialogInterface() {
-							@Override
-							public void onSelectCoverImageClicked() {
-								editDiaryOnSelectCoverImageClicked();
-							}
-
-							@Override
-							public void onRemoveCoverImageClicked() {
-								editDiaryOnRemoveCoverImageClicked();
-							}
-
-							@Override
-							public void onVisibilitySelected(PostVisibility visibility) {
-								editDiaryOnVisibilitySelected(visibility);
-							}
-
-							@Override
-							public void onSave(String updatedTitle) {
-								editDiaryOnSave(updatedTitle);
-							}
-
-							@Override
-							public void onCancel() {
-								editDiaryOnCancel();
-							}
-						}
-				);
-				mActiveEditDiaryDialog.show();
-			}
-		});
-
 		// update the UI
 		updateUI(STATIC_EDITING_DIARY);
+
+		// instantiate location client
+		mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 	}
 
 	/**
@@ -304,14 +328,58 @@ public class MakeDiary extends AppCompatActivity {
 	 * Make Post Dialog: onCurrentLocationClicked();
 	 */
 	private void makePostOnCurrentLocationClicked() {
+		if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
+			// Permission is not granted
+			// Should we show an explanation?
+			if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION) || ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_COARSE_LOCATION)) {
+
+				// Show an explanation to the user *asynchronously* -- don't block
+				// this thread waiting for the user's response! After the user
+				// sees the explanation, try again to request the permission.
+				// TODO: do something here
+
+			} else {
+				// No explanation needed; request the permission
+				ActivityCompat.requestPermissions(
+						this,
+						new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
+						MY_PERMISSIONS_REQUEST_ACCESS_LOCATION
+				);
+			}
+		} else {
+			// Location related permissions granted
+			mFusedLocationClient.getLastLocation()
+					.addOnSuccessListener(this, new OnSuccessListener<Location>() {
+								@Override
+								public void onSuccess(Location location) {
+									// Got last known location. In some rare situations this can be null.
+									if (location != null) {
+										STATIC_EDITING_DIARY_POST.taggedLocation = location;
+										// update the dialog ui, if dialog is showing
+										if (mActiveMakePostDialog != null && mActiveMakePostDialog.isShowing()) {
+											mActiveMakePostDialog.updateUI(STATIC_EDITING_DIARY_POST);
+										}
+									}
+								}
+							}
+					);
+		}
 	}
 
 	/**
 	 * Make Post Dialog: onMapLocationClicked();
 	 */
 	private void makePostOnMapLocationClicked() {
+		PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+		Intent placePickerIntent = null;
+		try {
+			placePickerIntent = builder.build(this);
+		} catch (GooglePlayServicesNotAvailableException | GooglePlayServicesRepairableException e) {
+			e.printStackTrace();
+		}
 
+		startActivityForResult(placePickerIntent, PLACE_PICKER_REQUEST);
 	}
 
 	/**
@@ -435,6 +503,38 @@ public class MakeDiary extends AppCompatActivity {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+		}
+
+		if (requestCode == PLACE_PICKER_REQUEST) {
+			Place place = PlacePicker.getPlace(this, data);
+			String toastMsg = String.format("Place: %s", place.getName());
+			Toast.makeText(this, toastMsg, Toast.LENGTH_LONG).show();
+		}
+	}
+
+	@Override
+	public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+		super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+		switch (requestCode) {
+			case MY_PERMISSIONS_REQUEST_ACCESS_LOCATION: {
+				// If request is cancelled, the result arrays are empty.
+				if (grantResults.length > 0
+						&& grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+					// permission was granted, yay! Do the
+					// location-related task you need to do.
+					makePostOnCurrentLocationClicked();
+
+				} else {
+					// permission denied, boo! Disable the
+					// functionality that depends on this permission.
+					// TODO: do something
+				}
+			}
+
+			// other 'case' lines to check for other
+			// permissions this app might request.
 		}
 	}
 
