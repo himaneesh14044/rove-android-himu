@@ -58,7 +58,7 @@ public class Search extends AppCompatActivity implements TabLayout.OnTabSelected
         setContentView(R.layout.activity_search);
 
         mSearchView = findViewById(R.id.floating_search_view);
-        //mNavigationTabStrip = findViewById(R.id.nts_search_top);
+        //mNavigationTabStrip = findViewById(R.diaryId.nts_search_top);
         mDimSearchViewBackground = findViewById(R.id.dim_background);
         mDimDrawable = new ColorDrawable(Color.BLACK);
         mDimDrawable.setAlpha(0);

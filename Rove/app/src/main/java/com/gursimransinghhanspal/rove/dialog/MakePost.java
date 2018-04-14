@@ -13,26 +13,27 @@ import android.widget.TextView;
 
 import com.gursimransinghhanspal.rove.R;
 import com.gursimransinghhanspal.rove.data.DiaryPost;
-import com.gursimransinghhanspal.rove.misc.MakeDiaryDialogInterface;
-import com.gursimransinghhanspal.rove.misc.Rove;
+import com.gursimransinghhanspal.rove.misc.MakeDiaryPostDialogInterface;
 
 import java.util.Locale;
 
-public class AddDiaryItem extends Dialog {
+public class MakePost extends Dialog {
 
 	private Context mActivityContext;
-	private MakeDiaryDialogInterface mActivityInterface;
+	private DiaryPost mReferencedPost;
+	private MakeDiaryPostDialogInterface mInteractionListener;
 
 	private TextView mAddImageCountTextView;
 	private EditText mDescriptionEditText;
-	private ImageView mCurrentLocationRadioImageView;
-	private ImageView mMapLocationRadioImageView;
+	private ImageView mLocationRadioImageView;
+	private TextView mSelectedLocationTextView;
 
-	public AddDiaryItem(@NonNull Context context, boolean cancelable, MakeDiaryDialogInterface callbackInterface) {
-		super(context, cancelable, null);
+	public MakePost(@NonNull Context context, DiaryPost referencedPost, MakeDiaryPostDialogInterface interactionListener) {
+		super(context, true, null);
 
 		mActivityContext = context;
-		mActivityInterface = callbackInterface;
+		mReferencedPost = referencedPost;
+		mInteractionListener = interactionListener;
 	}
 
 	@Override
@@ -42,6 +43,7 @@ public class AddDiaryItem extends Dialog {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.dialog_add_diary_item);
 
+		// register ui elements
 		ImageView addImageIconImageView = findViewById(R.id.dialogLayout_addDiaryItem_addImageIconImageView);
 		TextView addImageTitleTextView = findViewById(R.id.dialogLayout_addDiaryItem_addImageTitleTextView);
 		mAddImageCountTextView = findViewById(R.id.dialogLayout_addDiaryItem_addImageCountTextView);
@@ -49,17 +51,18 @@ public class AddDiaryItem extends Dialog {
 
 		ImageView currentLocationIconImageView = findViewById(R.id.dialogLayout_addDiaryItem_currentLocationIconImageView);
 		TextView currentLocationTitleTextView = findViewById(R.id.dialogLayout_addDiaryItem_currentLocationTitleTextView);
-		mCurrentLocationRadioImageView = findViewById(R.id.dialogLayout_addDiaryItem_currentLocationRadioImageView);
 		ImageView mapLocationIconImageView = findViewById(R.id.dialogLayout_addDiaryItem_mapLocationIconImageView);
 		TextView mapLocationTitleTextView = findViewById(R.id.dialogLayout_addDiaryItem_mapLocationTitleTextView);
-		mMapLocationRadioImageView = findViewById(R.id.dialogLayout_addDiaryItem_mapLocationRadioImageView);
 		TextView removeLocationTextView = findViewById(R.id.dialogLayout_addDiaryItem_removeLocationTextView);
+		mLocationRadioImageView = findViewById(R.id.dialogLayout_addDiaryItem_locationRadioImageView);
+		mSelectedLocationTextView = findViewById(R.id.dialogLayout_addDiaryItem_selectedLocationTextView);
 
 		mDescriptionEditText = findViewById(R.id.dialogLayout_addDiaryItem_descriptionEditText);
 
 		RelativeLayout cancelLayout = findViewById(R.id.dialogLayout_addDiaryItem_cancelRelativeLayout);
 		RelativeLayout saveLayout = findViewById(R.id.dialogLayout_addDiaryItem_saveRelativeLayout);
 
+		// set onClick listeners
 		addImageIconImageView.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -82,37 +85,25 @@ public class AddDiaryItem extends Dialog {
 		currentLocationIconImageView.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				onSelectCurrentLocationClicked();
+				onCurrentLocationClicked();
 			}
 		});
 		currentLocationTitleTextView.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				onSelectCurrentLocationClicked();
-			}
-		});
-		mCurrentLocationRadioImageView.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				onSelectCurrentLocationClicked();
+				onCurrentLocationClicked();
 			}
 		});
 		mapLocationIconImageView.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				onSelectLocationFromMapsClicked();
+				onMapLocationClicked();
 			}
 		});
 		mapLocationTitleTextView.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				onSelectLocationFromMapsClicked();
-			}
-		});
-		mMapLocationRadioImageView.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				onSelectLocationFromMapsClicked();
+				onMapLocationClicked();
 			}
 		});
 		removeLocationTextView.setOnClickListener(new View.OnClickListener() {
@@ -125,108 +116,95 @@ public class AddDiaryItem extends Dialog {
 		cancelLayout.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				onCancelClicked();
+				onCancel();
 			}
 		});
 		saveLayout.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				onSaveClicked();
+				onSave();
 			}
 		});
-	}
 
-	public void refreshData() {
-		DiaryPost post = Rove.STATIC_TEMP_DIARY_POST;
-
-		int selectedImagesCount = post.images.size();
-		mAddImageCountTextView.setText(
-				String.format(Locale.US, "%d", selectedImagesCount)
-		);
-
-//		if (post.location == null) {
-//			mCurrentLocationRadioImageView.setImageDrawable(
-//					mActivityContext.getResources().getDrawable(
-//							R.drawable.ic_radio_button_unchecked_24dp,
-//							mActivityContext.getTheme()
-//					)
-//			);
-//		} else {
-//			mCurrentLocationRadioImageView.setImageDrawable(
-//					mActivityContext.getResources().getDrawable(
-//							R.drawable.ic_radio_button_checked_24dp,
-//							mActivityContext.getTheme()
-//					)
-//			);
-//		}
-//
-//		if (TextUtils.isEmpty(mapLocation)) {
-//			mMapLocationRadioImageView.setImageDrawable(
-//					mActivityContext.getResources().getDrawable(
-//							R.drawable.ic_radio_button_unchecked_24dp,
-//							mActivityContext.getTheme()
-//					)
-//			);
-//		} else {
-//			mMapLocationRadioImageView.setImageDrawable(
-//					mActivityContext.getResources().getDrawable(
-//							R.drawable.ic_radio_button_checked_24dp,
-//							mActivityContext.getTheme()
-//					)
-//			);
-//		}
-
-		mDescriptionEditText.setText(post.description);
-	}
-
-	private void saveState() {
-		Rove.STATIC_TEMP_DIARY_POST.description = mDescriptionEditText.getText().toString();
+		// update ui
+		updateUI(mReferencedPost);
 	}
 
 	private void onAddImageClicked() {
-		saveState();
-		if (mActivityInterface != null) {
-			mActivityInterface.onPostAddImage();
+		if (mInteractionListener != null) {
+			mInteractionListener.onAddImageClicked();
 		}
 	}
 
 	private void onRemoveImagesClicked() {
-		saveState();
-		Rove.STATIC_TEMP_DIARY_POST.images.clear();
-		refreshData();
+		if (mInteractionListener != null) {
+			mInteractionListener.onRemoveImagesClicked();
+		}
 	}
 
-	private void onSelectCurrentLocationClicked() {
-		saveState();
-		// do something
+	private void onCurrentLocationClicked() {
+		if (mInteractionListener != null) {
+			mInteractionListener.onCurrentLocationClicked();
+		}
 	}
 
-	private void onSelectLocationFromMapsClicked() {
-		saveState();
-		// do something
+	private void onMapLocationClicked() {
+		if (mInteractionListener != null) {
+			mInteractionListener.onMapLocationClicked();
+		}
 	}
 
 	private void onRemoveLocationClicked() {
-		saveState();
-		Rove.STATIC_TEMP_DIARY_POST.location = null;
-		refreshData();
+		if (mInteractionListener != null) {
+			mInteractionListener.onRemoveLocationClicked();
+		}
 	}
 
-	private void onCancelClicked() {
-		saveState();
-		Rove.STATIC_TEMP_DIARY_POST = new DiaryPost();
-		refreshData();
-
+	private void onCancel() {
 		dismiss();
+		if (mInteractionListener != null) {
+			mInteractionListener.onCancel();
+		}
 	}
 
-	private void onSaveClicked() {
-		saveState();
-		Rove.STATIC_DIARY_POSTS.add(Rove.STATIC_TEMP_DIARY_POST);
-		Rove.STATIC_TEMP_DIARY_POST = new DiaryPost();
-		mActivityInterface.onPostSave();
-		refreshData();
-
+	private void onSave() {
 		dismiss();
+		if (mInteractionListener != null) {
+			String textDescription = mDescriptionEditText.getText().toString().trim();
+			mInteractionListener.onSave(textDescription);
+		}
+	}
+
+	public void updateUI(DiaryPost referencedPost) {
+		mReferencedPost = referencedPost;
+
+		// set selected images count
+		int selectedImagesCount = referencedPost.images.size();
+		mAddImageCountTextView.setText(
+				String.format(Locale.US, "%d", selectedImagesCount)
+		);
+
+		// set referenced location
+		if (referencedPost.taggedLocation == null) {
+			mLocationRadioImageView.setImageDrawable(
+					mActivityContext.getResources().getDrawable(
+							R.drawable.ic_radio_button_unchecked_24dp,
+							mActivityContext.getTheme()
+					)
+			);
+			mSelectedLocationTextView.setVisibility(View.GONE);
+		} else {
+			mLocationRadioImageView.setImageDrawable(
+					mActivityContext.getResources().getDrawable(
+							R.drawable.ic_radio_button_checked_24dp,
+							mActivityContext.getTheme()
+					)
+			);
+			mSelectedLocationTextView.setVisibility(View.VISIBLE);
+		}
+
+
+		// set text description
+		mDescriptionEditText.setText(referencedPost.textDescription);
 	}
 }

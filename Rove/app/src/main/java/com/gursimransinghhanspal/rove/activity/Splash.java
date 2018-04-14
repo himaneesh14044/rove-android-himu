@@ -31,6 +31,7 @@ public class Splash extends AppCompatActivity {
 		// also call finish() to remove `this` activity from backstack
 
 		Intent makeDiaryActivityIntent = new Intent(this, MakeDiary.class);
+		makeDiaryActivityIntent.putExtra(MakeDiary.DB_DIARY_ID, "1");
 		startActivity(makeDiaryActivityIntent);
 		finish();
 	}
