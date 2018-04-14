@@ -20,7 +20,7 @@
     <string name="activity_createAccount_savedInfoKey_password">com.gursimransinghhanspal.rove.activity.CreateAccount.password</string>
     <string name="activityLayout_credentialsLogin_forgotPasswordText">Forgot password</string>
     <string name="activityLayout_credentialsLogin_titleText">Log in</string>
-    <string name="activityLayout_credentialsLogin_usernameTitleText">Username</string>
+    <string name="activityLayout_credentialsLogin_usernameTitleText">Email</string>
 
     <!-- Make Diary -->
     <string name="activity_MakeDiary_savedInfoKey_images">com.gursimransinghhanspal.rove.activity.MakeDiary.images</string>
