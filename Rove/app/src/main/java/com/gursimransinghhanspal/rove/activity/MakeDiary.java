@@ -40,6 +40,7 @@ import com.gursimransinghhanspal.rove.dialog.EditDiary;
 import com.gursimransinghhanspal.rove.dialog.MakePost;
 import com.gursimransinghhanspal.rove.misc.EditDiaryDialogInterface;
 import com.gursimransinghhanspal.rove.misc.MakeDiaryPostDialogInterface;
+import com.gursimransinghhanspal.rove.misc.PostTemplateType;
 import com.gursimransinghhanspal.rove.misc.PostVisibility;
 import com.gursimransinghhanspal.rove.misc.Rove;
 
@@ -146,7 +147,7 @@ public class MakeDiary extends AppCompatActivity {
 
 		mDiaryItemsRecyclerView = findViewById(R.id.activityLayout_makeDiary_diaryItemsRecyclerView);
 		mDiaryItemsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-		mDiaryItemsRecyclerView.setAdapter(new Adapter());
+		mDiaryItemsRecyclerView.setAdapter(new Adapter(STATIC_EDITING_DIARY));
 		mDiaryItemsRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
 		// set onClick listeners
@@ -540,17 +541,23 @@ public class MakeDiary extends AppCompatActivity {
 
 	class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
+		private Diary mReferencedDiary;
+
+		Adapter(Diary referencedDiary) {
+			mReferencedDiary = referencedDiary;
+		}
+
 		@NonNull
 		@Override
 		public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 			View itemView = null;
-			if (viewType == 0) {
+			if (viewType == PostTemplateType.TEXT_TEMPLATE.intValue) {
 				itemView = LayoutInflater.from(parent.getContext())
 						.inflate(R.layout.recycler_item_diary_text_template, parent, false);
-			} else if (viewType == 1) {
+			} else if (viewType == PostTemplateType.LOCATION_TEMPLATE.intValue) {
 				itemView = LayoutInflater.from(parent.getContext())
 						.inflate(R.layout.recycler_item_diary_location_template, parent, false);
-			} else if (viewType == 2) {
+			} else if (viewType == PostTemplateType.IMAGE_TEMPLATE.intValue) {
 				itemView = LayoutInflater.from(parent.getContext())
 						.inflate(R.layout.recycler_item_diary_image_template, parent, false);
 			}
@@ -559,37 +566,27 @@ public class MakeDiary extends AppCompatActivity {
 
 		@Override
 		public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-			DiaryPost post = null;//Rove.STATIC_DIARY_POSTS.get(position);
+			DiaryPost post = mReferencedDiary.posts.get(position);
 
 			if (holder.descriptionTextView != null && !TextUtils.isEmpty(post.textDescription)) {
 				holder.descriptionTextView.setText(post.textDescription);
 			}
-
 		}
 
 		@Override
 		public int getItemViewType(int position) {
-			DiaryPost post = null;//Rove.STATIC_DIARY_POSTS.get(position);
-
-			int type = 2;
-			if (post.images == null || post.images.size() == 0) {
-				type = 1;
-			}
-			if (post.taggedLocation == null) {
-				type = 0;
-			}
-			return type;
+			DiaryPost post = mReferencedDiary.posts.get(position);
+			return post.getTemplateType().intValue;
 		}
 
 		@Override
 		public int getItemCount() {
-			return 0;//Rove.STATIC_DIARY_POSTS.size();
+			return mReferencedDiary.posts.size();
 		}
 
 		public class ViewHolder extends RecyclerView.ViewHolder {
 
 			TextView descriptionTextView;
-
 
 			public ViewHolder(View itemView, int type) {
 				super(itemView);
@@ -597,13 +594,13 @@ public class MakeDiary extends AppCompatActivity {
 				FrameLayout socialBar = itemView.findViewById(R.id.viewLayout_diarySocialBar_rootFrameLayout);
 				socialBar.setVisibility(View.GONE);
 
-				if (type == 0) {
+				if (type == PostTemplateType.TEXT_TEMPLATE.intValue) {
 					descriptionTextView = itemView.findViewById(R.id.recyclerItemLayout_diaryTextTemplate_noteTextView);
 				}
-				if (type == 1) {
+				if (type == PostTemplateType.LOCATION_TEMPLATE.intValue) {
 					descriptionTextView = itemView.findViewById(R.id.recyclerItemLayout_diaryLocationTemplate_noteTextView);
 				}
-				if (type == 2) {
+				if (type == PostTemplateType.IMAGE_TEMPLATE.intValue) {
 					descriptionTextView = itemView.findViewById(R.id.recyclerItemLayout_diaryImageTemplate_noteTextView);
 				}
 			}
