@@ -9,23 +9,36 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.gursimransinghhanspal.rove.R;
+import com.gursimransinghhanspal.rove.backend.PostRequestHandler;
 import com.gursimransinghhanspal.rove.fragment.SignUpEmail;
 import com.gursimransinghhanspal.rove.fragment.SignUpName;
 import com.gursimransinghhanspal.rove.fragment.SignUpPassword;
 import com.gursimransinghhanspal.rove.fragment.SignUpReviewInfo;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class CreateAccount extends AppCompatActivity {
+    private static final String TAG = CreateAccount.class.getName();
 
 	private View mStatusBarUnderlay;
 	private View mNavBarUnderlay;
 	private FrameLayout mFragmentContainer;
 	private Fragment mActiveFragment;
+    SharedPreferences pref;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +49,7 @@ public class CreateAccount extends AppCompatActivity {
 		mStatusBarUnderlay = findViewById(R.id.view_statusbar_underlay);
 		mNavBarUnderlay = findViewById(R.id.view_navbar_underlay);
 		mFragmentContainer = findViewById(R.id.activityLayout_createAccount_fragmentContainerFrameLayout);
+        pref = getSharedPreferences("RovePref", MODE_PRIVATE);
 
 		// setup
 		setupUnderlayViews(this, mStatusBarUnderlay, mNavBarUnderlay);
@@ -81,14 +95,12 @@ public class CreateAccount extends AppCompatActivity {
 	}
 
 	private void switchActivityToHome(boolean finishOnStart) {
-		/*
 		Intent credentialLoginActivityIntent = new Intent(this, CredentialsLogin.class);
 		startActivity(credentialLoginActivityIntent);
 
 		if (finishOnStart) {
 			finish();
 		}
-		*/
 	}
 
 	private void switchActivityToLoginMain(boolean finishOnStart) {
@@ -104,16 +116,16 @@ public class CreateAccount extends AppCompatActivity {
 		FragmentManager manager = getSupportFragmentManager();
 
 		SharedPreferences preferences = getPreferences(Context.MODE_PRIVATE);
-		String firstName = preferences.getString(
+		final String firstName = preferences.getString(
 				getResources().getString(R.string.activity_createAccount_savedInfoKey_firstName), ""
 		);
-		String lastName = preferences.getString(
+		final String lastName = preferences.getString(
 				getResources().getString(R.string.activity_createAccount_savedInfoKey_lastName), ""
 		);
-		String email = preferences.getString(
+		final String email = preferences.getString(
 				getResources().getString(R.string.activity_createAccount_savedInfoKey_email), ""
 		);
-		String password = preferences.getString(
+		final String password = preferences.getString(
 				getResources().getString(R.string.activity_createAccount_savedInfoKey_password), ""
 		);
 
@@ -197,7 +209,29 @@ public class CreateAccount extends AppCompatActivity {
 
 					@Override
 					public void onCompleteSignUpButtonPressed(FragmentIdentifier identifier) {
-						switchActivityToHome(true);
+                        List<NameValuePair> params = new ArrayList<>();
+                        params.add(new BasicNameValuePair("userExtId", email));
+						params.add(new BasicNameValuePair("password", password));
+                        PostRequestHandler requestHandler = new PostRequestHandler();
+                        JSONObject jsonResponse = requestHandler.getJSON("/user/signup/", params);
+                        Log.d(TAG, "Response: " + jsonResponse);
+
+                        if (jsonResponse != null) {
+                            try {
+                                String jsonResponseMsg = jsonResponse.getString("msg");
+                                if (jsonResponse.getBoolean("res")) {
+                                    String user_id = jsonResponse.getString("user_id");
+                                    SharedPreferences.Editor edit = pref.edit();
+                                    //Storing Data using SharedPreferences
+                                    edit.putString("user_id", user_id);
+                                    edit.apply();
+                                    switchActivityToHome(true);
+                                }
+                                Toast.makeText(getApplication(), jsonResponseMsg, Toast.LENGTH_LONG).show();
+                            }catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
 					}
 				});
 				mActiveFragment = signUpReviewInfo;
