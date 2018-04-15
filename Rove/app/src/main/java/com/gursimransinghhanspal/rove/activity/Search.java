@@ -57,7 +57,6 @@ public class Search extends AppCompatActivity implements TabLayout.OnTabSelected
         mDimDrawable = new ColorDrawable(Color.BLACK);
         mDimDrawable.setAlpha(0);
         mDimSearchViewBackground.setBackground(mDimDrawable);
-        SectionPagerAdapter adapter = new SectionPagerAdapter(getSupportFragmentManager(), 2);
 
         final TabLayout tabLayout;
         //Initializing the tablayout
@@ -67,10 +66,10 @@ public class Search extends AppCompatActivity implements TabLayout.OnTabSelected
         tabLayout.addTab(tabLayout.newTab().setText("TRENDING"));
         tabLayout.addTab(tabLayout.newTab().setText("RECENT"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-        viewPager = (ViewPager) findViewById(R.id.search_view_pager);
-        viewPager.setAdapter(adapter);
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
+        viewPager = (ViewPager) findViewById(R.id.search_view_pager);
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        SectionPagerAdapter adapter = new SectionPagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
 
 //Adding adapter to pager
         viewPager.setAdapter(adapter);
