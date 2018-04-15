@@ -201,6 +201,7 @@ public class MakePost extends Dialog {
 					)
 			);
 			mSelectedLocationTextView.setVisibility(View.VISIBLE);
+			mSelectedLocationTextView.setText(referencedPost.getLocationShortName());
 		}
 
 

@@ -30,7 +30,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
@@ -524,8 +523,14 @@ public class MakeDiary extends AppCompatActivity {
 
 		if (requestCode == PLACE_PICKER_REQUEST) {
 			Place place = PlacePicker.getPlace(this, data);
-			String toastMsg = String.format("Place: %s", place.getName());
-			Toast.makeText(this, toastMsg, Toast.LENGTH_LONG).show();
+			DiaryPost.CustomLocation location = new DiaryPost.CustomLocation(place);
+
+			// set location and update ui
+			STATIC_EDITING_DIARY_POST.taggedLocation = location;
+			// update the dialog ui, if dialog is showing
+			if (mActiveMakePostDialog != null && mActiveMakePostDialog.isShowing()) {
+				mActiveMakePostDialog.updateUI(STATIC_EDITING_DIARY_POST);
+			}
 		}
 	}
 

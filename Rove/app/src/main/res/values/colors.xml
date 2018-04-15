@@ -36,6 +36,6 @@
     <color name="bgColorLight">@color/color_white_1f0</color>
     <color name="bgColor">@color/primaryDarkColor</color>
 
-    <color name="diaryPost_textColor">#6b6b6b</color>
+    <color name="diaryPost_textColor">#3f3f3f</color>
     <color name="diaryPost_linkColor">#4286f4</color>
 </resources>

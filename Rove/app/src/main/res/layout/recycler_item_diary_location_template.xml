@@ -47,7 +47,7 @@
                     app:layout_constraintStart_toStartOf="@+id/guideline4"
                     android:textColor="@color/diaryPost_textColor"
                     app:layout_constraintTop_toTopOf="@+id/recyclerItemLayout_diaryLocationTemplate_locationMapView"
-                    android:textSize="24sp"
+                    android:textSize="16sp"
                     tools:text="Kashmir"/>
 
                 <TextView

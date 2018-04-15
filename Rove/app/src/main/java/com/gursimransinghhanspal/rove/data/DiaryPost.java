@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.location.Address;
 import android.location.Geocoder;
 
+import com.google.android.gms.location.places.Place;
 import com.gursimransinghhanspal.rove.misc.PostTemplateType;
 
 import java.io.IOException;
@@ -60,6 +61,13 @@ public class DiaryPost implements Serializable {
 			this.latitude = lat;
 			this.longitude = lng;
 			this.generateLocationNames(ctx);
+		}
+
+		public CustomLocation(Place place) {
+			this.latitude = place.getLatLng().latitude;
+			this.longitude = place.getLatLng().longitude;
+			this.shortName = place.getName().toString();
+			this.longName = String.format("%s\n\n%s", place.getName().toString(), place.getAddress().toString());
 		}
 
 		private void generateLocationNames(Context ctx) {
