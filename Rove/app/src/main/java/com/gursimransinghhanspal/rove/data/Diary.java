@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import com.gursimransinghhanspal.rove.misc.PostVisibility;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class Diary {
 	public String diaryId;
@@ -15,7 +16,7 @@ public class Diary {
 
 	// provide default values
 	public Diary() {
-		this.diaryId = "defaultId";
+		this.diaryId = UUID.randomUUID().toString();
 		this.title = "New Diary";
 		this.coverImage = null;
 		this.visibility = PostVisibility.PRIVATE;

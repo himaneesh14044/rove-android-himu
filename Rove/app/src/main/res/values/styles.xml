@@ -30,7 +30,7 @@
     </style>
 
     <style name="MakeDiaryExpandedAppBar" parent="@android:style/TextAppearance.Medium">
-        <item name="android:textSize">50sp</item>
+        <item name="android:textSize">35sp</item>
         <item name="android:textColor">@color/primaryTextColor</item>
         <item name="android:textStyle">bold</item>
         <item name="android:fontFamily">@font/julius_sans_one</item>

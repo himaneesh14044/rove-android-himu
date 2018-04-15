@@ -13,6 +13,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 
 public class DiaryPost implements Serializable {
 	public String postId;
@@ -21,7 +22,7 @@ public class DiaryPost implements Serializable {
 	public ArrayList<Bitmap> images;
 
 	public DiaryPost() {
-		this.postId = "defaultPostId";
+		this.postId = UUID.randomUUID().toString();
 		this.images = new ArrayList<>();
 		this.taggedLocation = null;
 		this.textDescription = null;
