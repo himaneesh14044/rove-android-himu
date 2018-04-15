@@ -23,7 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="250dp">
 
-                <android.support.design.widget.TabLayout
+                <!--<android.support.design.widget.TabLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
@@ -46,10 +46,10 @@
                     <android.support.design.widget.TabItem
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
-                </android.support.design.widget.TabLayout>
+                </android.support.design.widget.TabLayout>-->
 
                 <android.support.v4.view.ViewPager
-                    android:id="@+id/viewPager"
+                    android:id="@+id/recyclerItemLayout_diaryImageTemplate_imagesViewPager"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -62,6 +62,7 @@
             </android.support.constraint.ConstraintLayout>
 
             <LinearLayout
+                android:id="@+id/recyclerItemLayout_diaryImageTemplate_locationLinearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -74,11 +75,12 @@
                     android:src="@drawable/ic_location_24dp"/>
 
                 <TextView
+                    android:id="@+id/recyclerItemLayout_diaryImageTemplate_locationTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
+                    android:textColor="@color/diaryPost_textColor"
                     tools:text="Taken at Kashmir Springs, Jammu"/>
-
             </LinearLayout>
 
             <TextView
@@ -87,6 +89,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
                 android:textSize="16sp"
+                android:textColor="@color/diaryPost_textColor"
                 tools:text="Having a great time at the springs in Kashmir Resort!"/>
 
             <include

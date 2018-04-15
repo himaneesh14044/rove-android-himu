@@ -12,6 +12,11 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -23,6 +28,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,12 +38,14 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
+import com.google.android.gms.maps.MapView;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.gursimransinghhanspal.rove.R;
 import com.gursimransinghhanspal.rove.data.Diary;
 import com.gursimransinghhanspal.rove.data.DiaryPost;
 import com.gursimransinghhanspal.rove.dialog.EditDiary;
 import com.gursimransinghhanspal.rove.dialog.MakePost;
+import com.gursimransinghhanspal.rove.fragment.ImageTile;
 import com.gursimransinghhanspal.rove.misc.EditDiaryDialogInterface;
 import com.gursimransinghhanspal.rove.misc.MakeDiaryPostDialogInterface;
 import com.gursimransinghhanspal.rove.misc.PostTemplateType;
@@ -46,6 +54,7 @@ import com.gursimransinghhanspal.rove.misc.Rove;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 public class MakeDiary extends AppCompatActivity {
 
@@ -147,7 +156,7 @@ public class MakeDiary extends AppCompatActivity {
 
 		mDiaryItemsRecyclerView = findViewById(R.id.activityLayout_makeDiary_diaryItemsRecyclerView);
 		mDiaryItemsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-		mDiaryItemsRecyclerView.setAdapter(new Adapter(STATIC_EDITING_DIARY));
+		mDiaryItemsRecyclerView.setAdapter(new RecyclerAdapter(STATIC_EDITING_DIARY));
 		mDiaryItemsRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
 		// set onClick listeners
@@ -539,11 +548,18 @@ public class MakeDiary extends AppCompatActivity {
 		}
 	}
 
-	class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
+	private void setupImageViewPager(ViewPager viewPagerReference, DiaryPost diaryPost) {
+		PagerAdapter pagerAdapter = new ImageTilePageAdapter(getSupportFragmentManager(), diaryPost.images);
+		if (viewPagerReference != null) {
+			viewPagerReference.setAdapter(pagerAdapter);
+		}
+	}
+
+	class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
 
 		private Diary mReferencedDiary;
 
-		Adapter(Diary referencedDiary) {
+		RecyclerAdapter(Diary referencedDiary) {
 			mReferencedDiary = referencedDiary;
 		}
 
@@ -568,8 +584,63 @@ public class MakeDiary extends AppCompatActivity {
 		public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 			DiaryPost post = mReferencedDiary.posts.get(position);
 
-			if (holder.descriptionTextView != null && !TextUtils.isEmpty(post.textDescription)) {
-				holder.descriptionTextView.setText(post.textDescription);
+			switch (post.getTemplateType()) {
+				case TEXT_TEMPLATE:
+					// setup text description
+					if (!TextUtils.isEmpty(post.textDescription)) {
+						holder.txt_descriptionTextView.setVisibility(View.VISIBLE);
+						holder.txt_descriptionTextView.setText(post.textDescription);
+					} else {
+						holder.txt_descriptionTextView.setVisibility(View.GONE);
+					}
+					break;
+
+				case LOCATION_TEMPLATE:
+					// setup map view
+
+
+					// setup location info
+					holder.loc_locationInfoTextView.setText(post.getLocationLongName());
+
+					// setup text description
+					if (!TextUtils.isEmpty(post.textDescription)) {
+						holder.loc_descriptionTextView.setVisibility(View.VISIBLE);
+						holder.loc_descriptionTextView.setText(post.textDescription);
+					} else {
+						holder.loc_descriptionTextView.setVisibility(View.GONE);
+					}
+
+					break;
+
+				case IMAGE_TEMPLATE:
+					// setup image view pager
+					if (post.images.size() > 0) {
+						holder.img_imagesViewPager.setVisibility(View.VISIBLE);
+						setupImageViewPager(holder.img_imagesViewPager, post);
+					} else {
+						holder.img_imagesViewPager.setVisibility(View.GONE);
+					}
+
+					// setup location tag
+					if (post.taggedLocation != null) {
+						holder.img_locationLinearLayout.setVisibility(View.VISIBLE);
+						holder.img_locationTextView.setText(String.format("%s %s", "Taken at", post.getLocationShortName()));
+					} else {
+						holder.img_locationLinearLayout.setVisibility(View.GONE);
+					}
+
+					// setup text description
+					if (!TextUtils.isEmpty(post.textDescription)) {
+						holder.img_descriptionTextView.setVisibility(View.VISIBLE);
+						holder.img_descriptionTextView.setText(post.textDescription);
+					} else {
+						holder.img_descriptionTextView.setVisibility(View.GONE);
+					}
+
+					break;
+
+				default:
+					break;
 			}
 		}
 
@@ -586,7 +657,18 @@ public class MakeDiary extends AppCompatActivity {
 
 		public class ViewHolder extends RecyclerView.ViewHolder {
 
-			TextView descriptionTextView;
+			TextView txt_descriptionTextView;
+
+			MapView loc_locationMapView;
+			TextView loc_locationInfoTextView;
+			TextView loc_openMapTextView;
+			TextView loc_descriptionTextView;
+
+			ViewPager img_imagesViewPager;
+			LinearLayout img_locationLinearLayout;
+			TextView img_locationTextView;
+			TextView img_descriptionTextView;
+
 
 			public ViewHolder(View itemView, int type) {
 				super(itemView);
@@ -595,15 +677,41 @@ public class MakeDiary extends AppCompatActivity {
 				socialBar.setVisibility(View.GONE);
 
 				if (type == PostTemplateType.TEXT_TEMPLATE.intValue) {
-					descriptionTextView = itemView.findViewById(R.id.recyclerItemLayout_diaryTextTemplate_noteTextView);
+					txt_descriptionTextView = itemView.findViewById(R.id.recyclerItemLayout_diaryTextTemplate_noteTextView);
 				}
 				if (type == PostTemplateType.LOCATION_TEMPLATE.intValue) {
-					descriptionTextView = itemView.findViewById(R.id.recyclerItemLayout_diaryLocationTemplate_noteTextView);
+					loc_locationMapView = itemView.findViewById(R.id.recyclerItemLayout_diaryLocationTemplate_locationMapView);
+					loc_locationInfoTextView = itemView.findViewById(R.id.recyclerItemLayout_diaryLocationTemplate_locationInfoTextView);
+					loc_openMapTextView = itemView.findViewById(R.id.recyclerItemLayout_diaryLocationTemplate_openMapTextView);
+					loc_descriptionTextView = itemView.findViewById(R.id.recyclerItemLayout_diaryLocationTemplate_noteTextView);
 				}
 				if (type == PostTemplateType.IMAGE_TEMPLATE.intValue) {
-					descriptionTextView = itemView.findViewById(R.id.recyclerItemLayout_diaryImageTemplate_noteTextView);
+					img_imagesViewPager = itemView.findViewById(R.id.recyclerItemLayout_diaryImageTemplate_imagesViewPager);
+					img_locationLinearLayout = itemView.findViewById(R.id.recyclerItemLayout_diaryImageTemplate_locationLinearLayout);
+					img_locationTextView = itemView.findViewById(R.id.recyclerItemLayout_diaryImageTemplate_locationTextView);
+					img_descriptionTextView = itemView.findViewById(R.id.recyclerItemLayout_diaryImageTemplate_noteTextView);
 				}
 			}
+		}
+	}
+
+	private class ImageTilePageAdapter extends FragmentStatePagerAdapter {
+
+		ArrayList<Bitmap> mImages;
+
+		public ImageTilePageAdapter(FragmentManager fm, ArrayList<Bitmap> images) {
+			super(fm);
+			mImages = images;
+		}
+
+		@Override
+		public Fragment getItem(int position) {
+			return ImageTile.newInstance(mImages.get(position));
+		}
+
+		@Override
+		public int getCount() {
+			return mImages.size();
 		}
 	}
 }

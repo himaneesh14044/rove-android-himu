@@ -14,6 +14,9 @@ public class DiaryPost implements Serializable {
 	public Location taggedLocation;
 	public ArrayList<Bitmap> images;
 
+	private String _taggedLocationShortName;
+	private String _taggedLocationLongName;
+
 	public DiaryPost() {
 		this.postId = "defaultPostId";
 		this.images = new ArrayList<>();
@@ -29,5 +32,13 @@ public class DiaryPost implements Serializable {
 		} else {
 			return PostTemplateType.TEXT_TEMPLATE;
 		}
+	}
+
+	public String getLocationShortName() {
+		return "Hardcoded Location Short Name";
+	}
+
+	public String getLocationLongName() {
+		return "Hardcoded Location Long Name";
 	}
 }
