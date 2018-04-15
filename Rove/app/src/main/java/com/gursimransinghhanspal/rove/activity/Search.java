@@ -27,7 +27,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TableLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.arlib.floatingsearchview.FloatingSearchView;
 import com.arlib.floatingsearchview.suggestions.SearchSuggestionsAdapter;
@@ -67,7 +69,7 @@ public class Search extends AppCompatActivity implements TabLayout.OnTabSelected
         TabLayout tabLayout;
         //Initializing the tablayout
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
-
+        tabLayout.setupWithViewPager(viewPager);
         //Adding the tabs using addTab() method
         tabLayout.addTab(tabLayout.newTab().setText("TRENDING"));
         tabLayout.addTab(tabLayout.newTab().setText("RECENT"));
@@ -83,7 +85,8 @@ public class Search extends AppCompatActivity implements TabLayout.OnTabSelected
         viewPager.setAdapter(adapter);
 
         //Adding onTabSelectedListener to swipe views
-        tabLayout.setOnTabSelectedListener(this);
+        tabLayout.addOnTabSelectedListener(this);
+
         setupFloatingSearch();
         BottomNavigationView bottomNavigationView = findViewById(R.id.navigation);
         bottomNavigationView.setSelectedItemId(R.id.navigation_dashboard);
@@ -111,6 +114,8 @@ public class Search extends AppCompatActivity implements TabLayout.OnTabSelected
                     case R.id.navigation_dashboard:
                         return true;
                     case R.id.navigation_notifications:
+                        Intent userintent = new Intent(getApplicationContext(),UserAccount.class);
+                        startActivity(userintent);
                         return true;
                 }
                 return false;
@@ -280,7 +285,8 @@ public class Search extends AppCompatActivity implements TabLayout.OnTabSelected
     }
 
     @Override
-    public void onTabSelected(TabLayout.Tab tab) {
+    public void onTabSelected(TabLayout.Tab tab)
+    {
 
     }
 

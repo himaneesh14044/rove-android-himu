@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest
-    xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.gursimransinghhanspal.rove">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.gursimransinghhanspal.rove">
 
-    <uses-permission
-        android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:icon="@mipmap/ic_launcher"
@@ -17,7 +15,7 @@
         <!-- Meta -->
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id"/>
+            android:value="@string/facebook_app_id" />
 
         <!-- Activities -->
         <!-- • Splash -->
@@ -25,71 +23,80 @@
             android:name=".activity.Splash"
             android:screenOrientation="portrait"
             android:theme="@style/Rove.Splash">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
+
         </activity>
 
         <!-- • Home Feed -->
-        <activity
-            android:name=".activity.ActivityHomeFeed">
-        </activity>
+        <activity android:name=".activity.ActivityHomeFeed"></activity>
 
         <!-- • Main Login -->
         <activity
             android:name=".activity.LoginMain"
             android:screenOrientation="portrait"
-            android:theme="@style/Rove.NoActionBarSolidBg">
-        </activity>
+            android:theme="@style/Rove.NoActionBarSolidBg"></activity>
 
         <!-- • Credentials Login -->
         <activity
             android:name=".activity.CredentialLogin"
             android:screenOrientation="portrait"
-            android:theme="@style/Rove.NoActionBarSolidBg"/>
+            android:theme="@style/Rove.NoActionBarSolidBg" />
 
         <!-- • Create Account -->
         <activity
             android:name=".activity.CreateAccount"
             android:screenOrientation="portrait"
-            android:theme="@style/Rove.NoActionBarSolidBg"/>
+            android:theme="@style/Rove.NoActionBarSolidBg" />
 
         <!-- • Deeplink Controller for Facebook -->
         <activity
             android:name=".controller.DeeplinkController"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"></activity>
 
         <!-- • Facebook -->
         <activity
             android:name="com.facebook.FacebookActivity"
-            android:configChanges=
-                "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:label="@string/app_name"/>
-
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name" />
         <activity
             android:name="com.facebook.CustomTabActivity"
             android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
+                <action android:name="android.intent.action.VIEW" />
 
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:scheme="@string/fb_login_protocol_scheme"/>
+                <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
 
         <!-- • Bottom Navigation -->
         <activity
             android:name=".activity.BottomNavigation"
-            android:label="@string/title_activity_bottom_navigation">
-        </activity>
+            android:label="@string/title_activity_bottom_navigation"></activity>
 
         <!-- • Search -->
-        <activity
-            android:name=".activity.Search">
+        <activity android:name=".activity.Search">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
+        <activity
+            android:name=".activity.BookMark"
+            android:label="@string/title_activity_book_mark"
+            android:theme="@style/Rove.Base">
+
+
+
+        </activity>
+        <activity android:name=".activity.UserAccount">
+
+        </activity>
+        <activity android:name=".activity.NotificationsActivity"
+            android:label="@string/title_activity_notifications"
+            android:theme="@style/Rove.Base"/>
     </application>
+
 </manifest>

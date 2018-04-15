@@ -21,12 +21,23 @@
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
     </style>
-
+    <style name="MakeDiaryCollapsedAppBar" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/primaryTextColor</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+    <style name="MakeDiaryExpandedAppBar" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textSize">50sp</item>
+        <item name="android:textColor">@color/primaryTextColor</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">@font/julius_sans_one</item>
+    </style>
     <!-- Text -->
     <style name="text_h1">
         <item name="android:textColor">@color/primaryTextColor</item>
         <item name="android:fontFamily">@font/julius_sans_one</item>
     </style>
+
     <style name="text_h2">
         <item name="android:textColor">@color/primaryTextColor</item>
     </style>
@@ -37,4 +48,8 @@
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
     </style>
+
+    <style name="Rove.Base.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Rove.Base.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

@@ -2,10 +2,16 @@
 <resources>
     <!-- Actual colors. -->
     <color name="clr_transparent">#00000000</color>
+    <color name="color_transparent">#00000000</color>
     <color name="clr_white_1.0">#ffffffff</color>
     <color name="clr_black_1.0">#ff000000</color>
     <color name="clr_white_0.7">#b2ffffff</color>
     <color name="clr_gray_170">#ffaaaaaa</color>
+    <color name="color_gray_212">#ffd4d4d4</color>
+    <color name="color_gray_226">#e2e2e2</color>
+    <color name="color_black_1f0">#ff000000</color>
+    <color name="color_white_1f0">#ffffffff</color>
+    <color name="color_black_a68">#44000000</color>
 
     <!-- Base colors. -->
     <color name="primaryColor">#00838f</color>
@@ -19,6 +25,15 @@
     <color name="bgGray">#D3D3D3</color>
 
     <!-- Screen properties. -->
+    <color name="activityBackgroundColor">@color/primaryDarkColor</color>
+    <color name="loadingShimmerView_cardBackgroundColor">@color/color_white_1f0</color>
+    <color name="loadingShimmerView_blockColor">@color/color_gray_212</color>
+    <color name="activityLayout_makeDiary_translucentColor">@color/color_black_a68</color>
+    <!-- Social Bar -->
+    <color name="socialBar_backgroundColor">@color/color_white_1f0</color>
+    <color name="socialBar_inactiveViewColor">@color/color_gray_226</color>
+    <color name="socialBar_likeColor">#ff235e</color><color name="socialBar_bookmarkColor">#4233b7</color>
+    <color name="socialBar_commentColor">#00bc81</color>
     <color name="bgColorLight">@color/clr_white_1.0</color>
     <color name="bgColor">@color/primaryDarkColor</color>
 </resources>
