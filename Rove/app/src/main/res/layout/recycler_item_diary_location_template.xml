@@ -47,18 +47,19 @@
                     app:layout_constraintStart_toStartOf="@+id/guideline4"
                     android:textColor="@color/diaryPost_textColor"
                     app:layout_constraintTop_toTopOf="@+id/recyclerItemLayout_diaryLocationTemplate_locationMapView"
+                    android:textSize="24sp"
                     tools:text="Kashmir"/>
 
                 <TextView
                     android:id="@+id/recyclerItemLayout_diaryLocationTemplate_openMapTextView"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:layout_marginEnd="8dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:textColor="@color/diaryPost_textColor"
-                    tools:text="Open Maps"/>
+                    android:textColor="@color/diaryPost_linkColor"
+                    android:text="Open Maps"/>
 
                 <android.support.constraint.Guideline
                     android:id="@+id/guideline4"

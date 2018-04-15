@@ -372,7 +372,7 @@ public class MakeDiary extends AppCompatActivity {
 								public void onSuccess(Location location) {
 									// Got last known location. In some rare situations this can be null.
 									if (location != null) {
-										STATIC_EDITING_DIARY_POST.taggedLocation = location;
+										STATIC_EDITING_DIARY_POST.taggedLocation = new DiaryPost.CustomLocation(MakeDiary.this, location.getLatitude(), location.getLongitude());
 										// update the dialog ui, if dialog is showing
 										if (mActiveMakePostDialog != null && mActiveMakePostDialog.isShowing()) {
 											mActiveMakePostDialog.updateUI(STATIC_EDITING_DIARY_POST);

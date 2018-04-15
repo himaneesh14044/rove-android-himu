@@ -1,21 +1,23 @@
 package com.gursimransinghhanspal.rove.data;
 
+import android.content.Context;
 import android.graphics.Bitmap;
-import android.location.Location;
+import android.location.Address;
+import android.location.Geocoder;
 
 import com.gursimransinghhanspal.rove.misc.PostTemplateType;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 public class DiaryPost implements Serializable {
 	public String postId;
 	public String textDescription;
-	public Location taggedLocation;
+	public CustomLocation taggedLocation;
 	public ArrayList<Bitmap> images;
-
-	private String _taggedLocationShortName;
-	private String _taggedLocationLongName;
 
 	public DiaryPost() {
 		this.postId = "defaultPostId";
@@ -35,10 +37,66 @@ public class DiaryPost implements Serializable {
 	}
 
 	public String getLocationShortName() {
-		return "Hardcoded Location Short Name";
+		if (this.taggedLocation != null) {
+			return this.taggedLocation.getShortName();
+		}
+		return "";
 	}
 
 	public String getLocationLongName() {
-		return "Hardcoded Location Long Name";
+		if (this.taggedLocation != null) {
+			return this.taggedLocation.getLongName();
+		}
+		return "";
+	}
+
+	public static class CustomLocation {
+		private double latitude;
+		private double longitude;
+		private String longName;
+		private String shortName;
+
+		public CustomLocation(Context ctx, double lat, double lng) {
+			this.latitude = lat;
+			this.longitude = lng;
+			this.generateLocationNames(ctx);
+		}
+
+		private void generateLocationNames(Context ctx) {
+			Geocoder gcd = new Geocoder(ctx, Locale.getDefault());
+			List<Address> addresses = null;
+			try {
+				addresses = gcd.getFromLocation(latitude, longitude, 1);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+			if (addresses != null && addresses.size() > 0) {
+				this.shortName = String.format("%s, %s", addresses.get(0).getSubLocality(), addresses.get(0).getLocality());
+				this.longName = String.format("%s, %s, %s", addresses.get(0).getSubLocality(), addresses.get(0).getLocality(), addresses.get(0).getCountryName());
+			}
+		}
+
+		public double getLatitude() {
+			return latitude;
+		}
+
+		public double getLongitude() {
+			return longitude;
+		}
+
+		public String getLongName() {
+			return longName;
+		}
+
+		public String getShortName() {
+			return shortName;
+		}
+
+		@Override
+		public String toString() {
+			String out = String.format(Locale.US, "%f:%f", this.latitude, this.longitude);
+			return out;
+		}
 	}
 }
