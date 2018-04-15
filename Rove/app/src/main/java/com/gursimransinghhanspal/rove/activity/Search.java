@@ -65,25 +65,44 @@ public class Search extends AppCompatActivity implements TabLayout.OnTabSelected
         mDimDrawable = new ColorDrawable(Color.BLACK);
         mDimDrawable.setAlpha(0);
         mDimSearchViewBackground.setBackground(mDimDrawable);
+        SectionPagerAdapter adapter = new SectionPagerAdapter(getSupportFragmentManager(), 2);
 
-        TabLayout tabLayout;
+        final TabLayout tabLayout;
         //Initializing the tablayout
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
-        tabLayout.setupWithViewPager(viewPager);
+        //tabLayout.setupWithViewPager(viewPager);
         //Adding the tabs using addTab() method
         tabLayout.addTab(tabLayout.newTab().setText("TRENDING"));
         tabLayout.addTab(tabLayout.newTab().setText("RECENT"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-
-        //Initializing viewPager
         viewPager = (ViewPager) findViewById(R.id.search_view_pager);
-        //tabLayout.setupWithViewPager(viewPager);
+        viewPager.setAdapter(adapter);
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
+
+//Adding adapter to pager
+        viewPager.setAdapter(adapter);
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
+//Adding onTabSelectedListener to swipe views
+        //Initializing viewPager
+
+
+
         //Creating our pager adapter
-        SectionPagerAdapter adapter = new SectionPagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+
 
         //Adding adapter to pager
-        viewPager.setAdapter(adapter);
 
+        /*viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+                tabLayout.setSelectedTabIndicatorColor(position);
+                tabLayout.getTabAt(0).setText("TRENDING");
+                tabLayout.getTabAt(1).setText("RECENT");
+                tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+            }
+        });*/
         //Adding onTabSelectedListener to swipe views
         tabLayout.addOnTabSelectedListener(this);
 
@@ -121,6 +140,7 @@ public class Search extends AppCompatActivity implements TabLayout.OnTabSelected
                 return false;
             }
         });
+
         //;
     }
 
@@ -287,7 +307,7 @@ public class Search extends AppCompatActivity implements TabLayout.OnTabSelected
     @Override
     public void onTabSelected(TabLayout.Tab tab)
     {
-
+        viewPager.setCurrentItem(tab.getPosition());
     }
 
     @Override
