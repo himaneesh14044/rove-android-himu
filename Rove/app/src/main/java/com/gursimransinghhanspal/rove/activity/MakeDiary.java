@@ -38,7 +38,13 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.MapsInitializer;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.gursimransinghhanspal.rove.R;
 import com.gursimransinghhanspal.rove.data.Diary;
@@ -216,6 +222,7 @@ public class MakeDiary extends AppCompatActivity {
 
 		// instantiate location client
 		mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+		MapsInitializer.initialize(this);
 	}
 
 	/**
@@ -581,8 +588,8 @@ public class MakeDiary extends AppCompatActivity {
 		}
 
 		@Override
-		public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-			DiaryPost post = mReferencedDiary.posts.get(position);
+		public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
+			final DiaryPost post = mReferencedDiary.posts.get(position);
 
 			switch (post.getTemplateType()) {
 				case TEXT_TEMPLATE:
@@ -597,7 +604,24 @@ public class MakeDiary extends AppCompatActivity {
 
 				case LOCATION_TEMPLATE:
 					// setup map view
+					holder.loc_locationMapView.onCreate(Bundle.EMPTY);
+					holder.loc_locationMapView.getMapAsync(new OnMapReadyCallback() {
+						@Override
+						public void onMapReady(GoogleMap googleMap) {
+							googleMap.addMarker(new MarkerOptions()
+									.position(new LatLng(post.taggedLocation.getLatitude(), post.taggedLocation.getLongitude())));
+							googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(post.taggedLocation.getLatitude(), post.taggedLocation.getLongitude()), 15));
+							// googleMap.animateCamera(CameraUpdateFactory.zoomTo(12), 1000, null);
 
+							// some ui settings for map
+							holder.loc_locationMapView.setClickable(false);
+							googleMap.getUiSettings().setMyLocationButtonEnabled(false);
+							googleMap.getUiSettings().setZoomControlsEnabled(false);
+							googleMap.getUiSettings().setCompassEnabled(false);
+							googleMap.getUiSettings().setZoomGesturesEnabled(false);
+							googleMap.getUiSettings().setScrollGesturesEnabled(false);
+						}
+					});
 
 					// setup location info
 					holder.loc_locationInfoTextView.setText(post.getLocationLongName());

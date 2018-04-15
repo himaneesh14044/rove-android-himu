@@ -25,8 +25,8 @@
 
                 <com.google.android.gms.maps.MapView
                     android:id="@+id/recyclerItemLayout_diaryLocationTemplate_locationMapView"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
                     android:layout_marginBottom="16dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginStart="16dp"
@@ -35,7 +35,8 @@
                     app:layout_constraintDimensionRatio="1:1"
                     app:layout_constraintEnd_toStartOf="@+id/guideline4"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent"
+                    />
 
                 <TextView
                     android:id="@+id/recyclerItemLayout_diaryLocationTemplate_locationInfoTextView"
@@ -51,12 +52,12 @@
                 <TextView
                     android:id="@+id/recyclerItemLayout_diaryLocationTemplate_openMapTextView"
                     android:layout_width="0dp"
-                    android:textColor="@color/diaryPost_textColor"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:layout_marginEnd="8dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    android:textColor="@color/diaryPost_textColor"
                     tools:text="Open Maps"/>
 
                 <android.support.constraint.Guideline
@@ -72,7 +73,10 @@
                 android:id="@+id/recyclerItemLayout_diaryLocationTemplate_noteTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
                 android:textSize="16sp"
                 android:textColor="@color/diaryPost_textColor"
                 tools:text="Having a great time at the springs in Kashmir Resort!"/>
