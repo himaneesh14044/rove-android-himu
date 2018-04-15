@@ -25,6 +25,7 @@
             android:fitsSystemWindows="false">
 
             <android.support.design.widget.CollapsingToolbarLayout
+                android:id="@+id/activityLayout_makeDiary_collapsingToolbarLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fitsSystemWindows="true"
@@ -34,7 +35,7 @@
                 app:expandedTitleMarginTop="40dp"
                 app:expandedTitleTextAppearance="@style/MakeDiaryExpandedAppBar"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
-                app:title="New Diary">
+                tools:title="Title">
 
                 <ImageView
                     android:id="@+id/activityLayout_makeDiary_collapsingToolbar_bgImageView"
@@ -112,75 +113,76 @@
             <!--tools:layout_editor_absoluteY="310dp">-->
 
             <!--<android.support.v7.widget.CardView-->
-                <!--android:id="@+id/activityLayout_makeDiary_addTextItemBannerCardView"-->
+        <!--android:diaryId="@+diaryId/activityLayout_makeDiary_addTextItemBannerCardView"-->
                 <!--android:layout_width="147dp"-->
                 <!--android:layout_height="16dp"-->
                 <!--android:layout_marginEnd="16dp"-->
-                <!--app:layout_constraintBottom_toBottomOf="@+id/activityLayout_makeDiary_addTextItemFAB"-->
-                <!--app:layout_constraintEnd_toStartOf="@+id/activityLayout_makeDiary_addTextItemFAB"-->
-                <!--app:layout_constraintTop_toTopOf="@+id/activityLayout_makeDiary_addTextItemFAB"/>-->
+        <!--app:layout_constraintBottom_toBottomOf="@+diaryId/activityLayout_makeDiary_addTextItemFAB"-->
+        <!--app:layout_constraintEnd_toStartOf="@+diaryId/activityLayout_makeDiary_addTextItemFAB"-->
+        <!--app:layout_constraintTop_toTopOf="@+diaryId/activityLayout_makeDiary_addTextItemFAB"/>-->
 
             <!--<android.support.v7.widget.CardView-->
-                <!--android:id="@+id/activityLayout_makeDiary_addImageItemBannerCardView"-->
+        <!--android:diaryId="@+diaryId/activityLayout_makeDiary_addImageItemBannerCardView"-->
                 <!--android:layout_width="147dp"-->
                 <!--android:layout_height="28dp"-->
                 <!--android:layout_marginEnd="16dp"-->
-                <!--app:layout_constraintBottom_toBottomOf="@+id/activityLayout_makeDiary_addImageItemFAB"-->
-                <!--app:layout_constraintEnd_toStartOf="@+id/activityLayout_makeDiary_addImageItemFAB"-->
-                <!--app:layout_constraintTop_toTopOf="@+id/activityLayout_makeDiary_addImageItemFAB">-->
+        <!--app:layout_constraintBottom_toBottomOf="@+diaryId/activityLayout_makeDiary_addImageItemFAB"-->
+        <!--app:layout_constraintEnd_toStartOf="@+diaryId/activityLayout_makeDiary_addImageItemFAB"-->
+        <!--app:layout_constraintTop_toTopOf="@+diaryId/activityLayout_makeDiary_addImageItemFAB">-->
 
             <!--</android.support.v7.widget.CardView>-->
 
             <!--<android.support.v7.widget.CardView-->
-                <!--android:id="@+id/activityLayout_makeDiary_addLocationItemBannerCardView"-->
+        <!--android:diaryId="@+diaryId/activityLayout_makeDiary_addLocationItemBannerCardView"-->
                 <!--android:layout_width="210dp"-->
                 <!--android:layout_height="22dp"-->
                 <!--android:layout_marginEnd="16dp"-->
-                <!--app:layout_constraintBottom_toBottomOf="@+id/activityLayout_makeDiary_addLocationItemFAB"-->
-                <!--app:layout_constraintEnd_toStartOf="@+id/activityLayout_makeDiary_addLocationItemFAB"-->
-                <!--app:layout_constraintTop_toTopOf="@+id/activityLayout_makeDiary_addLocationItemFAB"/>-->
+        <!--app:layout_constraintBottom_toBottomOf="@+diaryId/activityLayout_makeDiary_addLocationItemFAB"-->
+        <!--app:layout_constraintEnd_toStartOf="@+diaryId/activityLayout_makeDiary_addLocationItemFAB"-->
+        <!--app:layout_constraintTop_toTopOf="@+diaryId/activityLayout_makeDiary_addLocationItemFAB"/>-->
 
             <!--<android.support.design.widget.FloatingActionButton-->
-                <!--android:id="@+id/activityLayout_makeDiary_addImageItemFAB"-->
+        <!--android:diaryId="@+diaryId/activityLayout_makeDiary_addImageItemFAB"-->
                 <!--android:layout_width="wrap_content"-->
                 <!--android:layout_height="18dp"-->
                 <!--android:layout_marginBottom="16dp"-->
                 <!--android:layout_marginEnd="4dp"-->
                 <!--android:layout_marginStart="4dp"-->
                 <!--android:clickable="true"-->
-                <!--app:layout_constraintBottom_toTopOf="@+id/activityLayout_makeDiary_addTextItemFAB"-->
-                <!--app:layout_constraintEnd_toEndOf="@+id/activityLayout_makeDiary_addDiaryItemFAB"-->
-                <!--app:layout_constraintStart_toStartOf="@+id/activityLayout_makeDiary_addDiaryItemFAB"-->
+<!--app:layout_constraintBottom_toTopOf="@+diaryId/activityLayout_makeDiary_addTextItemFAB"-->
+        <!--app:layout_constraintEnd_toEndOf="@+diaryId/activityLayout_makeDiary_addDiaryItemFAB"-->
+        <!--app:layout_constraintStart_toStartOf="@+diaryId/activityLayout_makeDiary_addDiaryItemFAB"-->
                 <!--app:srcCompat="@drawable/ic_chevron_right"/>-->
 
             <!--<android.support.design.widget.FloatingActionButton-->
-                <!--android:id="@+id/activityLayout_makeDiary_addTextItemFAB"-->
-                <!--android:layout_width="wrap_content"-->
+        <!--android:diaryId="@+diaryId/activityLayout_makeDiary_addTextItemFAB"-->
+        <!--android:layout_width="wrap_content"-->
                 <!--android:layout_height="18dp"-->
                 <!--android:layout_marginBottom="16dp"-->
                 <!--android:layout_marginEnd="4dp"-->
                 <!--android:layout_marginStart="4dp"-->
                 <!--android:clickable="true"-->
-                <!--app:layout_constraintBottom_toTopOf="@+id/activityLayout_makeDiary_addLocationItemFAB"-->
-                <!--app:layout_constraintEnd_toEndOf="@+id/activityLayout_makeDiary_addDiaryItemFAB"-->
-                <!--app:layout_constraintStart_toStartOf="@+id/activityLayout_makeDiary_addDiaryItemFAB"-->
+        <!--app:layout_constraintBottom_toTopOf="@+diaryId/activityLayout_makeDiary_addLocationItemFAB"-->
+        <!--app:layout_constraintEnd_toEndOf="@+diaryId/activityLayout_makeDiary_addDiaryItemFAB"-->
+        <!--app:layout_constraintStart_toStartOf="@+diaryId/activityLayout_makeDiary_addDiaryItemFAB"-->
                 <!--app:srcCompat="@drawable/ic_chevron_right"/>-->
 
             <!--<android.support.design.widget.FloatingActionButton-->
-                <!--android:id="@+id/activityLayout_makeDiary_addLocationItemFAB"-->
-                <!--android:layout_width="wrap_content"-->
+        <!--android:diaryId="@+diaryId/activityLayout_makeDiary_addLocationItemFAB"-->
+        <!--android:layout_width="wrap_content"-->
                 <!--android:layout_height="18dp"-->
                 <!--android:layout_marginBottom="16dp"-->
                 <!--android:layout_marginEnd="4dp"-->
                 <!--android:layout_marginStart="4dp"-->
                 <!--android:clickable="true"-->
-                <!--app:layout_constraintBottom_toTopOf="@+id/activityLayout_makeDiary_addDiaryItemFAB"-->
-                <!--app:layout_constraintEnd_toEndOf="@+id/activityLayout_makeDiary_addDiaryItemFAB"-->
-                <!--app:layout_constraintStart_toStartOf="@+id/activityLayout_makeDiary_addDiaryItemFAB"-->
+
+        <!--app:layout_constraintBottom_toTopOf="@+diaryId/activityLayout_makeDiary_addDiaryItemFAB"-->
+        <!--app:layout_constraintEnd_toEndOf="@+diaryId/activityLayout_makeDiary_addDiaryItemFAB"-->
+        <!--app:layout_constraintStart_toStartOf="@+diaryId/activityLayout_makeDiary_addDiaryItemFAB"-->
                 <!--app:srcCompat="@drawable/ic_chevron_right"/>-->
 
             <!--<android.support.design.widget.FloatingActionButton-->
-                <!--android:id="@+id/activityLayout_makeDiary_addDiaryItemFAB"-->
+        <!--android:diaryId="@+diaryId/activityLayout_makeDiary_addDiaryItemFAB"-->
                 <!--android:layout_width="wrap_content"-->
                 <!--android:layout_height="wrap_content"-->
                 <!--android:layout_gravity="bottom|end"-->

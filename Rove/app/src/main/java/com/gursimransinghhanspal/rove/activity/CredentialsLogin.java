@@ -1,16 +1,30 @@
 package com.gursimransinghhanspal.rove.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.gursimransinghhanspal.rove.R;
+import com.gursimransinghhanspal.rove.backend.PostRequestHandler;
 import com.gursimransinghhanspal.rove.dialog.ForgotPassword;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class CredentialsLogin extends AppCompatActivity {
+    private static final String TAG = CredentialsLogin.class.getName();
+    SharedPreferences pref;
 
 	private View mStatusBarUnderlay;
 	private View mNavBarUnderlay;
@@ -29,10 +43,11 @@ public class CredentialsLogin extends AppCompatActivity {
 		mStatusBarUnderlay = findViewById(R.id.view_statusbar_underlay);
 		mNavBarUnderlay = findViewById(R.id.view_navbar_underlay);
 		mBackButton = findViewById(R.id.btn_back);
-		//mForgotPasswordText = findViewById(R.id.activityLayout_credentialsLogin_forgotPasswordLink);
-		//mUsernameInputField = findViewById(R.id.activityLayout_credentialsLogin_usernameEditText);
+		mForgotPasswordText = findViewById(R.id.activityLayout_credentialsLogin_forgotPasswordLink);
+		mUsernameInputField = findViewById(R.id.activityLayout_credentialsLogin_usernameEditText);
 		mPasswordInputField = findViewById(R.id.activityCredentialLogin_passwordInput);
 		mNextButton = findViewById(R.id.btn_next);
+        pref = getSharedPreferences("RovePref", MODE_PRIVATE);
 
 		// register onClick events
 		mBackButton.setOnClickListener(new View.OnClickListener() {
@@ -63,14 +78,36 @@ public class CredentialsLogin extends AppCompatActivity {
 	}
 
 	private void switchActivityToHome(boolean finishOnStart) {
-		/*
-		Intent credentialLoginActivityIntent = new Intent(this, CredentialsLogin.class);
-		startActivity(credentialLoginActivityIntent);
+        List<NameValuePair> params = new ArrayList<>();
+        params.add(new BasicNameValuePair("userExtId", mUsernameInputField.getText().toString()));
+        params.add(new BasicNameValuePair("password", mPasswordInputField.getText().toString()));
+        PostRequestHandler requestHandler = new PostRequestHandler();
+        JSONObject jsonResponse = requestHandler.getJSON("/user/login/", params);
+        Log.d(TAG, "Response: " + jsonResponse);
 
-		if (finishOnStart) {
-			finish();
-		}
-		*/
+        if (jsonResponse != null) {
+            try {
+                String jsonResponseMsg = jsonResponse.getString("msg");
+                if (jsonResponse.getBoolean("res")) {
+                    String user_id = jsonResponse.getString("user_id");
+
+                    SharedPreferences.Editor edit = pref.edit();
+                    //Storing Data using SharedPreferences
+                    edit.putString("user_id", user_id);
+                    edit.apply();
+
+                    Intent credentialLoginActivityIntent = new Intent(this, ActivityHomeFeed.class);
+                    startActivity(credentialLoginActivityIntent);
+
+                    if (finishOnStart) {
+                        finish();
+                    }
+                }
+                Toast.makeText(getApplication(), jsonResponseMsg, Toast.LENGTH_LONG).show();
+            }catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
 	}
 
 	private void switchActivityToLoginMain(boolean finishOnStart) {

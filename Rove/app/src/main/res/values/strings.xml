@@ -73,6 +73,7 @@ com.gursimransinghhanspal.rove.activity.MakeDiary.mapLocation
     <string name="activity_MakeDiary_savedInfoKey_description">
 com.gursimransinghhanspal.rove.activity.MakeDiary.description
 </string>
+    <string name="rove">ROVE</string>
     <!--  TODO: Remove or change this placeholder text  -->
 
 </resources>

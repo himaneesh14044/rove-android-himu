@@ -10,10 +10,10 @@
         android:layout_height="36dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:background="@color/clr_transparent"
+        android:background="@color/color_transparent"
         android:scaleType="center"
         android:scaleX="1.5"
         android:scaleY="1.5"
         android:src="@drawable/ic_arrow_back"
-        android:tint="@color/clr_white_1.0"/>
+        android:tint="@color/color_white_1f0"/>
 </RelativeLayout>

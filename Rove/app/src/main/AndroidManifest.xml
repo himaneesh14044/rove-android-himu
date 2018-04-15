@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.gursimransinghhanspal.rove">
-
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
     <application
+        android:name=".misc.Rove"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:logo="@drawable/app_brand"
@@ -15,20 +17,26 @@
         <!-- Meta -->
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id" />
-
+            android:value="@string/facebook_app_id"/>
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDEcyXAMkcM-ZoSWjCd-Bkhilm2GepAlV4"/>
         <!-- Activities -->
         <!-- • Splash -->
         <activity
             android:name=".activity.Splash"
             android:screenOrientation="portrait"
             android:theme="@style/Rove.Splash">
-
-
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
 
         <!-- • Home Feed -->
-        <activity android:name=".activity.ActivityHomeFeed"></activity>
+        <activity android:name=".activity.ActivityHomeFeed"
+                  android:theme="@style/Rove.TranslucentStatusBar">
+        </activity>
 
         <!-- • Main Login -->
         <activity
@@ -38,7 +46,7 @@
 
         <!-- • Credentials Login -->
         <activity
-            android:name=".activity.CredentialLogin"
+            android:name=".activity.CredentialsLogin"
             android:screenOrientation="portrait"
             android:theme="@style/Rove.NoActionBarSolidBg" />
 
@@ -57,7 +65,7 @@
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:label="@string/app_name" />
+            android:label="@string/app_name"/>
         <activity
             android:name="com.facebook.CustomTabActivity"
             android:exported="true">
@@ -77,23 +85,25 @@
             android:label="@string/title_activity_bottom_navigation"></activity>
 
         <!-- • Search -->
-        <activity android:name=".activity.Search">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        <activity android:name=".activity.Search"
+                  android:theme="@style/Rove.TranslucentStatusBar">
         </activity>
+        
         <activity
             android:name=".activity.BookMark"
             android:label="@string/title_activity_book_mark"
+            android:theme="@style/Rove.TranslucentStatusBar">
+        </activity>
+
+        <!-- • Make Diary -->
+        <activity
+            android:name=".activity.MakeDiary"
+            android:screenOrientation="portrait"
             android:theme="@style/Rove.Base">
-
-
-
+        </activity>
+        <activity android:name=".activity.ViewDiary">
         </activity>
         <activity android:name=".activity.UserAccount">
-
         </activity>
         <activity android:name=".activity.NotificationsActivity"
             android:label="@string/title_activity_notifications"

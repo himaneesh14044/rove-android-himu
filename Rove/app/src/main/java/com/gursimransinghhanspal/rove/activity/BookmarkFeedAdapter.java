@@ -8,19 +8,13 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.gursimransinghhanspal.rove.R;
 
 import java.util.List;
 
-/**
- * Created by himaneesh on 31/3/18.
- */
-
 public class BookmarkFeedAdapter extends RecyclerView.Adapter<BookmarkFeedAdapter.FeedViewHolder>
 {
-
     private Context mCtx;
     TextView textView;
     private List<BookmarkedPost> bookmarkedList;
@@ -29,6 +23,7 @@ public class BookmarkFeedAdapter extends RecyclerView.Adapter<BookmarkFeedAdapte
         this.mCtx=mCtx;
         this.bookmarkedList=bookmarkedList;
     }
+
     @Override
     public BookmarkFeedAdapter.FeedViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {
@@ -46,7 +41,6 @@ public class BookmarkFeedAdapter extends RecyclerView.Adapter<BookmarkFeedAdapte
         holder.imageView.setImageDrawable(mCtx.getResources().getDrawable(bookmarkedPost.getImage()));
 
     }
-
 
     @Override
     public int getItemCount() {

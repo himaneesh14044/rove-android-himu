@@ -2,10 +2,12 @@
   <dictionary name="gursimran">
     <words>
       <w>backstack</w>
+      <w>codelab</w>
       <w>deeplink</w>
       <w>freesize</w>
       <w>navbar</w>
       <w>statusbar</w>
+      <w>uxid</w>
     </words>
   </dictionary>
 </component>

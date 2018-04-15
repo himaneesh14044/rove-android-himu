@@ -15,30 +15,24 @@
             android:id="@+id/backbuttonbar"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:background="@color/primaryColor">
+            android:background="@color/primaryDarkColor">
+            <include
+                layout="@layout/button_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
 
-            <ImageButton
-                android:id="@+id/backbutton"
-                android:layout_width="60dip"
-                android:layout_height="60dip"
-                android:rotation="180"
-                android:scaleType="fitXY"
-                app:srcCompat="@drawable/ic_arrow_back_white_24dp"
-                android:backgroundTint="@color/primaryColor"
-                android:tint="@color/cardview_light_background"
-                android:visibility="invisible"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginLeft="30dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
                 android:fontFamily="@font/julius_sans_one"
-                android:textSize="25dp"
+                android:textSize="24dp"
                 android:textColor="@color/cardview_light_background"
                 android:textStyle="bold"
-                android:text="@string/activity_bookmark_title"
-                android:layout_toRightOf="@+id/backbutton"/>
-
+                android:text="@string/activity_bookmark_title"/>
         </RelativeLayout>
 
         <android.support.v7.widget.RecyclerView

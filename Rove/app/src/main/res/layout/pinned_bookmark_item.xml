@@ -75,20 +75,6 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"/>
 
-            <ImageButton
-                android:id="@+id/blikebutton"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/bdescription"
-                android:src="@drawable/ic_thumb_up_black_24dp"
-                android:background="@color/clr_transparent"
-                android:layout_marginStart="10dp"
-                android:layout_marginBottom="10dp"
-                android:tint="@color/primaryColor"
-                />
-
-
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="24dp"

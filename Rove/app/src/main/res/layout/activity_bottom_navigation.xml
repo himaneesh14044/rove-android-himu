@@ -7,7 +7,6 @@
     android:layout_height="match_parent"
     tools:context="com.gursimransinghhanspal.rove.activity.BottomNavigation">
 
-
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
         android:layout_width="0dp"

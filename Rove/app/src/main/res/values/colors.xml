@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="color_white_0f7">#b2ffffff</color>
+
+    <color name="diaryPost_textColor">#6b6b6b</color>
     <!-- Actual colors. -->
     <color name="clr_transparent">#00000000</color>
     <color name="color_transparent">#00000000</color>
@@ -29,11 +32,13 @@
     <color name="loadingShimmerView_cardBackgroundColor">@color/color_white_1f0</color>
     <color name="loadingShimmerView_blockColor">@color/color_gray_212</color>
     <color name="activityLayout_makeDiary_translucentColor">@color/color_black_a68</color>
+
     <!-- Social Bar -->
     <color name="socialBar_backgroundColor">@color/color_white_1f0</color>
     <color name="socialBar_inactiveViewColor">@color/color_gray_226</color>
-    <color name="socialBar_likeColor">#ff235e</color><color name="socialBar_bookmarkColor">#4233b7</color>
+    <color name="socialBar_likeColor">#ff235e</color>
+    <color name="socialBar_bookmarkColor">#4233b7</color>
     <color name="socialBar_commentColor">#00bc81</color>
-    <color name="bgColorLight">@color/clr_white_1.0</color>
+    <color name="bgColorLight">@color/color_white_1f0</color>
     <color name="bgColor">@color/primaryDarkColor</color>
 </resources>

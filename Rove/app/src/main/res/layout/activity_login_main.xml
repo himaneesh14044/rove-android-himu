@@ -18,10 +18,10 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="@color/clr_transparent">
+        android:background="@color/color_transparent">
 
         <RelativeLayout
-            android:id="@+id/activityLoginMain_credentialsLoginButton"
+            android:id="@+id/activityLayout_loginMain_credentialsLoginButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="24dp"
@@ -38,7 +38,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="@string/activity_loginViaFacebook_login_text"
+                android:text="@string/activityLayout_loginMain_loginText"
                 android:textColor="@color/primaryTextColor"
                 android:textSize="14sp"/>
 
@@ -72,7 +72,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/julius_sans_one"
-                android:text="@string/welcome_text"
+                android:text="@string/activityLayout_loginMain_welcomeText"
                 android:textColor="@color/primaryTextColor"
                 android:textSize="30sp"
                 android:textStyle="bold"/>
@@ -89,17 +89,17 @@
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:contentDescription="@string/activity_loginMain_facebookSymbol_contentDescription"
+                    android:contentDescription="@string/activityLayout_loginMain_facebookSymbol_contentDescription"
                     android:src="@drawable/ic_facebook_symbol"
-                    android:tint="@color/bgColor"/>
+                    android:tint="@color/activityBackgroundColor"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:fontFamily="@font/julius_sans_one"
-                    android:text="@string/activity_loginMain_facebookLogin_text"
-                    android:textColor="@color/bgColor"
+                    android:text="@string/activityLayout_loginMain_facebookLoginText"
+                    android:textColor="@color/activityBackgroundColor"
                     android:textSize="18sp"
                     android:textStyle="bold"/>
             </LinearLayout>
@@ -116,7 +116,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:fontFamily="@font/julius_sans_one"
-                    android:text="@string/activity_loginMain_signUp_text"
+                    android:text="@string/activityLayout_loginMain_signUpText"
                     android:textColor="@color/primaryTextColor"
                     android:textSize="18sp"
                     android:textStyle="bold"/>
@@ -130,7 +130,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
-            android:text="@string/activity_loginMain_skipLogin_text"
+            android:text="@string/activityLayout_loginMain_skipLoginText"
             android:textColor="@color/primaryTextColor"
             android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -8,17 +8,11 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.internal.BottomNavigationMenuView;
-import android.support.design.internal.NavigationSubMenu;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.res.ResourcesCompat;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -27,9 +21,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TableLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.arlib.floatingsearchview.FloatingSearchView;
 import com.arlib.floatingsearchview.suggestions.SearchSuggestionsAdapter;
@@ -60,7 +52,7 @@ public class Search extends AppCompatActivity implements TabLayout.OnTabSelected
         setContentView(R.layout.activity_search);
 
         mSearchView = findViewById(R.id.floating_search_view);
-        //mNavigationTabStrip = findViewById(R.id.nts_search_top);
+        //mNavigationTabStrip = findViewById(R.diaryId.nts_search_top);
         mDimSearchViewBackground = findViewById(R.id.dim_background);
         mDimDrawable = new ColorDrawable(Color.BLACK);
         mDimDrawable.setAlpha(0);
@@ -108,7 +100,7 @@ public class Search extends AppCompatActivity implements TabLayout.OnTabSelected
 
         setupFloatingSearch();
         BottomNavigationView bottomNavigationView = findViewById(R.id.navigation);
-        bottomNavigationView.setSelectedItemId(R.id.navigation_dashboard);
+        bottomNavigationView.setSelectedItemId(R.id.navigation_search);
         BottomNavigationMenuView menuView = (BottomNavigationMenuView) bottomNavigationView.getChildAt(0);
         for (int i = 0; i < menuView.getChildCount(); i++) {
             final View iconView = menuView.getChildAt(i).findViewById(android.support.design.R.id.icon);
@@ -130,9 +122,9 @@ public class Search extends AppCompatActivity implements TabLayout.OnTabSelected
                         Intent intent = new Intent(getApplicationContext(),ActivityHomeFeed.class);
                         startActivity(intent);
                         return true;
-                    case R.id.navigation_dashboard:
+                    case R.id.navigation_search:
                         return true;
-                    case R.id.navigation_notifications:
+                    case R.id.navigation_profile:
                         Intent userintent = new Intent(getApplicationContext(),UserAccount.class);
                         startActivity(userintent);
                         return true;
@@ -143,8 +135,6 @@ public class Search extends AppCompatActivity implements TabLayout.OnTabSelected
 
         //;
     }
-
-
 
     private void setupFloatingSearch() {
         mSearchView.setOnQueryChangeListener(new FloatingSearchView.OnQueryChangeListener() {

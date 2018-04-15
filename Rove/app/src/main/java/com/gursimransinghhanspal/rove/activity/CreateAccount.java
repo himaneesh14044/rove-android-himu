@@ -9,23 +9,36 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.gursimransinghhanspal.rove.R;
+import com.gursimransinghhanspal.rove.backend.PostRequestHandler;
 import com.gursimransinghhanspal.rove.fragment.SignUpEmail;
 import com.gursimransinghhanspal.rove.fragment.SignUpName;
 import com.gursimransinghhanspal.rove.fragment.SignUpPassword;
 import com.gursimransinghhanspal.rove.fragment.SignUpReviewInfo;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class CreateAccount extends AppCompatActivity {
+    private static final String TAG = CreateAccount.class.getName();
 
 	private View mStatusBarUnderlay;
 	private View mNavBarUnderlay;
 	private FrameLayout mFragmentContainer;
 	private Fragment mActiveFragment;
+    SharedPreferences pref;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +48,8 @@ public class CreateAccount extends AppCompatActivity {
 		// register ui elements
 		mStatusBarUnderlay = findViewById(R.id.view_statusbar_underlay);
 		mNavBarUnderlay = findViewById(R.id.view_navbar_underlay);
-		mFragmentContainer = findViewById(R.id.activityCreateAccount_fragmentContainer_frameLayout);
+		mFragmentContainer = findViewById(R.id.activityLayout_createAccount_fragmentContainerFrameLayout);
+        pref = getSharedPreferences("RovePref", MODE_PRIVATE);
 
 		// setup
 		setupUnderlayViews(this, mStatusBarUnderlay, mNavBarUnderlay);
@@ -73,22 +87,20 @@ public class CreateAccount extends AppCompatActivity {
 	private void initializeSavedInfo() {
 		SharedPreferences preferences = getPreferences(MODE_PRIVATE);
 		SharedPreferences.Editor editor = preferences.edit();
-		editor.putString(getResources().getString(R.string.activityCreateAccount_savedInfo_firstName), "");
-		editor.putString(getResources().getString(R.string.activityCreateAccount_savedInfo_lastName), "");
-		editor.putString(getResources().getString(R.string.activityCreateAccount_savedInfo_email), "");
-		editor.putString(getResources().getString(R.string.activityCreateAccount_savedInfo_password), "");
+		editor.putString(getResources().getString(R.string.activity_createAccount_savedInfoKey_firstName), "");
+		editor.putString(getResources().getString(R.string.activity_createAccount_savedInfoKey_lastName), "");
+		editor.putString(getResources().getString(R.string.activity_createAccount_savedInfoKey_email), "");
+		editor.putString(getResources().getString(R.string.activity_createAccount_savedInfoKey_password), "");
 		editor.apply();
 	}
 
 	private void switchActivityToHome(boolean finishOnStart) {
-		/*
-		Intent credentialLoginActivityIntent = new Intent(this, CredentialLogin.class);
+		Intent credentialLoginActivityIntent = new Intent(this, CredentialsLogin.class);
 		startActivity(credentialLoginActivityIntent);
 
 		if (finishOnStart) {
 			finish();
 		}
-		*/
 	}
 
 	private void switchActivityToLoginMain(boolean finishOnStart) {
@@ -104,17 +116,17 @@ public class CreateAccount extends AppCompatActivity {
 		FragmentManager manager = getSupportFragmentManager();
 
 		SharedPreferences preferences = getPreferences(Context.MODE_PRIVATE);
-		String firstName = preferences.getString(
-				getResources().getString(R.string.activityCreateAccount_savedInfo_firstName), ""
+		final String firstName = preferences.getString(
+				getResources().getString(R.string.activity_createAccount_savedInfoKey_firstName), ""
 		);
-		String lastName = preferences.getString(
-				getResources().getString(R.string.activityCreateAccount_savedInfo_lastName), ""
+		final String lastName = preferences.getString(
+				getResources().getString(R.string.activity_createAccount_savedInfoKey_lastName), ""
 		);
-		String email = preferences.getString(
-				getResources().getString(R.string.activityCreateAccount_savedInfo_email), ""
+		final String email = preferences.getString(
+				getResources().getString(R.string.activity_createAccount_savedInfoKey_email), ""
 		);
-		String password = preferences.getString(
-				getResources().getString(R.string.activityCreateAccount_savedInfo_password), ""
+		final String password = preferences.getString(
+				getResources().getString(R.string.activity_createAccount_savedInfoKey_password), ""
 		);
 
 		switch (fragmentIdentifier) {
@@ -130,8 +142,8 @@ public class CreateAccount extends AppCompatActivity {
 					public void onNextButtonPressed(FragmentIdentifier identifier, String firstName, String lastName) {
 						SharedPreferences preferences = getPreferences(MODE_PRIVATE);
 						SharedPreferences.Editor editor = preferences.edit();
-						editor.putString(getResources().getString(R.string.activityCreateAccount_savedInfo_firstName), firstName);
-						editor.putString(getResources().getString(R.string.activityCreateAccount_savedInfo_lastName), lastName);
+						editor.putString(getResources().getString(R.string.activity_createAccount_savedInfoKey_firstName), firstName);
+						editor.putString(getResources().getString(R.string.activity_createAccount_savedInfoKey_lastName), lastName);
 						editor.apply();
 						CreateAccount.this.showFragment(FragmentIdentifier.Email);
 					}
@@ -146,7 +158,7 @@ public class CreateAccount extends AppCompatActivity {
 					public void onBackButtonPressed(FragmentIdentifier identifier, String email) {
 						SharedPreferences preferences = getPreferences(MODE_PRIVATE);
 						SharedPreferences.Editor editor = preferences.edit();
-						editor.putString(getResources().getString(R.string.activityCreateAccount_savedInfo_email), email);
+						editor.putString(getResources().getString(R.string.activity_createAccount_savedInfoKey_email), email);
 						editor.apply();
 						CreateAccount.this.showFragment(FragmentIdentifier.Name);
 					}
@@ -155,7 +167,7 @@ public class CreateAccount extends AppCompatActivity {
 					public void onNextButtonPressed(FragmentIdentifier identifier, String email) {
 						SharedPreferences preferences = getPreferences(MODE_PRIVATE);
 						SharedPreferences.Editor editor = preferences.edit();
-						editor.putString(getResources().getString(R.string.activityCreateAccount_savedInfo_email), email);
+						editor.putString(getResources().getString(R.string.activity_createAccount_savedInfoKey_email), email);
 						editor.apply();
 						CreateAccount.this.showFragment(FragmentIdentifier.Password);
 					}
@@ -170,7 +182,7 @@ public class CreateAccount extends AppCompatActivity {
 					public void onBackButtonPressed(FragmentIdentifier identifier, String password) {
 						SharedPreferences preferences = getPreferences(MODE_PRIVATE);
 						SharedPreferences.Editor editor = preferences.edit();
-						editor.putString(getResources().getString(R.string.activityCreateAccount_savedInfo_password), password);
+						editor.putString(getResources().getString(R.string.activity_createAccount_savedInfoKey_password), password);
 						editor.apply();
 						CreateAccount.this.showFragment(FragmentIdentifier.Email);
 					}
@@ -179,7 +191,7 @@ public class CreateAccount extends AppCompatActivity {
 					public void onNextButtonPressed(FragmentIdentifier identifier, String password) {
 						SharedPreferences preferences = getPreferences(MODE_PRIVATE);
 						SharedPreferences.Editor editor = preferences.edit();
-						editor.putString(getResources().getString(R.string.activityCreateAccount_savedInfo_password), password);
+						editor.putString(getResources().getString(R.string.activity_createAccount_savedInfoKey_password), password);
 						editor.apply();
 						CreateAccount.this.showFragment(FragmentIdentifier.Review);
 					}
@@ -197,7 +209,47 @@ public class CreateAccount extends AppCompatActivity {
 
 					@Override
 					public void onCompleteSignUpButtonPressed(FragmentIdentifier identifier) {
-						switchActivityToHome(true);
+                        List<NameValuePair> params = new ArrayList<>();
+                        params.add(new BasicNameValuePair("userExtId", email));
+						params.add(new BasicNameValuePair("password", password));
+                        PostRequestHandler requestHandler = new PostRequestHandler();
+                        JSONObject jsonResponse = requestHandler.getJSON("/user/signup/", params);
+                        Log.d(TAG, "Sign up Response: " + jsonResponse);
+
+                        if (jsonResponse != null) {
+                            try {
+                                String jsonResponseMsg = jsonResponse.getString("msg");
+                                if (jsonResponse.getBoolean("res")) {
+                                    String user_id = jsonResponse.getString("user_id");
+                                    SharedPreferences.Editor edit = pref.edit();
+                                    //Storing Data using SharedPreferences
+                                    edit.putString("user_id", user_id);
+                                    edit.apply();
+
+                                    params = new ArrayList<>();
+									params.add(new BasicNameValuePair("userId", user_id));
+									params.add(new BasicNameValuePair("firstName", firstName));
+									params.add(new BasicNameValuePair("lastName", lastName));
+									params.add(new BasicNameValuePair("isProfilePicPresent", "false"));
+
+									jsonResponse = requestHandler.getJSON("/profile/", params);
+									Log.d(TAG, "Profile Response: " + jsonResponse);
+
+									if (jsonResponse != null) {
+										try {
+											if (jsonResponse.getBoolean("res")) {
+												switchActivityToHome(true);
+											}
+										} catch (JSONException e) {
+											e.printStackTrace();
+										}
+									}
+                                }
+                                Toast.makeText(getApplication(), jsonResponseMsg, Toast.LENGTH_LONG).show();
+                            }catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
 					}
 				});
 				mActiveFragment = signUpReviewInfo;

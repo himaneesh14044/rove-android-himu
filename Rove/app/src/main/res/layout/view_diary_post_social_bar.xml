@@ -47,6 +47,7 @@
                     app:layout_constraintTop_toTopOf="parent"/>
 
                 <RelativeLayout
+                    android:id="@+id/viewLayout_diarySocialBar_likeBadgeRelativeLayout"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
                     android:background="@drawable/shape_like_badge"
@@ -89,6 +90,7 @@
                     app:layout_constraintTop_toTopOf="parent"/>
 
                 <RelativeLayout
+                    android:id="@+id/viewLayout_diarySocialBar_bookmarkBadgeRelativeLayout"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
                     android:background="@drawable/shape_bookmark_badge"
@@ -130,6 +132,7 @@
                     app:layout_constraintTop_toTopOf="parent"/>
 
                 <RelativeLayout
+                    android:id="@+id/viewLayout_diarySocialBar_commentBadgeRelativeLayout"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
                     android:background="@drawable/shape_comment_badge"

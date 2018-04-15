@@ -13,7 +13,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/primaryColor"
+        android:background="@color/primaryDarkColor"
         >
 
         <!-- our tablayout to display tabs  -->
@@ -21,11 +21,11 @@
             android:id="@+id/tabLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/primaryColor"
+            android:background="@color/primaryDarkColor"
             android:minHeight="?attr/actionBarSize"
             android:paddingTop="60dp"/>
         <!--<com.gigamole.navigationtabstrip.NavigationTabStrip
-            android:id="@+id/nts_search_top"
+            android:diaryId="@+diaryId/nts_search_top"
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:layout_gravity="center"

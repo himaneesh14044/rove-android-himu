@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bgColor"
+    android:background="@color/activityBackgroundColor"
     tools:context="com.gursimransinghhanspal.rove.fragment.SignUpReviewInfo">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/clr_transparent">
+        android:background="@color/color_transparent">
 
         <include
             layout="@layout/button_back"
@@ -140,7 +140,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/julius_sans_one"
                 android:text="Complete Signup"
-                android:textColor="@color/bgColor"
+                android:textColor="@color/activityBackgroundColor"
                 android:textSize="18sp"
                 android:textStyle="bold"/>
 
@@ -148,12 +148,12 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_marginStart="20dp"
-                android:contentDescription="@string/activity_loginMain_facebookSymbol_contentDescription"
+                android:contentDescription="right chevron"
                 android:src="@drawable/ic_chevron_right"
                 android:scaleType="center"
                 android:scaleX="1.3"
                 android:scaleY="1.3"
-                android:tint="@color/bgColor"/>
+                android:tint="@color/activityBackgroundColor"/>
 
         </LinearLayout>
 
