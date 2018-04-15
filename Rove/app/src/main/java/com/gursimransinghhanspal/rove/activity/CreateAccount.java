@@ -214,7 +214,7 @@ public class CreateAccount extends AppCompatActivity {
 						params.add(new BasicNameValuePair("password", password));
                         PostRequestHandler requestHandler = new PostRequestHandler();
                         JSONObject jsonResponse = requestHandler.getJSON("/user/signup/", params);
-                        Log.d(TAG, "Response: " + jsonResponse);
+                        Log.d(TAG, "Sign up Response: " + jsonResponse);
 
                         if (jsonResponse != null) {
                             try {
@@ -225,7 +225,25 @@ public class CreateAccount extends AppCompatActivity {
                                     //Storing Data using SharedPreferences
                                     edit.putString("user_id", user_id);
                                     edit.apply();
-                                    switchActivityToHome(true);
+
+                                    params = new ArrayList<>();
+									params.add(new BasicNameValuePair("userId", user_id));
+									params.add(new BasicNameValuePair("firstName", firstName));
+									params.add(new BasicNameValuePair("lastName", lastName));
+									params.add(new BasicNameValuePair("isProfilePicPresent", "false"));
+
+									jsonResponse = requestHandler.getJSON("/profile/", params);
+									Log.d(TAG, "Profile Response: " + jsonResponse);
+
+									if (jsonResponse != null) {
+										try {
+											if (jsonResponse.getBoolean("res")) {
+												switchActivityToHome(true);
+											}
+										} catch (JSONException e) {
+											e.printStackTrace();
+										}
+									}
                                 }
                                 Toast.makeText(getApplication(), jsonResponseMsg, Toast.LENGTH_LONG).show();
                             }catch (JSONException e) {

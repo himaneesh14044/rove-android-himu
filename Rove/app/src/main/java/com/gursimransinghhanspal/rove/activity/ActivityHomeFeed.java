@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,8 +14,6 @@ import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.Toast;
 
 import com.gursimransinghhanspal.rove.R;
 import com.gursimransinghhanspal.rove.Trip;
@@ -33,12 +32,12 @@ public class ActivityHomeFeed extends AppCompatActivity {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_feed);
-        ImageButton ib3 = ( ImageButton) findViewById(R.id.imageButton3);
-        ib3.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton createDiaryButton = findViewById(R.id.create_diary_button);
+        createDiaryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent1 = new Intent(getApplicationContext(),CreateDiary1.class);
-//                startActivity(intent1);
+                Intent intent = new Intent(ActivityHomeFeed.this, MakeDiary.class);
+                startActivity(intent);
             }
         });
         recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
@@ -75,14 +74,12 @@ public class ActivityHomeFeed extends AppCompatActivity {
                 {
                     case R.id.navigation_home:
                         return true;
-                    case R.id.navigation_dashboard:
-                        Intent intent = new Intent(getApplicationContext(),Search.class);
-                        //Toast.makeText(getApplicationContext(),"Search should work",Toast.LENGTH_LONG).show();
+                    case R.id.navigation_search:
+                        Intent intent = new Intent(getApplicationContext(), Search.class);
                         startActivity(intent);
                         return true;
-                    case R.id.navigation_notifications:
+                    case R.id.navigation_profile:
                         return true;
-
                 }
                 return false;
             }

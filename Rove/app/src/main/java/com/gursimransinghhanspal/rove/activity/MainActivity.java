@@ -20,10 +20,10 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.navigation_home:
                     Toast.makeText(getApplicationContext(),"navigation home should work",Toast.LENGTH_LONG).show();
                     return true;
-                case R.id.navigation_dashboard:
+                case R.id.navigation_search:
                     Toast.makeText(getApplicationContext(),"search should work properly",Toast.LENGTH_LONG).show();
                     return true;
-                case R.id.navigation_notifications:
+                case R.id.navigation_profile:
                     Toast.makeText(getApplicationContext(),"Profile button should work properly",Toast.LENGTH_LONG).show();
                     return true;
             }

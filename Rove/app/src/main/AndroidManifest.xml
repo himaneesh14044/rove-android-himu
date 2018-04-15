@@ -29,15 +29,15 @@
             android:name=".activity.Splash"
             android:screenOrientation="portrait"
             android:theme="@style/Rove.Splash">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
 
         <!-- • Home Feed -->
-        <activity android:name=".activity.ActivityHomeFeed">
+        <activity android:name=".activity.ActivityHomeFeed"
+                  android:theme="@style/Rove.TranslucentStatusBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
 
         <!-- • Main Login -->

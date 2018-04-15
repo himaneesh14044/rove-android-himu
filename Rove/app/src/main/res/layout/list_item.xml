@@ -76,26 +76,13 @@
                 android:layout_marginBottom="10dp"/>
 
             <ImageButton
-                android:id="@+id/likebutton"
+                android:id="@+id/pinbookmark"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_alignParentStart="true"
-                android:layout_below="@+id/description"
-                android:src="@drawable/ic_thumb_up_black_24dp"
-                android:background="@color/color_transparent"
-                android:layout_marginStart="10dp"
-                android:layout_marginBottom="10dp"
-                android:tint="@color/primaryColor"
-                />
-
-            <ImageButton
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:id="@+id/pinbookmark"
                 android:layout_below="@id/description"
-                android:layout_toEndOf="@id/likebutton"
-                android:layout_marginStart="20dp"
-                android:src="@drawable/ic_bookmark_black_24dp"
+                android:layout_marginStart="10dp"
+                android:src="@drawable/ic_bookmark"
                 android:background="@color/color_transparent"
                 android:layout_marginBottom="10dp"
                 android:tint="@color/primaryColor"
