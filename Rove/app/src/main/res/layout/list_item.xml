@@ -91,11 +91,12 @@
             <ImageButton
                 android:layout_width="24dp"
                 android:layout_height="24dp"
+                android:scaleType="fitXY"
                 android:id="@+id/pinbookmark"
                 android:layout_below="@id/description"
                 android:layout_toEndOf="@id/likebutton"
                 android:layout_marginStart="20dp"
-                android:src="@drawable/ic_bookmark_black_24dp"
+                android:src="@drawable/ic_bookmark_border_black_24dp"
                 android:background="@color/clr_transparent"
                 android:layout_marginBottom="10dp"
                 android:tint="@color/primaryColor"
