@@ -35,4 +35,6 @@
     <color name="socialBar_commentColor">#00bc81</color>
     <color name="bgColorLight">@color/color_white_1f0</color>
     <color name="bgColor">@color/primaryDarkColor</color>
+
+    <color name="diaryPost_textColor">#6b6b6b</color>
 </resources>

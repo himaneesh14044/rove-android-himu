@@ -23,7 +23,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <ImageView
+                <com.google.android.gms.maps.MapView
+                    android:id="@+id/map_view"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp" />
+
+                <!--<ImageView
                     android:id="@+id/recyclerItemLayout_diaryLocationTemplate_locationImageView"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
@@ -37,7 +42,7 @@
                     app:layout_constraintDimensionRatio="1:1"
                     app:layout_constraintEnd_toStartOf="@+id/guideline4"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent"/>-->
 
                 <TextView
                     android:id="@+id/recyclerItemLayout_diaryLocationTemplate_locationInfoTextView"
