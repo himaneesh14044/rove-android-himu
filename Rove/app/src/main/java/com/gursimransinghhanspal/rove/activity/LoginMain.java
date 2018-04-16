@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -19,6 +20,8 @@ import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.gursimransinghhanspal.rove.R;
+
+import org.w3c.dom.Text;
 
 import java.util.Arrays;
 
@@ -44,7 +47,7 @@ public class LoginMain extends AppCompatActivity {
 		mFacebookLoginButton = findViewById(R.id.activityLoginMain_facebookLoginButton);
 		LinearLayout mCustomFacebookLoginButton = findViewById(R.id.activityLoginMain_customFacebookLoginButton);
 		RelativeLayout mCreateAccountButton = findViewById(R.id.activityLoginMain_createAccountButton);
-		TextView mSkipLoginText = findViewById(R.id.activityLoginMain_skipLoginText);
+		TextView mSkipLoginText = (TextView) findViewById(R.id.activityLoginMain_skipLoginText);
 
 		// register onClick actions
 		mCredentialLoginButton.setOnClickListener(new View.OnClickListener() {
@@ -68,7 +71,10 @@ public class LoginMain extends AppCompatActivity {
 		mSkipLoginText.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				// TODO: implement something here
+				//Toast.makeText(getApplicationContext(),"Continue without login clicked",Toast.LENGTH_SHORT).show();
+				Intent i = new Intent(getApplicationContext(), Search.class);
+				i.putExtra("Value1","SkipLogin");
+				startActivity(i);
 			}
 		});
 

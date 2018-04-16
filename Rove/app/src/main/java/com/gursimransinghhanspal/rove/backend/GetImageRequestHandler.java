@@ -12,7 +12,7 @@ import java.util.concurrent.ExecutionException;
 
 public class GetImageRequestHandler {
     private static final String PROTOCOL = "http";
-    private static final String ADDRESS = "192.168.0.103";
+    private static final String ADDRESS = "192.168.1.3";
     private static final int PORT = 3000;
 
     private Bitmap handleGetImageRequest(String imageUrl) {

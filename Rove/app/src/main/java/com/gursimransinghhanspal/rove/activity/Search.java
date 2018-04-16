@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.arlib.floatingsearchview.FloatingSearchView;
 import com.arlib.floatingsearchview.suggestions.SearchSuggestionsAdapter;
@@ -46,12 +47,21 @@ public class Search extends AppCompatActivity implements TabLayout.OnTabSelected
     public static String mLastQueryTrending = null;
     public static String mLastQueryRecent = null;
     private ViewPager viewPager;
-
+    static int bookMarkPresent = 1; //variable to signify whehther bookamrk button should be present or not in the card view
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-
+        Bundle extras =  getIntent().getExtras();
+        String value1 = extras.getString("Value1");
+        if(value1!=null && value1.equals("SkipLogin") )//checking if continue withoutlogin text view was clicked
+        {
+            //Toast.makeText(getApplicationContext(),"In search class",Toast.LENGTH_SHORT).show();
+            bookMarkPresent = 0;//if skipped login bookmark should not be present
+        }
+        else{
+            bookMarkPresent =1; //if user has actually logged in then bookmarks should be present
+        }
         mSearchView = findViewById(R.id.floating_search_view);
         //mNavigationTabStrip = findViewById(R.diaryId.nts_search_top);
         mDimSearchViewBackground = findViewById(R.id.dim_background);
@@ -97,39 +107,43 @@ public class Search extends AppCompatActivity implements TabLayout.OnTabSelected
 
         setupFloatingSearch();
         BottomNavigationView bottomNavigationView = findViewById(R.id.navigation);
-        bottomNavigationView.setSelectedItemId(R.id.navigation_search);
-        BottomNavigationMenuView menuView = (BottomNavigationMenuView) bottomNavigationView.getChildAt(0);
-        for (int i = 0; i < menuView.getChildCount(); i++) {
-            final View iconView = menuView.getChildAt(i).findViewById(android.support.design.R.id.icon);
-            final ViewGroup.LayoutParams layoutParams = iconView.getLayoutParams();
-            final DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
-            // set your height here
-            layoutParams.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, displayMetrics);
-            // set your width here
-            layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, displayMetrics);
-            iconView.setLayoutParams(layoutParams);
-        }
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item)
-            {
-                switch (item.getItemId())
-                {
-                    case R.id.navigation_home:
-                        Intent intent = new Intent(getApplicationContext(),ActivityHomeFeed.class);
-                        startActivity(intent);
-                        return true;
-                    case R.id.navigation_search:
-                        return true;
-                    case R.id.navigation_profile:
-                        Intent userintent = new Intent(getApplicationContext(),UserAccount.class);
-                        startActivity(userintent);
-                        return true;
-                }
-                return false;
-            }
-        });
+        if(value1!=null && value1.equals("SkipLogin"))//checking if continue withoutlogin text view was clicked
+        {
+            bottomNavigationView.setVisibility(View.INVISIBLE);//setting bottom navigaton view to invisible
 
+        }
+        else {
+            bottomNavigationView.setSelectedItemId(R.id.navigation_search);
+            BottomNavigationMenuView menuView = (BottomNavigationMenuView) bottomNavigationView.getChildAt(0);
+            for (int i = 0; i < menuView.getChildCount(); i++) {
+                final View iconView = menuView.getChildAt(i).findViewById(android.support.design.R.id.icon);
+                final ViewGroup.LayoutParams layoutParams = iconView.getLayoutParams();
+                final DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+                // set your height here
+                layoutParams.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, displayMetrics);
+                // set your width here
+                layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, displayMetrics);
+                iconView.setLayoutParams(layoutParams);
+            }
+            bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                    switch (item.getItemId()) {
+                        case R.id.navigation_home:
+                            Intent intent = new Intent(getApplicationContext(), ActivityHomeFeed.class);
+                            startActivity(intent);
+                            return true;
+                        case R.id.navigation_search:
+                            return true;
+                        case R.id.navigation_profile:
+                            Intent userintent = new Intent(getApplicationContext(), UserAccount.class);
+                            startActivity(userintent);
+                            return true;
+                    }
+                    return false;
+                }
+            });
+        }
         //;
     }
 

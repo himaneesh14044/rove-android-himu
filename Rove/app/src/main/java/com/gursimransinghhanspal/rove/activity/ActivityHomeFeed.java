@@ -85,7 +85,16 @@ public class ActivityHomeFeed extends AppCompatActivity {
         //Toast.makeText(getApplicationContext(),"OnCreate is pressed",Toast.LENGTH_SHORT).show();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_feed);
-
+        Bundle extras =  getIntent().getExtras();
+        String value1 = extras.getString("Value1");
+        if(value1!=null && value1.equals("SkipLogin") )//checking if continue withoutlogin text view was clicked
+        {
+            //Toast.makeText(getApplicationContext(),"In search class",Toast.LENGTH_SHORT).show();
+            Search.bookMarkPresent = 0;//if skipped login bookmark should not be present
+        }
+        else{
+            Search.bookMarkPresent =1; //if user has actually logged in then bookmarks should be present
+        }
         FloatingActionButton createDiaryButton = findViewById(R.id.create_diary_button);
         createDiaryButton.setOnClickListener(new View.OnClickListener() {
             @Override
