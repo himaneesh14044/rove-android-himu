@@ -46,7 +46,7 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
             <ImageButton
-                android:id="@+id/ImageButton1"
+                android:id="@+id/NotificationButton1"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_alignParentRight="true"

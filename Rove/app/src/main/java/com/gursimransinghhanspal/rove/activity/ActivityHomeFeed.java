@@ -87,11 +87,16 @@ public class ActivityHomeFeed extends AppCompatActivity {
                 return false;
             }
         });
+        ImageButton NotificationButton1 = (ImageButton) findViewById(R.id.NotificationButton1);
+        NotificationButton1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),Notifications.class);
+                startActivity(intent);
+            }
+        }) ;
+
     }
 
-    public boolean show_notififcations(View v)
-    {
-        startActivity(new Intent(ActivityHomeFeed.this, Notifications.class));
-        return true;
-    }
+
 }
