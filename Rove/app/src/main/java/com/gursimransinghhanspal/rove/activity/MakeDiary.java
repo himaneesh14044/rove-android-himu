@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.location.Location;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -67,8 +68,8 @@ public class MakeDiary extends AppCompatActivity {
 	public static final String DIARY_ID = "com.gursimransinghhanspal.rove.activity.MakeDiary.DiaryId";
 
 	// the diary and the post currently being edited
-	private Diary EDITING_DIARY;
-	private DiaryPost EDITING_DIARY_POST;
+	private static Diary EDITING_DIARY;
+	private static DiaryPost EDITING_DIARY_POST;
 
 	//
 	private static final int SELECT_COVER_IMAGE_REQUEST = 1;
@@ -113,11 +114,7 @@ public class MakeDiary extends AppCompatActivity {
 		mCoverImageView = findViewById(R.id.activityLayout_makeDiary_collapsingToolbar_bgImageView);
 		mToolbarFAB = findViewById(R.id.activityLayout_makeDiary_collapsingToolbar_editFAB);
 
-
 		mDiaryItemsRecyclerView = findViewById(R.id.activityLayout_makeDiary_diaryItemsRecyclerView);
-		mDiaryItemsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-		mDiaryItemsRecyclerView.setAdapter(new RecyclerAdapter(EDITING_DIARY));
-		mDiaryItemsRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
 		// set onClick listeners
 		mMainFAB = findViewById(R.id.activityLayout_makeDiary_addDiaryItemFAB);
@@ -141,8 +138,13 @@ public class MakeDiary extends AppCompatActivity {
 			);
 		} else {
 			// set appropriate size for bitmap
-			int nh = (int) (coverImage.getHeight() * (512.0 / coverImage.getWidth()));
-			Bitmap scaledBitmap = Bitmap.createScaledBitmap(coverImage, 512, nh, true);
+			int maxHeight = 1024;
+			int maxWidth = 1024;
+			float scale = Math.min(((float) maxHeight / coverImage.getWidth()), ((float) maxWidth / coverImage.getHeight()));
+
+			Matrix matrix = new Matrix();
+			matrix.postScale(scale, scale);
+			Bitmap scaledBitmap = Bitmap.createBitmap(coverImage, 0, 0, coverImage.getWidth(), coverImage.getHeight(), matrix, true);
 			mCoverImageView.setImageBitmap(scaledBitmap);
 		}
 	}
@@ -358,10 +360,12 @@ public class MakeDiary extends AppCompatActivity {
 		}
 
 		if (found) {
+			Log.i(TAG, "found post");
 			EDITING_DIARY.posts.add(index, EDITING_DIARY_POST);
 			mDiaryItemsRecyclerView.getAdapter().notifyItemChanged(index);
 			mDiaryItemsRecyclerView.scrollToPosition(index);
 		} else {
+			Log.i(TAG, "post not found");
 			EDITING_DIARY.posts.add(EDITING_DIARY_POST);
 			mDiaryItemsRecyclerView.getAdapter().notifyItemChanged(EDITING_DIARY.posts.size());
 			mDiaryItemsRecyclerView.scrollToPosition(EDITING_DIARY.posts.size());
@@ -470,7 +474,6 @@ public class MakeDiary extends AppCompatActivity {
 		// TODO: get diary from server here into STATIC_EDITING_DIARY
 		// search if diary exists
 		this.EDITING_DIARY = new Diary();
-		this.EDITING_DIARY_POST = new DiaryPost();
 		for (Diary diary :
 				Rove.STATIC_USER_DIARIES) {
 			if (diary.diaryId.compareTo(dbDiaryId) == 0) {
@@ -566,6 +569,10 @@ public class MakeDiary extends AppCompatActivity {
 			}
 		});
 
+		mDiaryItemsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+		mDiaryItemsRecyclerView.setAdapter(new RecyclerAdapter(EDITING_DIARY));
+		mDiaryItemsRecyclerView.setItemAnimator(new DefaultItemAnimator());
+
 		// update the UI
 		updateUI(EDITING_DIARY);
 	}
@@ -611,6 +618,7 @@ public class MakeDiary extends AppCompatActivity {
 		@Override
 		public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
 			final DiaryPost post = mReferencedDiary.posts.get(position);
+			Log.i(TAG, "postid:" + post.postId);
 
 			// set onClick listener to the view itself
 			holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -708,6 +716,8 @@ public class MakeDiary extends AppCompatActivity {
 					break;
 
 				case IMAGE_TEMPLATE:
+					Log.i(TAG, String.format("im %d", post.images.size()));
+
 					// setup image view pager
 					if (post.images.size() > 0) {
 						holder.img_imagesViewPager.setVisibility(View.VISIBLE);

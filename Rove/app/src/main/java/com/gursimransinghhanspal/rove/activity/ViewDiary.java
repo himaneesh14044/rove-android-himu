@@ -48,7 +48,7 @@ public class ViewDiary extends AppCompatActivity {
 	public static final String DB_DIARY_ID = "com.gursimransinghhanspal.rove.activity.ViewDiary.DiaryId";
 
 	// the diary and the post currently being edited
-	private Diary VIEWING_DIARY;
+	private static Diary VIEWING_DIARY;
 
 	//
 	private String dbDiaryId;
@@ -82,9 +82,6 @@ public class ViewDiary extends AppCompatActivity {
 		toolbarFAB.setVisibility(View.GONE);
 
 		mDiaryItemsRecyclerView = findViewById(R.id.activityLayout_makeDiary_diaryItemsRecyclerView);
-		mDiaryItemsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-		mDiaryItemsRecyclerView.setAdapter(new ViewDiary.RecyclerAdapter(VIEWING_DIARY));
-		mDiaryItemsRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
 		// set onClick listeners
 		FloatingActionButton mainFAB = findViewById(R.id.activityLayout_makeDiary_addDiaryItemFAB);
@@ -133,6 +130,10 @@ public class ViewDiary extends AppCompatActivity {
 				break;
 			}
 		}
+
+		mDiaryItemsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+		mDiaryItemsRecyclerView.setAdapter(new RecyclerAdapter(VIEWING_DIARY));
+		mDiaryItemsRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
 		// update the UI
 		updateUI(VIEWING_DIARY);
