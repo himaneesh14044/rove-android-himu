@@ -8,6 +8,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.gursimransinghhanspal.rove.R;
+import com.gursimransinghhanspal.rove.data.DiaryPost;
 import com.gursimransinghhanspal.rove.data.PostSocial;
 
 import java.util.Locale;
@@ -15,7 +16,7 @@ import java.util.Locale;
 public class SocialBar {
 
 	private Context mContext;
-	private PostSocial mSocialInfo;
+	private DiaryPost mDiaryPost;
 	private SocialInteractionListener mInteractionListener;
 
 	private View mSocialBarView;
@@ -30,10 +31,10 @@ public class SocialBar {
 	private TextView mCommentBadgeTextView;
 
 
-	public SocialBar(Context context, View socialBarView, PostSocial socialInfo, SocialInteractionListener interactionListener) {
+	public SocialBar(Context context, View socialBarView, DiaryPost post, SocialInteractionListener interactionListener) {
 
 		mSocialBarView = socialBarView;
-		mSocialInfo = socialInfo;
+		mDiaryPost = post;
 		mInteractionListener = interactionListener;
 
 		// like
@@ -68,34 +69,34 @@ public class SocialBar {
 			}
 		});
 
-		updateView(mSocialInfo);
+		updateView(mDiaryPost);
 	}
 
 	private void onLiked() {
-		mSocialInfo.doesUserLike = !mSocialInfo.doesUserLike;
-		if (mSocialInfo.doesUserLike)
-			mSocialInfo.numLikes += 1;
+		mDiaryPost.socialInfo.doesUserLike = !mDiaryPost.socialInfo.doesUserLike;
+		if (mDiaryPost.socialInfo.doesUserLike)
+			mDiaryPost.socialInfo.numLikes += 1;
 		else
-			mSocialInfo.numLikes -= 1;
+			mDiaryPost.socialInfo.numLikes -= 1;
 
-		updateView(mSocialInfo);
+		updateView(mDiaryPost);
 
 		if (mInteractionListener != null) {
-			mInteractionListener.onSocialInfoUpdated(mSocialInfo);
+			mInteractionListener.onSocialInfoUpdated(mDiaryPost.socialInfo);
 		}
 	}
 
 	private void onBookmarked() {
-		mSocialInfo.didUserBookmark = !mSocialInfo.didUserBookmark;
-		if (mSocialInfo.didUserBookmark)
-			mSocialInfo.numBookmarks += 1;
+		mDiaryPost.socialInfo.didUserBookmark = !mDiaryPost.socialInfo.didUserBookmark;
+		if (mDiaryPost.socialInfo.didUserBookmark)
+			mDiaryPost.socialInfo.numBookmarks += 1;
 		else
-			mSocialInfo.numBookmarks -= 1;
+			mDiaryPost.socialInfo.numBookmarks -= 1;
 
-		updateView(mSocialInfo);
+		updateView(mDiaryPost);
 
 		if (mInteractionListener != null) {
-			mInteractionListener.onSocialInfoUpdated(mSocialInfo);
+			mInteractionListener.onSocialInfoUpdated(mDiaryPost.socialInfo);
 		}
 	}
 
@@ -103,10 +104,10 @@ public class SocialBar {
 
 	}
 
-	public void updateView(PostSocial updatedInfo) {
-		mSocialInfo = updatedInfo;
+	public void updateView(DiaryPost diaryPost) {
+		mDiaryPost = diaryPost;
 
-		if (updatedInfo.doesUserLike) {
+		if (diaryPost.socialInfo.doesUserLike) {
 			mLikeIconImageView.setImageDrawable(
 					mContext.getResources().getDrawable(
 							R.drawable.ic_favorite_filled,
@@ -124,7 +125,7 @@ public class SocialBar {
 			mLikeIconImageView.setColorFilter(ContextCompat.getColor(mContext, R.color.socialBar_inactiveViewColor));
 		}
 
-		if (updatedInfo.didUserBookmark) {
+		if (diaryPost.socialInfo.didUserBookmark) {
 			mBookmarkIconImageView.setImageDrawable(
 					mContext.getResources().getDrawable(
 							R.drawable.ic_bookmark_filled,
@@ -142,21 +143,21 @@ public class SocialBar {
 			mLikeIconImageView.setColorFilter(ContextCompat.getColor(mContext, R.color.socialBar_inactiveViewColor));
 		}
 
-		if (updatedInfo.numLikes == 0) {
+		if (diaryPost.socialInfo.numLikes == 0) {
 			mLikeBadgeRelativeLayout.setVisibility(View.GONE);
 		} else {
 			mLikeBadgeRelativeLayout.setVisibility(View.VISIBLE);
 			mLikeBadgeTextView.setText(
-					String.format(Locale.US, "%d", updatedInfo.numLikes)
+					String.format(Locale.US, "%d", diaryPost.socialInfo.numLikes)
 			);
 		}
 
-		if (updatedInfo.numBookmarks == 0) {
+		if (diaryPost.socialInfo.numBookmarks == 0) {
 			mBookmarkBadgeRelativeLayout.setVisibility(View.GONE);
 		} else {
 			mBookmarkBadgeRelativeLayout.setVisibility(View.VISIBLE);
 			mBookmarkBadgeTextView.setText(
-					String.format(Locale.US, "%d", updatedInfo.numBookmarks)
+					String.format(Locale.US, "%d", diaryPost.socialInfo.numBookmarks)
 			);
 		}
 	}

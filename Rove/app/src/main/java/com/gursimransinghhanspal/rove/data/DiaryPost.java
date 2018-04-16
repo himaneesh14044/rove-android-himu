@@ -20,12 +20,14 @@ public class DiaryPost implements Serializable {
 	public String textDescription;
 	public CustomLocation taggedLocation;
 	public ArrayList<Bitmap> images;
+	public PostSocial socialInfo;
 
 	public DiaryPost() {
 		this.postId = UUID.randomUUID().toString();
 		this.images = new ArrayList<>();
 		this.taggedLocation = null;
 		this.textDescription = null;
+		this.socialInfo = new PostSocial();
 	}
 
 	public PostTemplateType getTemplateType() {

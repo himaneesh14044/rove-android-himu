@@ -67,8 +67,8 @@ public class MakeDiary extends AppCompatActivity {
 	public static final String DB_DIARY_ID = "com.gursimransinghhanspal.rove.activity.MakeDiary.DiaryId";
 
 	// the diary and the post currently being edited
-	private static Diary STATIC_EDITING_DIARY;
-	private static DiaryPost STATIC_EDITING_DIARY_POST;
+	private Diary EDITING_DIARY;
+	private DiaryPost EDITING_DIARY_POST;
 
 	//
 	private static final int SELECT_COVER_IMAGE_REQUEST = 1;
@@ -86,7 +86,8 @@ public class MakeDiary extends AppCompatActivity {
 	private CollapsingToolbarLayout mCollapsingToolbarLayout;
 	private RecyclerView mDiaryItemsRecyclerView;
 	private ImageView mCoverImageView;
-	private FloatingActionButton mToolbarEditFAB;
+	private FloatingActionButton mToolbarFAB;
+	private FloatingActionButton mMainFAB;
 	private MakePost mActiveMakePostDialog;
 	private EditDiary mActiveEditDiaryDialog;
 
@@ -107,117 +108,19 @@ public class MakeDiary extends AppCompatActivity {
 			return;
 		}
 
-		// search if diary exists
-		STATIC_EDITING_DIARY = new Diary();
-		STATIC_EDITING_DIARY_POST = new DiaryPost();
-		for (Diary diary :
-				Rove.STATIC_USER_DIARIES) {
-			if (diary.diaryId.compareTo(dbDiaryId) == 0) {
-				STATIC_EDITING_DIARY = diary;
-				break;
-			}
-		}
-
 		// register ui components
 		mCollapsingToolbarLayout = findViewById(R.id.activityLayout_makeDiary_collapsingToolbarLayout);
 		mCoverImageView = findViewById(R.id.activityLayout_makeDiary_collapsingToolbar_bgImageView);
-		FloatingActionButton toolbarFAB = findViewById(R.id.activityLayout_makeDiary_collapsingToolbar_editFAB);
-		toolbarFAB.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				mActiveEditDiaryDialog = new EditDiary(
-						MakeDiary.this,
-						STATIC_EDITING_DIARY,
-						new EditDiaryDialogInterface() {
-							@Override
-							public void onSelectCoverImageClicked() {
-								editDiaryOnSelectCoverImageClicked();
-							}
+		mToolbarFAB = findViewById(R.id.activityLayout_makeDiary_collapsingToolbar_editFAB);
 
-							@Override
-							public void onRemoveCoverImageClicked() {
-								editDiaryOnRemoveCoverImageClicked();
-							}
-
-							@Override
-							public void onVisibilitySelected(PostVisibility visibility) {
-								editDiaryOnVisibilitySelected(visibility);
-							}
-
-							@Override
-							public void onSave(String updatedTitle) {
-								editDiaryOnSave(updatedTitle);
-							}
-
-							@Override
-							public void onCancel() {
-								editDiaryOnCancel();
-							}
-						}
-				);
-				mActiveEditDiaryDialog.show();
-			}
-		});
 
 		mDiaryItemsRecyclerView = findViewById(R.id.activityLayout_makeDiary_diaryItemsRecyclerView);
 		mDiaryItemsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-		mDiaryItemsRecyclerView.setAdapter(new RecyclerAdapter(STATIC_EDITING_DIARY));
+		mDiaryItemsRecyclerView.setAdapter(new RecyclerAdapter(EDITING_DIARY));
 		mDiaryItemsRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
 		// set onClick listeners
-		FloatingActionButton mainFAB = findViewById(R.id.activityLayout_makeDiary_addDiaryItemFAB);
-		mainFAB.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				// create a new post here to edit
-				STATIC_EDITING_DIARY_POST = new DiaryPost();
-				mActiveMakePostDialog = new MakePost(
-						MakeDiary.this,
-						STATIC_EDITING_DIARY_POST,
-						new MakeDiaryPostDialogInterface() {
-
-							@Override
-							public void onAddImageClicked() {
-								makePostOnAddImageClicked();
-							}
-
-							@Override
-							public void onRemoveImagesClicked() {
-								makePostOnRemoveImagesClicked();
-							}
-
-							@Override
-							public void onCurrentLocationClicked() {
-								makePostOnCurrentLocationClicked();
-							}
-
-							@Override
-							public void onMapLocationClicked() {
-								makePostOnMapLocationClicked();
-							}
-
-							@Override
-							public void onRemoveLocationClicked() {
-								makePostOnRemoveLocationClicked();
-							}
-
-							@Override
-							public void onCancel() {
-								makePostOnCancel();
-							}
-
-							@Override
-							public void onSave(String textDescription) {
-								makePostOnSave(textDescription);
-							}
-						}
-				);
-				mActiveMakePostDialog.show();
-			}
-		});
-
-		// update the UI
-		updateUI(STATIC_EDITING_DIARY);
+		mMainFAB = findViewById(R.id.activityLayout_makeDiary_addDiaryItemFAB);
 
 		// instantiate location client
 		mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
@@ -266,8 +169,8 @@ public class MakeDiary extends AppCompatActivity {
 	 * Removes the cover image. The ui is also updated immediately.
 	 */
 	private void editDiaryOnRemoveCoverImageClicked() {
-		STATIC_EDITING_DIARY.coverImage = null;
-		updateUI(STATIC_EDITING_DIARY);
+		EDITING_DIARY.coverImage = null;
+		updateUI(EDITING_DIARY);
 	}
 
 	/**
@@ -275,25 +178,25 @@ public class MakeDiary extends AppCompatActivity {
 	 */
 	private void editDiaryOnVisibilitySelected(PostVisibility visibility) {
 		Log.d(TAG, String.format("editDiaryOnVisibilitySelected()::Visibility: %s", visibility));
-		STATIC_EDITING_DIARY.visibility = visibility;
+		EDITING_DIARY.visibility = visibility;
 	}
 
 	/**
 	 * Edit Diary Dialog: onSave(...);
 	 */
 	private void editDiaryOnSave(String updatedTitle) {
-		STATIC_EDITING_DIARY.title = updatedTitle;
-		updateUI(STATIC_EDITING_DIARY);
+		EDITING_DIARY.title = updatedTitle;
+		updateUI(EDITING_DIARY);
 
 		// if diary with the same id already exists, replace with current diary
 		// else add this diary to the list
 		for (Diary diary : Rove.STATIC_USER_DIARIES) {
-			if (diary.diaryId.compareTo(STATIC_EDITING_DIARY.diaryId) == 0) {
+			if (diary.diaryId.compareTo(EDITING_DIARY.diaryId) == 0) {
 				Rove.STATIC_USER_DIARIES.remove(diary);
 				break;
 			}
 		}
-		Rove.STATIC_USER_DIARIES.add(STATIC_EDITING_DIARY);
+		Rove.STATIC_USER_DIARIES.add(EDITING_DIARY);
 	}
 
 	/**
@@ -304,16 +207,16 @@ public class MakeDiary extends AppCompatActivity {
 		// else roll back to a new diary
 		Boolean found = false;
 		for (Diary diary : Rove.STATIC_USER_DIARIES) {
-			if (diary.diaryId.compareTo(STATIC_EDITING_DIARY.diaryId) == 0) {
-				STATIC_EDITING_DIARY = diary;
+			if (diary.diaryId.compareTo(EDITING_DIARY.diaryId) == 0) {
+				EDITING_DIARY = diary;
 				found = true;
 				break;
 			}
 		}
 		if (!found) {
-			STATIC_EDITING_DIARY = new Diary();
+			EDITING_DIARY = new Diary();
 		}
-		updateUI(STATIC_EDITING_DIARY);
+		updateUI(EDITING_DIARY);
 	}
 
 	/**
@@ -333,10 +236,10 @@ public class MakeDiary extends AppCompatActivity {
 	 * Make Post Dialog: onRemoveImagesClicked();
 	 */
 	private void makePostOnRemoveImagesClicked() {
-		STATIC_EDITING_DIARY_POST.images.clear();
+		EDITING_DIARY_POST.images.clear();
 		// update the dialog ui, if dialog is showing
 		if (mActiveMakePostDialog != null && mActiveMakePostDialog.isShowing()) {
-			mActiveMakePostDialog.updateUI(STATIC_EDITING_DIARY_POST);
+			mActiveMakePostDialog.updateUI(EDITING_DIARY_POST);
 		}
 	}
 
@@ -371,10 +274,10 @@ public class MakeDiary extends AppCompatActivity {
 								public void onSuccess(Location location) {
 									// Got last known location. In some rare situations this can be null.
 									if (location != null) {
-										STATIC_EDITING_DIARY_POST.taggedLocation = new DiaryPost.CustomLocation(MakeDiary.this, location.getLatitude(), location.getLongitude());
+										EDITING_DIARY_POST.taggedLocation = new DiaryPost.CustomLocation(MakeDiary.this, location.getLatitude(), location.getLongitude());
 										// update the dialog ui, if dialog is showing
 										if (mActiveMakePostDialog != null && mActiveMakePostDialog.isShowing()) {
-											mActiveMakePostDialog.updateUI(STATIC_EDITING_DIARY_POST);
+											mActiveMakePostDialog.updateUI(EDITING_DIARY_POST);
 										}
 									}
 								}
@@ -402,10 +305,10 @@ public class MakeDiary extends AppCompatActivity {
 	 * Make Post Dialog: onRemoveLocationClicked();
 	 */
 	private void makePostOnRemoveLocationClicked() {
-		STATIC_EDITING_DIARY_POST.taggedLocation = null;
+		EDITING_DIARY_POST.taggedLocation = null;
 		// update the dialog ui, if dialog is showing
 		if (mActiveMakePostDialog != null && mActiveMakePostDialog.isShowing()) {
-			mActiveMakePostDialog.updateUI(STATIC_EDITING_DIARY_POST);
+			mActiveMakePostDialog.updateUI(EDITING_DIARY_POST);
 		}
 	}
 
@@ -416,21 +319,21 @@ public class MakeDiary extends AppCompatActivity {
 		// if a post with the same id exists, roll back to it
 		// else delete the post altogether
 		Boolean found = false;
-		for (DiaryPost post : STATIC_EDITING_DIARY.posts) {
-			if (post.postId.compareTo(STATIC_EDITING_DIARY_POST.postId) == 0) {
-				STATIC_EDITING_DIARY_POST = post;
+		for (DiaryPost post : EDITING_DIARY.posts) {
+			if (post.postId.compareTo(EDITING_DIARY_POST.postId) == 0) {
+				EDITING_DIARY_POST = post;
 				found = true;
 				break;
 			}
 		}
 
 		if (!found) {
-			STATIC_EDITING_DIARY_POST = new DiaryPost();
+			EDITING_DIARY_POST = new DiaryPost();
 		}
 
 		// update the dialog ui, if dialog is showing
 		if (mActiveMakePostDialog != null && mActiveMakePostDialog.isShowing()) {
-			mActiveMakePostDialog.updateUI(STATIC_EDITING_DIARY_POST);
+			mActiveMakePostDialog.updateUI(EDITING_DIARY_POST);
 		}
 	}
 
@@ -439,37 +342,37 @@ public class MakeDiary extends AppCompatActivity {
 	 */
 	private void makePostOnSave(String textDescription) {
 		// save text description
-		STATIC_EDITING_DIARY_POST.textDescription = textDescription;
+		EDITING_DIARY_POST.textDescription = textDescription;
 
 		// if a post with the same id exists, replace it
 		// else add the post
 		Boolean found = false;
 		Integer index = -1;
-		for (DiaryPost post : STATIC_EDITING_DIARY.posts) {
-			if (post.postId.compareTo(STATIC_EDITING_DIARY_POST.postId) == 0) {
+		for (DiaryPost post : EDITING_DIARY.posts) {
+			if (post.postId.compareTo(EDITING_DIARY_POST.postId) == 0) {
 				found = true;
-				index = STATIC_EDITING_DIARY.posts.indexOf(post);
-				STATIC_EDITING_DIARY.posts.remove(post);
+				index = EDITING_DIARY.posts.indexOf(post);
+				EDITING_DIARY.posts.remove(post);
 				break;
 			}
 		}
 
 		if (found) {
-			STATIC_EDITING_DIARY.posts.add(index, STATIC_EDITING_DIARY_POST);
+			EDITING_DIARY.posts.add(index, EDITING_DIARY_POST);
 			mDiaryItemsRecyclerView.getAdapter().notifyItemChanged(index);
 			mDiaryItemsRecyclerView.scrollToPosition(index);
 		} else {
-			STATIC_EDITING_DIARY.posts.add(STATIC_EDITING_DIARY_POST);
-			mDiaryItemsRecyclerView.getAdapter().notifyItemChanged(STATIC_EDITING_DIARY.posts.size());
-			mDiaryItemsRecyclerView.scrollToPosition(STATIC_EDITING_DIARY.posts.size());
+			EDITING_DIARY.posts.add(EDITING_DIARY_POST);
+			mDiaryItemsRecyclerView.getAdapter().notifyItemChanged(EDITING_DIARY.posts.size());
+			mDiaryItemsRecyclerView.scrollToPosition(EDITING_DIARY.posts.size());
 		}
 
 		// update ui
 		// update the dialog ui, if dialog is showing
 		if (mActiveMakePostDialog != null && mActiveMakePostDialog.isShowing()) {
-			mActiveMakePostDialog.updateUI(STATIC_EDITING_DIARY_POST);
+			mActiveMakePostDialog.updateUI(EDITING_DIARY_POST);
 		}
-		updateUI(STATIC_EDITING_DIARY);
+		updateUI(EDITING_DIARY);
 	}
 
 	@Override
@@ -491,10 +394,10 @@ public class MakeDiary extends AppCompatActivity {
 				Log.i(TAG, String.format("decodedBitmap: %s", decodedBitmap.toString()));
 
 				// add decoded bitmap to the post's bitmap array
-				STATIC_EDITING_DIARY_POST.images.add(decodedBitmap);
+				EDITING_DIARY_POST.images.add(decodedBitmap);
 				// update the dialog ui, if dialog is showing
 				if (mActiveMakePostDialog != null && mActiveMakePostDialog.isShowing()) {
-					mActiveMakePostDialog.updateUI(STATIC_EDITING_DIARY_POST);
+					mActiveMakePostDialog.updateUI(EDITING_DIARY_POST);
 				}
 
 			} catch (IOException e) {
@@ -513,8 +416,8 @@ public class MakeDiary extends AppCompatActivity {
 				Log.i(TAG, String.format("decodedBitmap: %s", decodedBitmap.toString()));
 
 				// set cover image as the decoded bitmap and update ui
-				STATIC_EDITING_DIARY.coverImage = decodedBitmap;
-				updateUI(STATIC_EDITING_DIARY);
+				EDITING_DIARY.coverImage = decodedBitmap;
+				updateUI(EDITING_DIARY);
 
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -526,10 +429,10 @@ public class MakeDiary extends AppCompatActivity {
 			DiaryPost.CustomLocation location = new DiaryPost.CustomLocation(place);
 
 			// set location and update ui
-			STATIC_EDITING_DIARY_POST.taggedLocation = location;
+			EDITING_DIARY_POST.taggedLocation = location;
 			// update the dialog ui, if dialog is showing
 			if (mActiveMakePostDialog != null && mActiveMakePostDialog.isShowing()) {
-				mActiveMakePostDialog.updateUI(STATIC_EDITING_DIARY_POST);
+				mActiveMakePostDialog.updateUI(EDITING_DIARY_POST);
 			}
 		}
 	}
@@ -558,6 +461,119 @@ public class MakeDiary extends AppCompatActivity {
 			// other 'case' lines to check for other
 			// permissions this app might request.
 		}
+	}
+
+	@Override
+	protected void onStart() {
+		super.onStart();
+		// TODO: get updated diary from server
+		// TODO: get diary from server here into STATIC_EDITING_DIARY
+		// search if diary exists
+		this.EDITING_DIARY = new Diary();
+		this.EDITING_DIARY_POST = new DiaryPost();
+		for (Diary diary :
+				Rove.STATIC_USER_DIARIES) {
+			if (diary.diaryId.compareTo(dbDiaryId) == 0) {
+				EDITING_DIARY = diary;
+				break;
+			}
+		}
+
+		// setup callback listeners from FABs
+		mToolbarFAB.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				mActiveEditDiaryDialog = new EditDiary(
+						MakeDiary.this,
+						EDITING_DIARY,
+						new EditDiaryDialogInterface() {
+							@Override
+							public void onSelectCoverImageClicked() {
+								editDiaryOnSelectCoverImageClicked();
+							}
+
+							@Override
+							public void onRemoveCoverImageClicked() {
+								editDiaryOnRemoveCoverImageClicked();
+							}
+
+							@Override
+							public void onVisibilitySelected(PostVisibility visibility) {
+								editDiaryOnVisibilitySelected(visibility);
+							}
+
+							@Override
+							public void onSave(String updatedTitle) {
+								editDiaryOnSave(updatedTitle);
+							}
+
+							@Override
+							public void onCancel() {
+								editDiaryOnCancel();
+							}
+						}
+				);
+				mActiveEditDiaryDialog.show();
+			}
+		});
+		mMainFAB.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// create a new post here to edit
+				EDITING_DIARY_POST = new DiaryPost();
+				mActiveMakePostDialog = new MakePost(
+						MakeDiary.this,
+						EDITING_DIARY_POST,
+						new MakeDiaryPostDialogInterface() {
+
+							@Override
+							public void onAddImageClicked() {
+								makePostOnAddImageClicked();
+							}
+
+							@Override
+							public void onRemoveImagesClicked() {
+								makePostOnRemoveImagesClicked();
+							}
+
+							@Override
+							public void onCurrentLocationClicked() {
+								makePostOnCurrentLocationClicked();
+							}
+
+							@Override
+							public void onMapLocationClicked() {
+								makePostOnMapLocationClicked();
+							}
+
+							@Override
+							public void onRemoveLocationClicked() {
+								makePostOnRemoveLocationClicked();
+							}
+
+							@Override
+							public void onCancel() {
+								makePostOnCancel();
+							}
+
+							@Override
+							public void onSave(String textDescription) {
+								makePostOnSave(textDescription);
+							}
+						}
+				);
+				mActiveMakePostDialog.show();
+			}
+		});
+
+		// update the UI
+		updateUI(EDITING_DIARY);
+	}
+
+	@Override
+	protected void onStop() {
+		super.onStop();
+		// TODO: send updated diary back to server
 	}
 
 	private void setupImageViewPager(ViewPager viewPagerReference, DiaryPost diaryPost) {
@@ -595,6 +611,56 @@ public class MakeDiary extends AppCompatActivity {
 		@Override
 		public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
 			final DiaryPost post = mReferencedDiary.posts.get(position);
+
+			// set onClick listener to the view itself
+			holder.itemView.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					MakeDiary.this.EDITING_DIARY_POST = post;
+					mActiveMakePostDialog = new MakePost(
+							MakeDiary.this,
+							EDITING_DIARY_POST,
+							new MakeDiaryPostDialogInterface() {
+
+								@Override
+								public void onAddImageClicked() {
+									makePostOnAddImageClicked();
+								}
+
+								@Override
+								public void onRemoveImagesClicked() {
+									makePostOnRemoveImagesClicked();
+								}
+
+								@Override
+								public void onCurrentLocationClicked() {
+									makePostOnCurrentLocationClicked();
+								}
+
+								@Override
+								public void onMapLocationClicked() {
+									makePostOnMapLocationClicked();
+								}
+
+								@Override
+								public void onRemoveLocationClicked() {
+									makePostOnRemoveLocationClicked();
+								}
+
+								@Override
+								public void onCancel() {
+									makePostOnCancel();
+								}
+
+								@Override
+								public void onSave(String textDescription) {
+									makePostOnSave(textDescription);
+								}
+							}
+					);
+					mActiveMakePostDialog.show();
+				}
+			});
 
 			switch (post.getTemplateType()) {
 				case TEXT_TEMPLATE:
