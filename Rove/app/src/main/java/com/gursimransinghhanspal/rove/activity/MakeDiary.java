@@ -132,14 +132,18 @@ public class MakeDiary extends AppCompatActivity {
 
 		Bitmap coverImage = editingDiary.coverImage;
 		if (coverImage == null) {
+			Log.i(TAG, "no cover image");
+
 			// set placeholder image
 			mCoverImageView.setImageDrawable(
 					getResources().getDrawable(R.drawable.im_landscape_placeholder, getTheme())
 			);
 		} else {
+			Log.i(TAG, String.format("cover image: %s", coverImage.toString()));
+
 			// set appropriate size for bitmap
-			int maxHeight = 1024;
-			int maxWidth = 1024;
+			int maxHeight = 512;
+			int maxWidth = 512;
 			float scale = Math.min(((float) maxHeight / coverImage.getWidth()), ((float) maxWidth / coverImage.getHeight()));
 
 			Matrix matrix = new Matrix();
@@ -473,7 +477,7 @@ public class MakeDiary extends AppCompatActivity {
 		// TODO: get updated diary from server
 		// TODO: get diary from server here into STATIC_EDITING_DIARY
 		// search if diary exists
-		this.EDITING_DIARY = new Diary();
+		EDITING_DIARY = new Diary();
 		for (Diary diary :
 				Rove.STATIC_USER_DIARIES) {
 			if (diary.diaryId.compareTo(dbDiaryId) == 0) {
@@ -581,6 +585,16 @@ public class MakeDiary extends AppCompatActivity {
 	protected void onStop() {
 		super.onStop();
 		// TODO: send updated diary back to server
+
+		// if diary with the same id already exists, replace with current diary
+		// else add this diary to the list
+		for (Diary diary : Rove.STATIC_USER_DIARIES) {
+			if (diary.diaryId.compareTo(EDITING_DIARY.diaryId) == 0) {
+				Rove.STATIC_USER_DIARIES.remove(diary);
+				break;
+			}
+		}
+		Rove.STATIC_USER_DIARIES.add(EDITING_DIARY);
 	}
 
 	private void setupImageViewPager(ViewPager viewPagerReference, DiaryPost diaryPost) {
