@@ -26,7 +26,7 @@ public class NotificationsActivity extends AppCompatActivity
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
 
-    private List<Notifications_List_Item> listItems;
+    private List<NotificationsListItem> listItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +41,7 @@ public class NotificationsActivity extends AppCompatActivity
 
         for(int i = 0; i <=10; i ++)
         {
-            Notifications_List_Item listItem = new Notifications_List_Item(
+            NotificationsListItem listItem = new NotificationsListItem(
                     "Suresh Likes your post"
             );
 
