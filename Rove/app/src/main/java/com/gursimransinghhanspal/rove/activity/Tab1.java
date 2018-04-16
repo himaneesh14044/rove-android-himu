@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import com.gursimransinghhanspal.rove.Trip;
 import com.gursimransinghhanspal.rove.backend.GetRequestHandler;
 
 import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -52,8 +54,18 @@ public class Tab1 extends Fragment
     private List<Trip> fetchTrendingDiaries() {
         List<Trip> tripList = new ArrayList<>();
 
+        ArrayList<NameValuePair> params = new ArrayList<>();
         GetRequestHandler requestHandler = new GetRequestHandler();
-        JSONObject jsonResponse = requestHandler.getJSON("/diary/trending/", new ArrayList<NameValuePair>());
+        JSONObject jsonResponse;
+
+        if (Search.mLastQueryTrending != null) {
+            String[] query = Search.mLastQueryTrending.split(" ");
+            params.add(new BasicNameValuePair("searchQuery", TextUtils.join("%20", query)));
+            jsonResponse = requestHandler.getJSON("/diary/search/trending/", params);
+        } else {
+            jsonResponse = requestHandler.getJSON("/diary/trending/", params);
+        }
+
         Log.d(TAG, "Response: " + jsonResponse);
 
         if (jsonResponse != null) {
@@ -80,6 +92,7 @@ public class Tab1 extends Fragment
             }
         }
 
+        Search.mLastQueryTrending = null;
         return tripList;
     }
 

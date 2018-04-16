@@ -36,13 +36,15 @@ import java.util.List;
 
 public class Search extends AppCompatActivity implements TabLayout.OnTabSelectedListener
 {
+    private static final String TAG = Search.class.getName();
     private static final long ANIM_DURATION = 350;
 
     private FloatingSearchView mSearchView;
     private View mDimSearchViewBackground;
     private ColorDrawable mDimDrawable;
     private NavigationTabStrip mNavigationTabStrip;
-    private String mLastQuery = "";
+    public static String mLastQueryTrending = null;
+    public static String mLastQueryRecent = null;
     private ViewPager viewPager;
 
     @Override
@@ -70,17 +72,14 @@ public class Search extends AppCompatActivity implements TabLayout.OnTabSelected
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         SectionPagerAdapter adapter = new SectionPagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
 
-//Adding adapter to pager
+        //Adding adapter to pager
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
-//Adding onTabSelectedListener to swipe views
+        //Adding onTabSelectedListener to swipe views
         //Initializing viewPager
 
-
-
         //Creating our pager adapter
-
 
         //Adding adapter to pager
 
@@ -150,10 +149,7 @@ public class Search extends AppCompatActivity implements TabLayout.OnTabSelected
                     //the background.
                     mSearchView.showProgress();
 
-                    List<SearchDiarySuggestion> results =  new ArrayList<>(Arrays.asList(
-                            new SearchDiarySuggestion("Manali"),
-                            new SearchDiarySuggestion("Manali Rohtang Pass"),
-                            new SearchDiarySuggestion("Manali Solang Valley")));
+                    List<SearchDiarySuggestion> results =  new ArrayList<>();
 
                     //this will swap the data and
                     //render the collapse/expand animations as necessary
@@ -169,13 +165,21 @@ public class Search extends AppCompatActivity implements TabLayout.OnTabSelected
         mSearchView.setOnSearchListener(new FloatingSearchView.OnSearchListener() {
             @Override
             public void onSuggestionClicked(final SearchSuggestion searchSuggestion) {
-                mLastQuery = searchSuggestion.getBody();
+                mLastQueryTrending = searchSuggestion.getBody();
+                mLastQueryRecent = mLastQueryTrending;
                 mSearchView.clearSearchFocus();
+                Intent intent = new Intent(getApplicationContext(), Search.class);
+                startActivity(intent);
+                finish();
             }
 
             @Override
             public void onSearchAction(String query) {
-                mLastQuery = query;
+                mLastQueryTrending = query;
+                mLastQueryRecent = query;
+                Intent intent = new Intent(getApplicationContext(), Search.class);
+                startActivity(intent);
+                finish();
             }
         });
 
@@ -184,9 +188,9 @@ public class Search extends AppCompatActivity implements TabLayout.OnTabSelected
             public void onFocus() {
                 fadeDimBackground(0, 150, null);
                 List<SearchDiarySuggestion> results =  new ArrayList<>(Arrays.asList(
-                        new SearchDiarySuggestion("Shimla", true),
+                        new SearchDiarySuggestion("Manali", true),
                         new SearchDiarySuggestion("Goa", true),
-                        new SearchDiarySuggestion("Jaipur", true)));
+                        new SearchDiarySuggestion("Shimla", true)));
                 mSearchView.swapSuggestions(results);
             }
 
@@ -195,7 +199,7 @@ public class Search extends AppCompatActivity implements TabLayout.OnTabSelected
                 fadeDimBackground(150, 0, null);
 
                 //set the title of the bar so that when focus is returned a new query begins
-                mSearchView.setSearchBarTitle(mLastQuery);
+//                mSearchView.setSearchBarTitle(mLastQueryTrending);
 
                 //you can also set setSearchText(...) to make keep the query there when not focused and when focus returns
                 //mSearchView.setSearchText(searchSuggestion.getBody());
@@ -232,7 +236,7 @@ public class Search extends AppCompatActivity implements TabLayout.OnTabSelected
 
                 if (colorSuggestion.getIsHistory()) {
                     leftIcon.setImageDrawable(ResourcesCompat.getDrawable(getResources(),
-                            R.drawable.ic_history_black_24dp, null));
+                            R.drawable.ic_trending_up, null));
 
                     Util.setIconColor(leftIcon, Color.parseColor(textColor));
                     leftIcon.setAlpha(.36f);
@@ -304,7 +308,6 @@ public class Search extends AppCompatActivity implements TabLayout.OnTabSelected
 
     @Override
     public void onTabReselected(TabLayout.Tab tab) {
-
     }
 }
 
