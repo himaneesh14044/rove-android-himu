@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.gursimransinghhanspal.rove">
+    package="com.gursimransinghhanspal.rove">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:name=".misc.Rove"
@@ -18,10 +18,10 @@
         <!-- Meta -->
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id"/>
+            android:value="@string/facebook_app_id" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_geo_api_key"/>
+            android:value="@string/google_geo_api_key" />
 
         <!-- Activities -->
         <!-- • Splash -->
@@ -29,78 +29,82 @@
             android:name=".activity.Splash"
             android:screenOrientation="portrait"
             android:theme="@style/Rove.Splash">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
 
         <!-- • Home Feed -->
         <activity android:name=".activity.ActivityHomeFeed">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <!-- • Main Login -->
         <activity
             android:name=".activity.LoginMain"
             android:screenOrientation="portrait"
-            android:theme="@style/Rove.NoActionBarSolidBg">
-        </activity>
+            android:theme="@style/Rove.NoActionBarSolidBg"></activity>
 
         <!-- • Credentials Login -->
         <activity
             android:name=".activity.CredentialsLogin"
             android:screenOrientation="portrait"
-            android:theme="@style/Rove.NoActionBarSolidBg"/>
+            android:theme="@style/Rove.NoActionBarSolidBg" />
 
         <!-- • Create Account -->
         <activity
             android:name=".activity.CreateAccount"
             android:screenOrientation="portrait"
-            android:theme="@style/Rove.NoActionBarSolidBg"/>
+            android:theme="@style/Rove.NoActionBarSolidBg" />
 
         <!-- • Deeplink Controller for Facebook -->
         <activity
             android:name=".controller.DeeplinkController"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"></activity>
 
         <!-- • Facebook -->
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:label="@string/app_name"/>
+            android:label="@string/app_name" />
         <activity
             android:name="com.facebook.CustomTabActivity"
             android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
+                <action android:name="android.intent.action.VIEW" />
 
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:scheme="@string/fb_login_protocol_scheme"/>
+                <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
 
         <!-- • Bottom Navigation -->
         <activity
             android:name=".activity.BottomNavigation"
-            android:label="@string/title_activity_bottom_navigation">
-        </activity>
+            android:label="@string/title_activity_bottom_navigation"></activity>
 
         <!-- • Search -->
-        <activity android:name=".activity.Search">
-        </activity>
+        <activity android:name=".activity.Search"></activity>
 
         <!-- • Make Diary -->
         <activity
             android:name=".activity.MakeDiary"
             android:screenOrientation="portrait"
-            android:theme="@style/Rove.Base">
+            android:theme="@style/Rove.Base"></activity>
+
+        <activity android:name=".activity.ViewDiary"></activity>
+
+        <activity
+            android:name=".activity.Notifications"
+            android:screenOrientation="portrait"
+            android:theme="@style/Rove.NoActionBarSolidBg">
+
         </activity>
-        <activity android:name=".activity.ViewDiary">
-        </activity>
+
     </application>
 
 </manifest>

@@ -88,4 +88,10 @@ public class ActivityHomeFeed extends AppCompatActivity {
             }
         });
     }
+
+    public boolean show_notififcations(View v)
+    {
+        startActivity(new Intent(ActivityHomeFeed.this, Notifications.class));
+        return true;
+    }
 }
