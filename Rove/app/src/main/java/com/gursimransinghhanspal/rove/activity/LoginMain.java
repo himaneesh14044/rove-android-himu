@@ -131,6 +131,8 @@ public class LoginMain extends AppCompatActivity {
 			@Override
 			public void onSuccess(LoginResult loginResult) {
 				facebookLogout();
+				//Intent intent = new Intent(getApplicationContext(),ActivityHomeFeed.class);
+				//startActivity(intent);
 			}
 
 			@Override

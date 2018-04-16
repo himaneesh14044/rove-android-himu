@@ -149,14 +149,14 @@
                 <!--android:layout_marginEnd="4dp"-->
                 <!--android:layout_marginStart="4dp"-->
                 <!--android:clickable="true"-->
-        <!--app:layout_constraintBottom_toTopOf="@+diaryId/activityLayout_makeDiary_addTextItemFAB"-->
+<!--app:layout_constraintBottom_toTopOf="@+diaryId/activityLayout_makeDiary_addTextItemFAB"-->
         <!--app:layout_constraintEnd_toEndOf="@+diaryId/activityLayout_makeDiary_addDiaryItemFAB"-->
         <!--app:layout_constraintStart_toStartOf="@+diaryId/activityLayout_makeDiary_addDiaryItemFAB"-->
                 <!--app:srcCompat="@drawable/ic_chevron_right"/>-->
 
             <!--<android.support.design.widget.FloatingActionButton-->
         <!--android:diaryId="@+diaryId/activityLayout_makeDiary_addTextItemFAB"-->
-                <!--android:layout_width="wrap_content"-->
+        <!--android:layout_width="wrap_content"-->
                 <!--android:layout_height="18dp"-->
                 <!--android:layout_marginBottom="16dp"-->
                 <!--android:layout_marginEnd="4dp"-->
@@ -169,12 +169,13 @@
 
             <!--<android.support.design.widget.FloatingActionButton-->
         <!--android:diaryId="@+diaryId/activityLayout_makeDiary_addLocationItemFAB"-->
-                <!--android:layout_width="wrap_content"-->
+        <!--android:layout_width="wrap_content"-->
                 <!--android:layout_height="18dp"-->
                 <!--android:layout_marginBottom="16dp"-->
                 <!--android:layout_marginEnd="4dp"-->
                 <!--android:layout_marginStart="4dp"-->
                 <!--android:clickable="true"-->
+
         <!--app:layout_constraintBottom_toTopOf="@+diaryId/activityLayout_makeDiary_addDiaryItemFAB"-->
         <!--app:layout_constraintEnd_toEndOf="@+diaryId/activityLayout_makeDiary_addDiaryItemFAB"-->
         <!--app:layout_constraintStart_toStartOf="@+diaryId/activityLayout_makeDiary_addDiaryItemFAB"-->

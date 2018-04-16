@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,7 +15,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import com.gursimransinghhanspal.rove.R;
 import com.gursimransinghhanspal.rove.Trip;
@@ -25,23 +25,66 @@ import java.util.List;
 
 public class ActivityHomeFeed extends AppCompatActivity {
 
-    List<Trip> tripList;
+    static List<Trip> tripList;
     RecyclerView recyclerView;
+
+    @Override
+    public void onBackPressed()
+    {
+        //Toast.makeText(getApplicationContext(),"BackButton is pressed",Toast.LENGTH_SHORT).show();
+        super.onBackPressed();
+    }
+
+    @Override
+    protected void onRestart()
+    {
+        //Toast.makeText(getApplicationContext(),"Restart is happending",Toast.LENGTH_SHORT).show();
+        super.onRestart();
+    }
+
+    @Override
+    protected void onPause()
+    {
+        //Toast.makeText(getApplicationContext(),"Pause is happending",Toast.LENGTH_SHORT).show();
+        super.onPause();
+    }
+
+    @Override
+    protected void onStop()
+    {
+        //Toast.makeText(getApplicationContext(),"OnStop is happending",Toast.LENGTH_SHORT).show();
+        super.onStop();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState)
+    {
+        super.onSaveInstanceState(outState);
+    }
+
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState)
+    {
+        //Toast.makeText(getApplicationContext(),"on restore is pressed",Toast.LENGTH_SHORT).show();
+        super.onRestoreInstanceState(savedInstanceState);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+        //Toast.makeText(getApplicationContext(),"OnCreate is pressed",Toast.LENGTH_SHORT).show();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_feed);
-        ImageButton ib3 = ( ImageButton) findViewById(R.id.imageButton3);
-        ib3.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton createDiaryButton = findViewById(R.id.create_diary_button);
+        createDiaryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent1 = new Intent(getApplicationContext(),CreateDiary1.class);
-//                startActivity(intent1);
+                Intent intent = new Intent(ActivityHomeFeed.this, MakeDiary.class);
+                startActivity(intent);
             }
         });
-        recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
+        recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         tripList = new ArrayList<>();
@@ -54,8 +97,24 @@ public class ActivityHomeFeed extends AppCompatActivity {
 
         FeedAdapter adapter = new FeedAdapter(this,tripList);
         recyclerView.setAdapter(adapter);
+        ImageButton imageButton = findViewById(R.id.ImageButton2);
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),BookMark.class);
+                startActivity(intent);
+            }
+        });
 
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
+        /*ImageButton imageButton1 = (ImageButton) findViewById(R.id.NotificationButton1);
+        imageButton1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),NotificationsActivity.class);
+                startActivity(intent);
+            }
+        });*/
+        BottomNavigationView bottomNavigationView = findViewById(R.id.navigation);
         BottomNavigationMenuView menuView = (BottomNavigationMenuView) bottomNavigationView.getChildAt(0);
         for (int i = 0; i < menuView.getChildCount(); i++) {
             final View iconView = menuView.getChildAt(i).findViewById(android.support.design.R.id.icon);
@@ -75,14 +134,14 @@ public class ActivityHomeFeed extends AppCompatActivity {
                 {
                     case R.id.navigation_home:
                         return true;
-                    case R.id.navigation_dashboard:
-                        Intent intent = new Intent(getApplicationContext(),Search.class);
-                        //Toast.makeText(getApplicationContext(),"Search should work",Toast.LENGTH_LONG).show();
+                    case R.id.navigation_search:
+                        Intent intent = new Intent(getApplicationContext(), Search.class);
                         startActivity(intent);
                         return true;
-                    case R.id.navigation_notifications:
+                    case R.id.navigation_profile:
+                        Intent userintent = new Intent(getApplicationContext(),UserAccount.class);
+                        startActivity(userintent);
                         return true;
-
                 }
                 return false;
             }

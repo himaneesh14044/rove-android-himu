@@ -198,7 +198,6 @@
                     android:tint="@color/white"/>
 
             </LinearLayout>
-
             <TextView
                 android:id="@+id/dialogLayout_addDiaryItem_selectedLocationTextView"
                 android:layout_width="wrap_content"
@@ -213,7 +212,6 @@
                 android:textColor="@color/primaryTextColor"
                 android:textSize="12sp"
                 tools:text="Okhla Phase 3, New Delhi"/>
-
             <TextView
                 android:id="@+id/dialogLayout_addDiaryItem_removeLocationTextView"
                 android:layout_width="wrap_content"

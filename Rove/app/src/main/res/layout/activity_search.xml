@@ -8,12 +8,13 @@
     <android.support.v4.view.ViewPager
         android:id="@+id/search_view_pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:background="@color/bgGray"/>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/primaryColor"
+        android:background="@color/primaryDarkColor"
         >
 
         <!-- our tablayout to display tabs  -->
@@ -21,7 +22,7 @@
             android:id="@+id/tabLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/primaryColor"
+            android:background="@color/primaryDarkColor"
             android:minHeight="?attr/actionBarSize"
             android:paddingTop="60dp"/>
         <!--<com.gigamole.navigationtabstrip.NavigationTabStrip
@@ -42,7 +43,9 @@
     <FrameLayout
         android:id="@+id/dim_background"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+
+        >
 
         <com.arlib.floatingsearchview.FloatingSearchView
             android:id="@+id/floating_search_view"

@@ -22,12 +22,7 @@
                 android:layout_gravity="center"
                 android:layout_marginEnd="20dp"
                 android:layout_marginStart="20dp"
-                android:gravity="center"
-                android:fontFamily="@font/julius_sans_one"
-                android:text="Edit Diary"
-                android:textColor="@color/primaryTextColor"
-                android:textSize="24sp"/>
-
+                android:gravity="center"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

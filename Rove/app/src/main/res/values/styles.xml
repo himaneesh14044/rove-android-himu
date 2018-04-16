@@ -22,6 +22,12 @@
         <item name="android:windowTranslucentNavigation">true</item>
     </style>
 
+    <!-- Theme for translucent status bar. -->
+    <style name="Rove.TranslucentStatusBar" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@color/activityBackgroundColor</item>
+        <item name="android:windowTranslucentStatus">true</item>
+    </style>
+
     <!-- Make Diary appBar theme -->
     <style name="MakeDiaryCollapsedAppBar" parent="@android:style/TextAppearance.Medium">
         <item name="android:textSize">20sp</item>
@@ -41,6 +47,7 @@
         <item name="android:textColor">@color/primaryTextColor</item>
         <item name="android:fontFamily">@font/julius_sans_one</item>
     </style>
+
     <style name="text_h2">
         <item name="android:textColor">@color/primaryTextColor</item>
     </style>
@@ -51,4 +58,8 @@
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
     </style>
+
+    <style name="Rove.Base.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Rove.Base.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

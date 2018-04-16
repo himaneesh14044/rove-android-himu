@@ -37,7 +37,8 @@
         </activity>
 
         <!-- • Home Feed -->
-        <activity android:name=".activity.ActivityHomeFeed">
+        <activity android:name=".activity.ActivityHomeFeed"
+                  android:theme="@style/Rove.TranslucentStatusBar">
         </activity>
 
         <!-- • Main Login -->
@@ -90,7 +91,14 @@
         </activity>
 
         <!-- • Search -->
-        <activity android:name=".activity.Search">
+        <activity android:name=".activity.Search"
+                  android:theme="@style/Rove.TranslucentStatusBar">
+        </activity>
+
+        <activity
+            android:name=".activity.BookMark"
+            android:label="@string/title_activity_book_mark"
+            android:theme="@style/Rove.TranslucentStatusBar">
         </activity>
 
         <!-- • Make Diary -->
@@ -101,6 +109,11 @@
         </activity>
         <activity android:name=".activity.ViewDiary">
         </activity>
+        <activity android:name=".activity.UserAccount">
+        </activity>
+        <activity android:name=".activity.NotificationsActivity"
+            android:label="@string/title_activity_notifications"
+            android:theme="@style/Rove.Base"/>
     </application>
 
 </manifest>

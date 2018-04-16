@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.gursimransinghhanspal.rove.ActivityHomeFeed">
+    tools:context="com.gursimransinghhanspal.rove.activity.ActivityHomeFeed">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -21,22 +21,24 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/app_bar">
+        android:layout_below="@+id/app_bar"
+        android:layout_marginBottom="43dp">
     </android.support.v7.widget.RecyclerView>
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/imageButton3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginBottom="64dp"
-            android:layout_marginEnd="8dp"
-            android:src="@drawable/writing"
-            app:backgroundTint="@color/primaryColor"
-            app:fabSize="normal" />
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/create_diary_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="64dp"
+        android:layout_marginEnd="8dp"
+        android:src="@drawable/writing"
+        app:backgroundTint="@color/primaryColor"
+        app:fabSize="normal" />
     <include
-        layout="@layout/activity_bottom_navigation">
+        layout="@layout/activity_bottom_navigation"
+        >
     </include>
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>

@@ -1,5 +1,6 @@
 package com.gursimransinghhanspal.rove.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -7,8 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.gursimransinghhanspal.rove.R;
+import com.gursimransinghhanspal.rove.activity.ActivityHomeFeed;
 import com.gursimransinghhanspal.rove.activity.CreateAccount;
 
 public class SignUpReviewInfo extends Fragment {
@@ -90,8 +93,12 @@ public class SignUpReviewInfo extends Fragment {
 			@Override
 			public void onClick(View v) {
 				if (mListener == null)
+				{
+					Toast.makeText(getContext(),"mlistener is null",Toast.LENGTH_SHORT).show();
 					return;
-
+				}
+				Intent intent =  new Intent(getContext(), ActivityHomeFeed.class);
+				startActivity(intent);
 				mListener.onCompleteSignUpButtonPressed(mFragmentIdentifier);
 			}
 		});
