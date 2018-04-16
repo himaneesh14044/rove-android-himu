@@ -21,6 +21,7 @@ import com.gursimransinghhanspal.rove.Trip;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 
 public class ActivityHomeFeed extends AppCompatActivity {
@@ -76,14 +77,19 @@ public class ActivityHomeFeed extends AppCompatActivity {
         //Toast.makeText(getApplicationContext(),"OnCreate is pressed",Toast.LENGTH_SHORT).show();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_feed);
+
         FloatingActionButton createDiaryButton = findViewById(R.id.create_diary_button);
         createDiaryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+            	// TODO: create a new diary on server and pass the id of the diary in intent
                 Intent intent = new Intent(ActivityHomeFeed.this, MakeDiary.class);
+                intent.putExtra(MakeDiary.DIARY_ID, UUID.randomUUID().toString());
                 startActivity(intent);
             }
         });
+
+
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

@@ -130,9 +130,10 @@ public class LoginMain extends AppCompatActivity {
 		mFacebookLoginButton.registerCallback(mFacebookCallbackManager, new FacebookCallback<LoginResult>() {
 			@Override
 			public void onSuccess(LoginResult loginResult) {
-				facebookLogout();
-				//Intent intent = new Intent(getApplicationContext(),ActivityHomeFeed.class);
-				//startActivity(intent);
+				// facebookLogout();
+				Intent intent = new Intent(getApplicationContext(), ActivityHomeFeed.class);
+				startActivity(intent);
+				finish();
 			}
 
 			@Override

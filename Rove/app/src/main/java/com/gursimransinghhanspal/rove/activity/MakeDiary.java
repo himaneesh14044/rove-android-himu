@@ -64,7 +64,7 @@ import java.util.ArrayList;
 public class MakeDiary extends AppCompatActivity {
 
 	private static final String TAG = "MakeDiary";
-	public static final String DB_DIARY_ID = "com.gursimransinghhanspal.rove.activity.MakeDiary.DiaryId";
+	public static final String DIARY_ID = "com.gursimransinghhanspal.rove.activity.MakeDiary.DiaryId";
 
 	// the diary and the post currently being edited
 	private Diary EDITING_DIARY;
@@ -102,7 +102,7 @@ public class MakeDiary extends AppCompatActivity {
 			finish();
 			return;
 		}
-		dbDiaryId = startingArgs.getString(DB_DIARY_ID, null);
+		dbDiaryId = startingArgs.getString(DIARY_ID, null);
 		if (dbDiaryId == null) {
 			finish();
 			return;
