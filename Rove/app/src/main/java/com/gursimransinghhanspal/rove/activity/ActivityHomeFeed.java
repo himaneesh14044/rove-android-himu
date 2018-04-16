@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,6 +19,12 @@ import android.widget.ImageButton;
 
 import com.gursimransinghhanspal.rove.R;
 import com.gursimransinghhanspal.rove.Trip;
+import com.gursimransinghhanspal.rove.backend.GetRequestHandler;
+
+import org.apache.http.NameValuePair;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +32,7 @@ import java.util.UUID;
 
 
 public class ActivityHomeFeed extends AppCompatActivity {
+    private static final String TAG = ActivityHomeFeed.class.getName();
 
     static List<Trip> tripList;
     RecyclerView recyclerView;
@@ -93,13 +101,7 @@ public class ActivityHomeFeed extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        tripList = new ArrayList<>();
-        tripList.add(new Trip("John Doe","Recently visited the beautiful city of Manali. Have a look at my tour.",R.drawable.travel1));
-        tripList.add(new Trip("John Doe","Recently visited Goa. Have a look at my tour.",R.drawable.travel2));
-        tripList.add(new Trip("John Doe","Recently visited Shimla. Have a look at my tour.",R.drawable.travel3));
-        tripList.add(new Trip("John Doe","Recently visited Dehradun. Have a look at my tour.",R.drawable.travel4));
-        tripList.add(new Trip("John Doe","Recently visited Kashmir. Have a look at my tour.",R.drawable.travel5));
-        tripList.add(new Trip("John Doe","Recently visited Himachal Pradesh. Have a look at my tour.",R.drawable.travel6));
+        tripList = fetchDiaries();
 
         FeedAdapter adapter = new FeedAdapter(this,tripList);
         recyclerView.setAdapter(adapter);
@@ -163,5 +165,37 @@ public class ActivityHomeFeed extends AppCompatActivity {
 
     }
 
+    private List<Trip> fetchDiaries() {
+        List<Trip> tripList = new ArrayList<>();
 
+        GetRequestHandler requestHandler = new GetRequestHandler();
+        JSONObject jsonResponse = requestHandler.getJSON("/diary/random/", new ArrayList<NameValuePair>());
+        Log.d(TAG, "Response: " + jsonResponse);
+
+        if (jsonResponse != null) {
+            try {
+                if (jsonResponse.getBoolean("res")) {
+                    JSONArray searchResults = jsonResponse.getJSONArray("search_results");
+                    for (int i = 0; i < searchResults.length(); ++i) {
+                        JSONObject searchResult = searchResults.getJSONObject(i);
+                        String diaryId = searchResult.getString("_id");
+                        JSONArray postIdsJA = searchResult.getJSONArray("post_ids");
+                        ArrayList<String> postIds = new ArrayList<>();
+                        for (int j = 0; j < postIdsJA.length(); ++j) {
+                            postIds.add(postIdsJA.getString(j));
+                        }
+                        String userId = searchResult.getString("user_id");
+                        String title = searchResult.getString("title");
+                        String coverPhotoName = searchResult.getString("cover_photo_name");
+                        String updatedAt = searchResult.getString("updatedAt");
+                        tripList.add(new Trip(diaryId, postIds, userId, title, coverPhotoName, updatedAt));
+                    }
+                }
+            }catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return tripList;
+    }
 }

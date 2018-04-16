@@ -15,7 +15,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
@@ -193,7 +192,6 @@ public class Search extends AppCompatActivity implements TabLayout.OnTabSelected
 
             @Override
             public void onFocusCleared() {
-                Log.d("casc","casc");
                 fadeDimBackground(150, 0, null);
 
                 //set the title of the bar so that when focus is returned a new query begins

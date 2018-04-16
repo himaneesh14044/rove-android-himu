@@ -6,7 +6,7 @@ import android.util.Log;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
-import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -18,7 +18,7 @@ import java.io.InputStreamReader;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-public class PostRequestHandler {
+public class GetRequestHandler {
     private static final String PROTOCOL = "http";
     private static final String ADDRESS = "192.168.0.103";
     private static final int PORT = 3000;
@@ -27,7 +27,7 @@ public class PostRequestHandler {
     private static InputStream inputStream = null;
     private static JSONObject jsonObject = null;
 
-    private JSONObject handlePostRequest(String url, List<NameValuePair> params) {
+    private JSONObject handleGetRequest(String url, List<NameValuePair> params) {
         StringBuilder urlBuilder = new StringBuilder(url);
         for (NameValuePair param : params) {
             urlBuilder.append(param.getValue()).append("/");
@@ -36,9 +36,9 @@ public class PostRequestHandler {
 
         try {
             DefaultHttpClient httpClient = new DefaultHttpClient();
-            HttpPost httpPost = new HttpPost(url);
+            HttpGet httpGet = new HttpGet(url);
 
-            HttpResponse httpResponse = httpClient.execute(httpPost);
+            HttpResponse httpResponse = httpClient.execute(httpGet);
             HttpEntity httpEntity = httpResponse.getEntity();
             inputStream = httpEntity.getContent();
         } catch (IOException e) {
@@ -101,8 +101,8 @@ public class PostRequestHandler {
 
         @Override
         protected JSONObject doInBackground(Params... args) {
-            PostRequestHandler requestHandler = new PostRequestHandler();
-            return requestHandler.handlePostRequest(args[0].url, args[0].params);
+            GetRequestHandler requestHandler = new GetRequestHandler();
+            return requestHandler.handleGetRequest(args[0].url, args[0].params);
         }
 
         @Override
